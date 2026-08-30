@@ -95,8 +95,11 @@ def test_api_hotpath_latency_and_response():
         "customer_home_country": "IN"
     }
 
+    # Warm-up request to avoid cold-start TestClient initialization overhead
+    client.post("/api/ingest", json=payload)
+
     t0 = time.time()
-    resp = client.post("/api/ingest", json=payload)
+    resp = client.post("/api/ingest", json={**payload, "customer_id": "cust_lat_002"})
     t1 = time.time()
     latency_ms = (t1 - t0) * 1000.0
 

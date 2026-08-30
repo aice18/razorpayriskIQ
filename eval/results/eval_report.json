@@ -29,11 +29,11 @@
     "ks_pvalue": 0.4406
   },
   "latency_and_throughput": {
-    "hotpath_p50_latency_ms": 10.37,
-    "hotpath_p95_latency_ms": 12.15,
-    "hotpath_p99_latency_ms": 13.76,
-    "agent_investigation_p95_ms": 0.34,
-    "throughput_events_per_sec": 85.2
+    "hotpath_p50_latency_ms": 5.46,
+    "hotpath_p95_latency_ms": 6.83,
+    "hotpath_p99_latency_ms": 10.26,
+    "agent_investigation_p95_ms": 0.31,
+    "throughput_events_per_sec": 126.1
   },
   "slices": {
     "payment_methods": {

@@ -9,6 +9,8 @@ on:
 jobs:
   test-and-eval:
     runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: .
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -23,9 +25,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Train Multi-Tenant Calibrated Models
+        run: |
+          python -m scoring.train_model
+
       - name: Run Unit Test Suite
         run: |
-          pytest -v
+          python -m pytest -v
 
       - name: Run Held-Out Evaluation Harness
         run: |

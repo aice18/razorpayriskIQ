@@ -26,8 +26,8 @@
   "cv_roc_auc_mean": 1.0,
   "cv_pr_auc_mean": 0.9999,
   "oof_precision": 0.9988,
-  "oof_recall": 0.9988,
-  "oof_f1": 0.9988,
+  "oof_recall": 0.9976,
+  "oof_f1": 0.9982,
   "oof_fpr": 0.0002,
   "feature_importances": {
     "amount": 0.0021,
@@ -45,7 +45,7 @@
     "is_qr_intent": 0.0196,
     "device_sim_bound": 0.0,
     "entity_degree_device": 0.0,
-    "entity_degree_ip": 0.1427,
+    "entity_degree_ip": 0.1428,
     "entity_degree_card": 0.0,
     "component_size": 0.0,
     "ring_density_score": 0.0,
@@ -69,7 +69,7 @@
     "entity_degree_device": 3.3848333333333334,
     "entity_degree_ip": 5.026,
     "entity_degree_card": 1.1241666666666668,
-    "component_size": 18.859666666666666,
+    "component_size": 18.826833333333333,
     "ring_density_score": 0.5291383333333333,
     "is_ring_suspect": 0.16816666666666666
   },
@@ -91,7 +91,7 @@
     "entity_degree_device": 6.5508184355787344,
     "entity_degree_ip": 17.05647905967071,
     "entity_degree_card": 0.9795794513663224,
-    "component_size": 34.49303216738475,
+    "component_size": 34.414021863028744,
     "ring_density_score": 0.2507355976333283,
     "is_ring_suspect": 0.3740453945914739
   }
