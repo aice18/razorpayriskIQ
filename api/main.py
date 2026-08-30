@@ -1,11 +1,13 @@
 """
 FastAPI application entry point for Razorpay RiskIQ (Sentinel).
-Hardened for enterprise production deployment with metrics, CORS, and health checks.
+Hardened for enterprise production deployment with metrics, CORS, health checks, and dashboard hosting.
 """
 
+import os
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
-import time
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from api.routes import router as api_router
 from config.settings import settings
@@ -30,8 +32,8 @@ except ImportError:
 
 app = FastAPI(
     title="Razorpay RiskIQ (Sentinel) API",
-    description="Enterprise Autonomous Abuse-Ring & Fraud-Spike AI Agent Platform for Razorpay",
-    version="1.0.0",
+    description="Enterprise Autonomous Payment Risk, Abuse-Ring & Agentic Intelligence Platform for Razorpay",
+    version="2.0.0",
     docs_url="/docs",
     redoc_url="/redoc"
 )
@@ -47,15 +49,19 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api")
 
+# Mount static dashboard files
+if os.path.exists("dashboard"):
+    app.mount("/static", StaticFiles(directory="dashboard"), name="static")
+
 @app.get("/health")
 def health_check():
     """Health check endpoint for Kubernetes liveness probes."""
-    return {"status": "healthy", "service": "Razorpay RiskIQ", "env": settings.ENV}
+    return {"status": "healthy", "service": "Razorpay RiskIQ", "version": "2.0.0", "env": settings.ENV}
 
 @app.get("/ready")
 def readiness_check():
     """Readiness check endpoint for Kubernetes readiness probes."""
-    return {"status": "ready", "engine": "online", "graph_store": "active"}
+    return {"status": "ready", "engine": "online", "graph_store": "active", "async_worker": "running"}
 
 @app.get("/metrics")
 def prometheus_metrics():
@@ -69,6 +75,9 @@ def prometheus_metrics():
 
 @app.get("/")
 def root():
+    """Serves the live interactive dashboard UI."""
+    if os.path.exists("dashboard/index.html"):
+        return FileResponse("dashboard/index.html")
     return {
         "service": "Razorpay RiskIQ (Sentinel)",
         "status": "online",
