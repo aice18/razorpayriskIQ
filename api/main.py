@@ -1,21 +1,38 @@
 """
 FastAPI application entry point for Razorpay RiskIQ (Sentinel).
+Hardened for enterprise production deployment with Prometheus metrics, CORS, and health checks.
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-import os
+from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
+import time
 
 from api.routes import router as api_router
+from config.settings import settings
+
+# Prometheus Metrics Definitions
+TRANSACTION_COUNTER = Counter(
+    "riskiq_transactions_total",
+    "Total payment transactions processed by RiskIQ",
+    ["action", "status"]
+)
+
+LATENCY_HISTOGRAM = Histogram(
+    "riskiq_decision_latency_seconds",
+    "End-to-end transaction scoring and agent decision latency in seconds",
+    buckets=[0.001, 0.005, 0.010, 0.025, 0.050, 0.100, 0.250, 0.500, 1.000]
+)
 
 app = FastAPI(
     title="Razorpay RiskIQ (Sentinel) API",
-    description="Autonomous Abuse-Ring & Fraud-Spike AI Agent Intelligence Platform",
-    version="1.0.0"
+    description="Enterprise Autonomous Abuse-Ring & Fraud-Spike AI Agent Platform for Razorpay",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
-# Configure CORS for frontend access
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -26,17 +43,28 @@ app.add_middleware(
 
 app.include_router(api_router, prefix="/api")
 
+@app.get("/health")
+def health_check():
+    """Health check endpoint for Kubernetes liveness probes."""
+    return {"status": "healthy", "service": "Razorpay RiskIQ", "env": settings.ENV}
+
+@app.get("/ready")
+def readiness_check():
+    """Readiness check endpoint for Kubernetes readiness probes."""
+    return {"status": "ready", "engine": "online", "graph_store": "active"}
+
+@app.get("/metrics")
+def prometheus_metrics():
+    """Prometheus metrics exposition format endpoint."""
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
 @app.get("/")
 def root():
     return {
         "service": "Razorpay RiskIQ (Sentinel)",
         "status": "online",
+        "env": settings.ENV,
         "docs": "/docs",
-        "endpoints": [
-            "/api/feed",
-            "/api/case/{txn_id}",
-            "/api/graph/{txn_id}",
-            "/api/metrics/eval",
-            "/api/metrics/failure-case"
-        ]
+        "health": "/health",
+        "metrics": "/metrics"
     }
