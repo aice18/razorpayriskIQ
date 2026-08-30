@@ -19,8 +19,8 @@
     "rings_detected": 5
   },
   "system_metrics": {
-    "p95_latency_ms": 2.77,
-    "throughput_events_per_sec": 1773.0
+    "p95_latency_ms": 2.73,
+    "throughput_events_per_sec": 1893.2
   },
   "graceful_failure_case": {
     "transaction_id": "txn_00000752",
