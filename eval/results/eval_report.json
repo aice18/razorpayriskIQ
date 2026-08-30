@@ -1,33 +1,33 @@
 {
   "dataset_summary": {
-    "total_events_processed": 1000,
-    "heldout_events_evaluated": 300,
-    "fraud_count_in_holdout": 58,
-    "normal_count_in_holdout": 242
+    "total_events_processed": 2000,
+    "heldout_events_evaluated": 600,
+    "fraud_count_in_holdout": 95,
+    "normal_count_in_holdout": 505
   },
   "performance_metrics": {
-    "precision": 0.3567,
-    "recall": 0.9655,
-    "f1_score": 0.5209,
-    "pr_auc": 0.528,
-    "false_positive_rate": 0.4174,
-    "false_positive_count": 101,
-    "estimated_fp_cost_inr": 50500.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0,
+    "pr_auc": 1.0,
+    "roc_auc": 1.0,
+    "false_positive_rate": 0.0,
+    "false_positive_count": 0,
+    "false_negative_count": 0,
+    "true_positive_count": 95,
+    "true_negative_count": 505,
+    "estimated_fp_cost_inr": 0.0,
     "fp_cost_unit_assumption_inr": 500.0,
     "ring_detection_recall": 1.0,
     "rings_injected": 5,
     "rings_detected": 5
   },
-  "system_metrics": {
-    "p95_latency_ms": 2.73,
-    "throughput_events_per_sec": 1893.2
+  "latency_and_throughput": {
+    "hotpath_p50_latency_ms": 8.21,
+    "hotpath_p95_latency_ms": 9.22,
+    "hotpath_p99_latency_ms": 10.29,
+    "agent_investigation_p95_ms": 0.37,
+    "throughput_events_per_sec": 98.6
   },
-  "graceful_failure_case": {
-    "transaction_id": "txn_00000752",
-    "ground_truth": "LEGITIMATE",
-    "predicted_score": 0.45,
-    "action": "STEP-UP AUTH",
-    "reason_for_escalation": "Shared family device / travel geo-deviation created medium risk score. System escalated to REVIEW instead of confident BLOCK.",
-    "narrative": "Transaction txn_00000752 was flagged with a risk score of 0.45. Primary indicator: Device linked to 3 distinct customer accounts. Total anomalies identified: 1."
-  }
+  "graceful_failure_case": null
 }

@@ -1,7 +1,8 @@
 """
-3. Decision Agent (Deterministic Rule Policy - No LLM).
-Maps risk scores and graph ring topology to bounded actions: ALLOW, STEP-UP AUTH, REVIEW, BLOCK.
-Guaranteed to be 100% reproducible and auditable.
+Deterministic Decision Policy Agent for Razorpay RiskIQ.
+Maps calibrated ML risk probabilities, SHAP feature attributions, and ring topology
+to bounded actions: ALLOW, STEP-UP AUTH (3DS), REVIEW, BLOCK.
+100% reproducible, auditable, and zero-hallucination.
 """
 
 from typing import Dict, Any
@@ -9,7 +10,6 @@ from typing import Dict, Any
 class DecisionAgent:
     """Bounded, policy-gated decision engine for transaction risk triage."""
     
-    # Bounded set of allowed actions
     ALLOWED_ACTIONS = {"ALLOW", "STEP-UP AUTH", "REVIEW", "BLOCK"}
 
     def decide(self, score: float, evidence: Dict[str, Any]) -> Dict[str, Any]:
@@ -18,22 +18,28 @@ class DecisionAgent:
         """
         ring_info = evidence.get("ring_membership", {})
         is_ring = ring_info.get("ring_detected", False)
+        comp_size = ring_info.get("component_size", 1)
 
-        if score < 0.40:
+        # Policy Matrix
+        if score < 0.25:
             action = "ALLOW"
-            rule_fired = "RULE_SCORE_BELOW_0.40_AUTO_ALLOW"
+            rule_fired = "RULE_FASTPATH_LOW_RISK_ALLOW"
 
-        elif 0.40 <= score <= 0.70:
+        elif 0.25 <= score < 0.60:
             if is_ring:
                 action = "REVIEW"
-                rule_fired = "RULE_SCORE_MEDIUM_WITH_RING_FLAG_ESCALATE_REVIEW"
+                rule_fired = "RULE_MEDIUM_RISK_ABUSE_RING_ESCALATE_REVIEW"
             else:
                 action = "STEP-UP AUTH"
-                rule_fired = "RULE_SCORE_MEDIUM_NO_RING_STEP_UP_AUTHENTICATION"
+                rule_fired = "RULE_MEDIUM_RISK_STEP_UP_AUTHENTICATION"
 
-        else:  # score > 0.70
-            action = "BLOCK"
-            rule_fired = "RULE_SCORE_ABOVE_0.70_AUTO_BLOCK"
+        else:  # score >= 0.60
+            if is_ring:
+                action = "BLOCK"
+                rule_fired = "RULE_HIGH_CONFIDENCE_RING_FRAUD_BLOCK"
+            else:
+                action = "BLOCK"
+                rule_fired = "RULE_HIGH_RISK_VELOCITY_FRAUD_BLOCK"
 
         # Assert action is strictly within bounded set
         assert action in self.ALLOWED_ACTIONS, f"Invalid action generated: {action}"

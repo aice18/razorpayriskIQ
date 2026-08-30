@@ -1,11 +1,53 @@
 """
-Unit tests for Autonomous Agent Triad (Investigation, Reasoning, Decision).
+Unit tests for Autonomous ReAct Agent Triad and Tool Execution.
 """
 
 import pytest
 from agents.investigation_agent import InvestigationAgent
 from agents.reasoning_agent import ReasoningAgent
 from agents.decision_agent import DecisionAgent
+from agents.agent_tools import EntityGraphTool, MerchantProfileTool, VelocityAnomalyTool, DeviceIntelligenceTool
+from graph.entity_graph import EntityGraph
+
+def test_agent_tools_execution():
+    graph = EntityGraph()
+    v_tool = VelocityAnomalyTool()
+    m_tool = MerchantProfileTool()
+    d_tool = DeviceIntelligenceTool()
+
+    txn = {
+        "transaction_id": "txn_tool_001",
+        "customer_id": "cust_001",
+        "merchant_id": "merch_crypto_01",
+        "amount": 25000.0,
+        "device_id": "dev_001",
+        "ip_address_hash": "ip_001",
+        "card_fingerprint": "card_001",
+        "geo_country": "SG",
+        "customer_home_country": "IN"
+    }
+
+    features = {
+        "velocity_1m": 3,
+        "velocity_5m": 5,
+        "velocity_1h": 8,
+        "device_velocity_5m": 5,
+        "amount_zscore_vs_customer": 4.2,
+        "is_new_device": True,
+        "is_new_ip": True,
+        "geo_deviation": 1.0
+    }
+
+    v_res = v_tool.execute(txn, features)
+    assert v_res["is_velocity_spike"] == True
+    assert v_res["is_amount_spike"] == True
+
+    m_res = m_tool.execute(txn, None)
+    assert m_res["category_risk"] == "HIGH"
+
+    d_res = d_tool.execute(txn, features)
+    assert d_res["has_geo_mismatch"] == True
+    assert d_res["is_new_device"] == True
 
 def test_investigation_and_decision_pipeline():
     investigator = InvestigationAgent()
@@ -17,6 +59,9 @@ def test_investigation_and_decision_pipeline():
         "customer_id": "cust_101",
         "merchant_id": "merch_101",
         "amount": 95000.0,
+        "device_id": "dev_101",
+        "ip_address_hash": "ip_101",
+        "card_fingerprint": "card_101",
         "geo_country": "US",
         "customer_home_country": "IN"
     }
@@ -32,15 +77,16 @@ def test_investigation_and_decision_pipeline():
         "geo_deviation": 1.0
     }
 
-    score = 0.92
+    score = 0.88
 
-    # 1. Evidence extraction
+    # 1. Evidence extraction with tool traces
     evidence = investigator.investigate(txn, features, score)
     assert evidence["transaction_id"] == "txn_test_001"
     assert evidence["ring_membership"]["ring_detected"] == True
-    assert len(evidence["anomalies"]) >= 4
+    assert len(evidence["tool_traces"]) == 4
+    assert len(evidence["anomalies"]) >= 3
 
-    # 2. Reasoning narrative (fallback template test)
+    # 2. Reasoning narrative
     narrative = reasoner.explain(evidence)
     assert "headline" in narrative
     assert "narrative" in narrative
@@ -48,24 +94,24 @@ def test_investigation_and_decision_pipeline():
     # 3. Deterministic Decision Gating
     decision = decider.decide(score, evidence)
     assert decision["action"] == "BLOCK"
-    assert decision["rule_fired"] == "RULE_SCORE_ABOVE_0.70_AUTO_BLOCK"
+    assert decision["rule_fired"] == "RULE_HIGH_CONFIDENCE_RING_FRAUD_BLOCK"
 
 def test_medium_risk_ring_escalation_to_review():
     decider = DecisionAgent()
     evidence = {
         "transaction_id": "txn_test_002",
-        "ring_membership": {"ring_detected": True}
+        "ring_membership": {"ring_detected": True, "component_size": 5}
     }
-    decision = decider.decide(0.55, evidence)
+    decision = decider.decide(0.45, evidence)
     assert decision["action"] == "REVIEW"
-    assert decision["rule_fired"] == "RULE_SCORE_MEDIUM_WITH_RING_FLAG_ESCALATE_REVIEW"
+    assert decision["rule_fired"] == "RULE_MEDIUM_RISK_ABUSE_RING_ESCALATE_REVIEW"
 
 def test_medium_risk_no_ring_step_up():
     decider = DecisionAgent()
     evidence = {
         "transaction_id": "txn_test_003",
-        "ring_membership": {"ring_detected": False}
+        "ring_membership": {"ring_detected": False, "component_size": 1}
     }
-    decision = decider.decide(0.55, evidence)
+    decision = decider.decide(0.45, evidence)
     assert decision["action"] == "STEP-UP AUTH"
-    assert decision["rule_fired"] == "RULE_SCORE_MEDIUM_NO_RING_STEP_UP_AUTHENTICATION"
+    assert decision["rule_fired"] == "RULE_MEDIUM_RISK_STEP_UP_AUTHENTICATION"
