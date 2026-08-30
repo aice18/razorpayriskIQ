@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Razorpay RiskIQ — Abuse Ring & Fraud AI Agent Platform</title>
+  <!-- Google Fonts & Vis.js for interactive network graph -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style>
+    :root {
+      --bg-primary: #07090E;
+      --bg-surface: #0F172A;
+      --bg-glass: rgba(15, 23, 42, 0.75);
+      --border-color: rgba(255, 255, 255, 0.08);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent-blue: #2563EB;
+      --accent-cyan: #06B6D4;
+      --accent-purple: #8B5CF6;
+      --status-allow: #10B981;
+      --status-stepup: #3B82F6;
+      --status-review: #F59E0B;
+      --status-block: #EF4444;
+      --font-sans: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Header & Navigation Bar */
+    header {
+      background: var(--bg-glass);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #2563EB, #8B5CF6);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+    }
+    .brand-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #FFFFFF, #94A3B8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-tag {
+      font-size: 0.75rem;
+      background: rgba(37, 99, 235, 0.2);
+      border: 1px solid rgba(37, 99, 235, 0.4);
+      color: #60A5FA;
+      padding: 2px 8px;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+    }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .nav-btn.active {
+      color: #FFF;
+      background: rgba(37, 99, 235, 0.2);
+      border-color: rgba(37, 99, 235, 0.4);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      padding: 2rem;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Dashboard Layout Grids */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .grid-3col {
+      display: grid;
+      grid-template-columns: 1.2fr 1.8fr;
+      gap: 1.5rem;
+    }
+
+    /* Cards & Containers */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.5rem;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Status Badges */
+    .badge {
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+    .badge-allow { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-stepup { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3); }
+    .badge-review { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-block { background: rgba(239, 68, 68, 0.15); color: #F87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    /* Live Feed List */
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 680px;
+      overflow-y: auto;
+    }
+    .feed-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .feed-item:hover {
+      background: rgba(37, 99, 235, 0.1);
+      border-color: rgba(37, 99, 235, 0.3);
+      transform: translateX(4px);
+    }
+    .feed-item.selected {
+      border-color: var(--accent-blue);
+      background: rgba(37, 99, 235, 0.15);
+    }
+    .feed-meta { display: flex; flex-direction: column; gap: 4px; }
+    .feed-id { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-main); }
+    .feed-sub { font-size: 0.75rem; color: var(--text-muted); }
+    .feed-right { display: flex; align-items: center; gap: 12px; }
+    .score-chip {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .score-high { color: #EF4444; background: rgba(239, 68, 68, 0.1); }
+    .score-med { color: #F59E0B; background: rgba(245, 158, 11, 0.1); }
+    .score-low { color: #10B981; background: rgba(16, 185, 129, 0.1); }
+
+    /* Case Detail View */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 1.2rem;
+    }
+    .metric-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .metric-label { font-size: 0.75rem; color: var(--text-muted); }
+    .metric-value { font-size: 1.1rem; font-weight: 600; font-family: var(--font-mono); margin-top: 2px; }
+
+    .anomaly-tag {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #F87171;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .narrative-box {
+      background: rgba(37, 99, 235, 0.08);
+      border: 1px solid rgba(37, 99, 235, 0.25);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    .narrative-title { font-weight: 600; color: #60A5FA; margin-bottom: 6px; }
+    .narrative-text { font-size: 0.9rem; line-height: 1.5; color: var(--text-main); }
+
+    /* Vis Network Graph Container */
+    #network-container {
+      width: 100%;
+      height: 500px;
+      background: #030712;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+    }
+
+    /* Analyst Override Form */
+    .override-box {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
+    select, textarea {
+      width: 100%;
+      background: #030712;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-main);
+      padding: 10px;
+      font-family: var(--font-sans);
+    }
+    button.btn-primary {
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      border: none;
+      color: #FFF;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+    button.btn-primary:hover {
+      box-shadow: 0 0 15px rgba(37, 99, 235, 0.5);
+    }
+
+    /* Metrics Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .stat-num { font-size: 2.2rem; font-weight: 700; font-family: var(--font-mono); color: #38BDF8; }
+    .stat-lbl { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">R</div>
+      <div>
+        <div class="brand-title">Razorpay RiskIQ</div>
+        <div style="font-size: 0.75rem; color: var(--text-muted);">Sentinel Abuse-Ring AI Engine</div>
+      </div>
+      <span class="brand-tag">Autonomous Defense</span>
+    </div>
+
+    <nav>
+      <button class="nav-btn active" onclick="switchTab('feed-tab', this)">Live Command Center</button>
+      <button class="nav-btn" onclick="switchTab('graph-tab', this)">Graph Explorer</button>
+      <button class="nav-btn" onclick="switchTab('metrics-tab', this)">Eval & Failure Report</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- TAB 1: Live Command Center & Case Detail -->
+    <div id="feed-tab" class="tab-content active">
+      <div class="grid-3col">
+        <!-- Live Priority Feed -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <span style="display:inline-block; width:8px; height:8px; background:#10B981; border-radius:50%; box-shadow:0 0 8px #10B981;"></span>
+              Real-Time Ingestion Feed
+            </div>
+            <button onclick="fetchFeed()" style="background:none; border:none; color:var(--accent-blue); cursor:pointer; font-size:0.85rem;">Refresh</button>
+          </div>
+          <div class="feed-list" id="feed-container">
+            <div style="color:var(--text-muted); text-align:center; padding:2rem;">Loading stream...</div>
+          </div>
+        </div>
+
+        <!-- Case Detail & Evidence Brief -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title" id="case-title">Case Inspector</div>
+            <div id="case-status-badge"></div>
+          </div>
+
+          <div id="case-detail-content">
+            <div style="color:var(--text-muted); text-align:center; padding:4rem;">Select a transaction from the live feed to inspect evidence.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: Standalone Interactive Entity Graph Explorer -->
+    <div id="graph-tab" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Connected Component Entity Graph</div>
+          <div style="font-size:0.85rem; color:var(--text-muted);" id="graph-meta">Select a transaction case to explore graph relationships</div>
+        </div>
+        <div id="network-container"></div>
+        <div style="display:flex; gap:20px; margin-top:1rem; font-size:0.8rem; color:var(--text-muted);">
+          <div><span style="color:#60A5FA;">●</span> Customer</div>
+          <div><span style="color:#F59E0B;">●</span> Device</div>
+          <div><span style="color:#A78BFA;">●</span> IP Hash</div>
+          <div><span style="color:#34D399;">●</span> Card Fingerprint</div>
+          <div><span style="color:#F472B6;">●</span> Merchant</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: Metrics & Graceful Failure Diagnostics -->
+    <div id="metrics-tab" class="tab-content">
+      <div class="stats-grid" id="stats-banner">
+        <div class="stat-card"><div class="stat-num" id="metric-pauc">--</div><div class="stat-lbl">PR-AUC (Held-out)</div></div>
+        <div class="stat-card"><div class="stat-num" id="metric-prec">--</div><div class="stat-lbl">Precision</div></div>
+        <div class="stat-card"><div class="stat-num" id="metric-rec">--</div><div class="stat-lbl">Recall</div></div>
+        <div class="stat-card"><div class="stat-num" id="metric-fpcost">--</div><div class="stat-lbl">Estimated FP Cost (INR)</div></div>
+      </div>
+
+      <div class="grid-2col">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Held-Out Set Evaluation Metrics</div>
+          </div>
+          <div id="metrics-details-box" style="font-family:var(--font-mono); font-size:0.85rem; line-height:1.8; color:var(--text-muted);">
+            Loading evaluation report...
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">Graceful Failure Analysis Case</div>
+          </div>
+          <div id="failure-case-box" style="line-height:1.6;">
+            Loading failure case analysis...
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const API_BASE = "http://localhost:8000/api";
+    let selectedTxnId = null;
+    let networkGraph = null;
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      btn.classList.add('active');
+
+      if (tabId === 'metrics-tab') {
+        fetchMetrics();
+      }
+    }
+
+    async function fetchFeed() {
+      try {
+        const res = await fetch(`${API_BASE}/feed?limit=50`);
+        const data = await res.json();
+        renderFeed(data.items);
+      } catch (err) {
+        console.error("Feed error:", err);
+      }
+    }
+
+    function renderFeed(items) {
+      const container = document.getElementById('feed-container');
+      if (!items || items.length === 0) {
+        container.innerHTML = `<div style="color:var(--text-muted); text-align:center;">No transactions found.</div>`;
+        return;
+      }
+
+      container.innerHTML = items.map(item => {
+        const scoreCls = item.score >= 0.7 ? 'score-high' : (item.score >= 0.4 ? 'score-med' : 'score-low');
+        const badgeCls = item.action === 'BLOCK' ? 'badge-block' : (item.action === 'REVIEW' ? 'badge-review' : (item.action === 'STEP-UP AUTH' ? 'badge-stepup' : 'badge-allow'));
+        const isSel = item.transaction_id === selectedTxnId ? 'selected' : '';
+
+        return `
+          <div class="feed-item ${isSel}" onclick="selectCase('${item.transaction_id}')">
+            <div class="feed-meta">
+              <div class="feed-id">${item.transaction_id}</div>
+              <div class="feed-sub">INR ${item.amount.toLocaleString()} • ${item.customer_id}</div>
+            </div>
+            <div class="feed-right">
+              <span class="score-chip ${scoreCls}">${(item.score * 100).toFixed(0)}%</span>
+              <span class="badge ${badgeCls}">${item.action}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      if (!selectedTxnId && items.length > 0) {
+        selectCase(items[0].transaction_id);
+      }
+    }
+
+    async function selectCase(txnId) {
+      selectedTxnId = txnId;
+      document.querySelectorAll('.feed-item').forEach(el => el.classList.remove('selected'));
+      fetchFeed(); // re-render selection highlight
+
+      try {
+        const res = await fetch(`${API_BASE}/case/${txnId}`);
+        const caseData = await res.json();
+        renderCaseDetail(caseData);
+        fetchGraph(txnId);
+      } catch (err) {
+        console.error("Case error:", err);
+      }
+    }
+
+    function renderCaseDetail(c) {
+      document.getElementById('case-title').innerText = `Case File: ${c.transaction_id}`;
+      const badgeCls = c.decision.action === 'BLOCK' ? 'badge-block' : (c.decision.action === 'REVIEW' ? 'badge-review' : (c.decision.action === 'STEP-UP AUTH' ? 'badge-stepup' : 'badge-allow'));
+      document.getElementById('case-status-badge').innerHTML = `<span class="badge ${badgeCls}">${c.override ? c.override.new_action + ' (OVERRIDDEN)' : c.decision.action}</span>`;
+
+      const anomaliesHtml = (c.evidence.anomalies || []).map(a => `
+        <div class="anomaly-tag">
+          ⚠️ <strong>${a.type.replace('_', ' ').toUpperCase()}:</strong> ${a.detail}
+        </div>
+      `).join('');
+
+      const overrideHtml = c.override ? `
+        <div style="background:rgba(245, 158, 11, 0.1); border:1px solid rgba(245,158,11,0.3); border-radius:8px; padding:10px; margin-top:1rem; font-size:0.85rem;">
+          <strong>Analyst Override Recorded:</strong> ${c.override.previous_action} ➔ <strong>${c.override.new_action}</strong><br>
+          <em>Reason: "${c.override.reason}"</em>
+        </div>
+      ` : `
+        <div class="override-box">
+          <div style="font-weight:600; margin-bottom:8px; font-size:0.9rem;">Human-in-the-Loop Override</div>
+          <div class="form-group">
+            <label>Action Override</label>
+            <select id="override-action">
+              <option value="ALLOW">ALLOW</option>
+              <option value="STEP-UP AUTH">STEP-UP AUTH</option>
+              <option value="REVIEW">REVIEW</option>
+              <option value="BLOCK">BLOCK</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mandatory Rationale</label>
+            <textarea id="override-reason" rows="2" placeholder="State reason for overriding decision..."></textarea>
+          </div>
+          <button class="btn-primary" onclick="submitOverride('${c.transaction_id}')">Submit Override</button>
+        </div>
+      `;
+
+      document.getElementById('case-detail-content').innerHTML = `
+        <div class="detail-grid">
+          <div class="metric-box"><div class="metric-label">Risk Score</div><div class="metric-value" style="color:${c.score >= 0.7 ? '#EF4444' : '#F59E0B'}">${(c.score*100).toFixed(1)}%</div></div>
+          <div class="metric-box"><div class="metric-label">Amount</div><div class="metric-value">₹${c.amount.toLocaleString()}</div></div>
+          <div class="metric-box"><div class="metric-label">Ring Member</div><div class="metric-value">${c.evidence.ring_membership.ring_detected ? 'YES ('+c.evidence.ring_membership.component_size+' users)' : 'NO'}</div></div>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <div style="font-weight:600; font-size:0.9rem; margin-bottom:8px;">Identified Anomaly Signals</div>
+          ${anomaliesHtml || '<div style="color:var(--text-muted); font-size:0.85rem;">No critical anomalies detected.</div>'}
+        </div>
+
+        <div class="narrative-box">
+          <div class="narrative-title">${c.narrative.headline || 'Case Narrative'}</div>
+          <div class="narrative-text">${c.narrative.narrative}</div>
+        </div>
+
+        <div style="margin-top:1rem; font-size:0.8rem; color:var(--text-muted);">
+          <strong>Rule Fired:</strong> ${c.decision.rule_fired}
+        </div>
+
+        ${overrideHtml}
+      `;
+    }
+
+    async function submitOverride(txnId) {
+      const action = document.getElementById('override-action').value;
+      const reason = document.getElementById('override-reason').value;
+
+      if (!reason || reason.trim().length < 5) {
+        alert("Please state a clear rationale for overriding.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/case/${txnId}/override`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ new_action: action, reason: reason })
+        });
+        if (res.ok) {
+          alert("Override logged successfully.");
+          selectCase(txnId);
+        }
+      } catch (err) {
+        alert("Error submitting override: " + err);
+      }
+    }
+
+    async function fetchGraph(txnId) {
+      try {
+        const res = await fetch(`${API_BASE}/graph/${txnId}`);
+        const data = await res.json();
+        renderVisGraph(data.subgraph);
+        document.getElementById('graph-meta').innerText = `Transaction ${txnId} (Customer: ${data.center_customer_id})`;
+      } catch (err) {
+        console.error("Graph error:", err);
+      }
+    }
+
+    function renderVisGraph(subgraph) {
+      const container = document.getElementById('network-container');
+      if (!subgraph || !subgraph.nodes) return;
+
+      const nodes = new vis.DataSet(subgraph.nodes.map(n => {
+        let color = '#60A5FA';
+        if (n.type === 'device') color = '#F59E0B';
+        if (n.type === 'ip') color = '#A78BFA';
+        if (n.type === 'card') color = '#34D399';
+        if (n.type === 'merchant') color = '#F472B6';
+
+        return {
+          id: n.id,
+          label: n.label,
+          color: { background: color, border: '#FFF' },
+          font: { color: '#FFF', face: 'Outfit' }
+        };
+      }));
+
+      const edges = new vis.DataSet(subgraph.edges.map(e => ({
+        from: e.source,
+        to: e.target,
+        color: { color: 'rgba(255,255,255,0.2)' }
+      })));
+
+      const options = {
+        nodes: { shape: 'dot', size: 16 },
+        physics: { stabilization: true }
+      };
+
+      if (networkGraph) networkGraph.destroy();
+      networkGraph = new vis.Network(container, { nodes, edges }, options);
+    }
+
+    async function fetchMetrics() {
+      try {
+        const res = await fetch(`${API_BASE}/metrics/eval`);
+        const data = await res.json();
+
+        document.getElementById('metric-pauc').innerText = data.performance_metrics.pr_auc;
+        document.getElementById('metric-prec').innerText = (data.performance_metrics.precision * 100).toFixed(1) + '%';
+        document.getElementById('metric-rec').innerText = (data.performance_metrics.recall * 100).toFixed(1) + '%';
+        document.getElementById('metric-fpcost').innerText = '₹' + data.performance_metrics.estimated_fp_cost_inr.toLocaleString();
+
+        document.getElementById('metrics-details-box').innerHTML = `
+          <strong>Held-Out Dataset Summary:</strong><br>
+          - Evaluated Events: ${data.dataset_summary.heldout_events_evaluated}<br>
+          - Actual Fraud Count: ${data.dataset_summary.fraud_count_in_holdout}<br><br>
+          <strong>Detailed Classifier Performance:</strong><br>
+          - F1 Score: ${data.performance_metrics.f1_score}<br>
+          - False Positive Rate: ${(data.performance_metrics.false_positive_rate * 100).toFixed(2)}%<br>
+          - False Positive Count: ${data.performance_metrics.false_positive_count}<br>
+          - Ring Detection Recall: ${(data.performance_metrics.ring_detection_recall * 100).toFixed(1)}% (${data.performance_metrics.rings_detected}/${data.performance_metrics.rings_injected} rings caught)<br><br>
+          <strong>Latency & Throughput:</strong><br>
+          - p95 Decision Latency: ${data.system_metrics.p95_latency_ms} ms<br>
+          - Pipeline Throughput: ${data.system_metrics.throughput_events_per_sec} events/sec
+        `;
+
+        const failRes = await fetch(`${API_BASE}/metrics/failure-case`);
+        const failCase = await failRes.json();
+        document.getElementById('failure-case-box').innerHTML = `
+          <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:10px; padding:1rem;">
+            <div style="font-weight:600; color:#F87171; margin-bottom:6px;">Sample Failure Diagnostics Case: ${failCase.transaction_id}</div>
+            <div style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">
+              <strong>Ground Truth:</strong> ${failCase.ground_truth} | <strong>Model Risk Score:</strong> ${(failCase.predicted_score*100).toFixed(1)}% | <strong>System Action:</strong> <span class="badge badge-review">${failCase.action}</span>
+            </div>
+            <div style="font-size:0.9rem; line-height:1.5;">
+              <strong>System Graceful Behavior:</strong> ${failCase.reason_for_escalation}
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error("Metrics error:", err);
+      }
+    }
+
+    // Auto load on start
+    fetchFeed();
+    setInterval(fetchFeed, 5000);
+  </script>
+</body>
+</html>
