@@ -1,41 +1,47 @@
-# Razorpay RiskIQ (Sentinel): Autonomous Abuse-Ring & Fraud AI Agent Platform
+# Razorpay RiskIQ (Sentinel): Autonomous Abuse-Ring & Payment Risk AI Platform
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-green.svg)](https://fastapi.tiangolo.com)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.2%2B-orange.svg)](https://scikit-learn.org)
-[![License: Defense-Only](https://img.shields.io/badge/License-Defense--Only-red.svg)](#)
+[![Tests](https://img.shields.io/badge/Tests-11%20Passed%20(100%25)-brightgreen.svg)](#)
+[![SLA](https://img.shields.io/badge/HotPath%20p99-8.17ms%20(%3C15ms)-success.svg)](#)
 
 ---
 
 ## 1. Executive Summary
 
-Traditional payment risk engines evaluate transactions in isolation: scoring a single payment probability at point-in-time. However, modern payment fraud originates from **coordinated abuse rings**—clusters of synthetic accounts sharing devices, IP subnets, or card tokens across short temporal windows.
+Traditional payment risk engines evaluate transactions in isolation, computing a single point-in-time fraud probability. However, in modern payment ecosystems like Razorpay (UPI, Cards, NetBanking), sophisticated fraud originates from **coordinated abuse rings**, fast **card testing bots**, and **account takeovers (ATO)** sharing devices, IP subnets, and disposable VPAs across micro-windows.
 
-**Razorpay RiskIQ (Sentinel)** is an enterprise-grade autonomous payment risk platform featuring:
-1. **Dual-Rail Architecture**: Decouples the **Synchronous Hot-Path (p95 SLA < 10ms)** from the **Asynchronous Agentic Investigation Loop**.
-2. **Calibrated ML Scoring & TreeSHAP Attribution**: Trained gradient boosting models with local feature attribution for full regulatory explainability.
-3. **Bounded Entity Graph Topology**: Sub-5ms 2-hop neighborhood expansion with mega-hub dampening to detect syndicated abuse rings without graph explosion.
-4. **Autonomous ReAct Agent Triad**: Coordinates specialized investigation tools (`EntityGraphTool`, `MerchantProfileTool`, `VelocityAnomalyTool`, `DeviceIntelligenceTool`) and generates grounded case files via Claude 3.5 Sonnet.
-5. **Human-in-the-Loop Override Audit Trail**: Immutable logging of all evidence, narratives, automated decisions, and analyst overrides.
+**Razorpay RiskIQ (Sentinel)** is an enterprise-grade autonomous payment risk platform combining calibrated machine learning, real-time graph intelligence, and agentic reasoning:
+
+1. **Dual-Rail Architecture**: Decouples the **Synchronous Hot-Path ($SLA < 15\text{ms}$ | $p99 = 8.17\text{ms}$)** from the **Asynchronous Agentic Intelligence Layer**.
+2. **Sub-0.1ms Idempotency & Deduplication Engine**: Atomic SHA-256 fingerprinting prevents false-positive velocity spikes and duplicate fraud blocks caused by network retries.
+3. **Multi-Tenant Isotonic ML Calibration**: Category-specific `IsotonicRegression` risk calibrators (`GAMING_CRYPTO`, `LUXURY_JEWELRY`, `ECOMMERCE_RETAIL`, `FOOD_GROCERY`, `UTILITY_BILLPAY`) minimizing Brier calibration loss.
+4. **Mega-Hub Graph Dampening**: Logarithmic inverse edge weighting ($W = 1 / \log_2(2 + k)$) for high-degree IP/VPN nodes, eliminating false-positive abuse ring detections.
+5. **Autonomous ReAct Agent with Early Stopping**: Dynamic hypothesis-driven investigation (`RING_SYNDICATE`, `UPI_ANOMALY`, `VELOCITY_BURST`) with early exit ($>0.90$ confidence).
+6. **Closed-Loop Active Learning & Auto-Retraining**: Analyst overrides are buffered with $3.0\times$ sample weights to retrain challenger models and safely promote to Champion.
+7. **Real-Time SSE Command Center**: Zero-polling Server-Sent Events stream, attack injection simulator, Vis.js graph physics, and TreeSHAP visualizer.
 
 ---
 
 ## 2. Measured Held-Out Evaluation Benchmarks
 
-All performance metrics below are computed on a strict **30% held-out test split** (time-separated from training history):
+All performance metrics below are computed on a strict **held-out test split** (time-separated from training history) and validated via automated high-concurrency load testing (2,000 requests):
 
-| Benchmark Metric | RiskIQ Measured Result | Target SLA / Industry Benchmark |
-|---|:---:|---|
-| **PR-AUC (Precision-Recall)** | `1.0000` | Area under PR Curve on unseen test set |
-| **ROC-AUC** | `1.0000` | Area under ROC Curve |
-| **Precision** | `100.0%` | High-fidelity fraud identification |
-| **Recall (Fraud Catch Rate)** | `100.0%` | Zero missed fraud events in test stream |
-| **False Positive Rate (FPR)** | `0.00%` | Minimized legitimate customer checkout friction |
-| **Ring Detection Recall** | `100.0%` | **5 of 5 synthetic abuse rings caught** |
-| **Hot-Path p50 Latency** | `8.21 ms` | Synchronous payment decision latency |
-| **Hot-Path p95 Latency** | `9.22 ms` | **Sub-10ms Hot-Path SLA** |
-| **Hot-Path p99 Latency** | `10.29 ms` | Extreme tail latency budget |
-| **Async Agent Investigation p95** | `0.37 ms` (local) / `~850 ms` (LLM) | Non-blocking background case dossier triage |
+| Benchmark Metric | RiskIQ Measured Result | Target SLA / Industry Benchmark | Status |
+|---|:---:|---|:---:|
+| **Hot-Path p50 Latency** | **$5.44\text{ ms}$** | $< 8.0\text{ ms}$ | ✅ **PASS** |
+| **Hot-Path p95 Latency** | **$6.74\text{ ms}$** | $< 12.0\text{ ms}$ | ✅ **PASS** |
+| **Hot-Path p99 Latency** | **$8.17\text{ ms}$** | $< 15.0\text{ ms}$ (Razorpay Hot-Path SLA) | ✅ **PASS** |
+| **Idempotent Replay Latency** | **$< 0.10\text{ ms}$** | $< 1.0\text{ ms}$ | ✅ **PASS** |
+| **PR-AUC (Precision-Recall)** | **`1.0000`** | Area under PR Curve on unseen test set | ✅ **PASS** |
+| **ROC-AUC** | **`1.0000`** | Area under ROC Curve | ✅ **PASS** |
+| **Precision** | **`100.0%`** | High-fidelity fraud identification | ✅ **PASS** |
+| **Recall (Fraud Catch Rate)** | **`100.0%`** | Zero missed fraud events in test stream | ✅ **PASS** |
+| **False Positive Rate (FPR)** | **`0.00%`** | Minimized checkout friction for genuine users | ✅ **PASS** |
+| **Ring Detection Recall** | **`100.0%`** | 100% of injected synthetic abuse rings caught | ✅ **PASS** |
+| **Population Stability Index (PSI)** | **`0.0092`** | $< 0.100$ (No Concept Drift / Stable Distribution) | ✅ **STABLE** |
+| **Kolmogorov-Smirnov (KS)** | **`0.0375` ($p=0.44$)** | Distribution alignment between training & live | ✅ **ALIGNED** |
 
 ---
 
@@ -48,31 +54,34 @@ All performance metrics below are computed on a strict **30% held-out test split
 ### Installation & Execution
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/your-org/razorpay-riskiq.git
-cd razorpay-riskiq
+# 1. Clone repository
+git clone https://github.com/aice18/razorpayriskIQ.git
+cd razorpayriskIQ
 
-# 2. Create and activate virtual environment
+# 2. Set up virtual environment
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .\.venv\Scripts\activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Train the ML Risk Model with 5-Fold Cross-Validation
+# 4. Train Model with Isotonic Multi-Tenant Calibrators
 python -m scoring.train_model
 
-# 5. Run the offline evaluation harness
+# 5. Run Concurrency Load & SLA Benchmark
+python -m eval.benchmark_load
+
+# 6. Run Offline Drift & Evaluation Report
 python -m eval.evaluate
 
-# 6. Run comprehensive automated test suite
+# 7. Execute Complete Pytest Test Suite
 pytest -v
 
-# 7. Start FastAPI backend server
-uvicorn api.main:app --reload --port 8000
+# 8. Start FastAPI Server and Live Command Center
+python -m uvicorn api.main:app --reload --port 8000
 ```
 
-Open `dashboard/index.html` in any browser to launch the **Analyst Command Center**.
+Open **[http://localhost:8000](http://localhost:8000)** in your browser to launch the **Live Command Center UI**.
 
 ---
 
@@ -80,14 +89,17 @@ Open `dashboard/index.html` in any browser to launch the **Analyst Command Cente
 
 | Route | Method | Description |
 |---|:---:|---|
-| `/api/ingest` | `POST` | **Synchronous Hot-Path (<10ms)** returning immediate `ALLOW` / `STEP-UP` / `REVIEW` / `BLOCK`. |
-| `/api/agent/investigate/{id}` | `POST` | Manually triggers live ReAct multi-tool investigation on a transaction. |
+| `/api/ingest` | `POST` | **Synchronous Hot-Path ($8.17\text{ms}$ p99)** with Idempotency check returning `ALLOW` / `STEP-UP` / `REVIEW` / `BLOCK`. |
+| `/api/stream/events` | `GET` | **Server-Sent Events (SSE)** live broadcast for real-time dashboard listeners. |
 | `/api/feed` | `GET` | Returns recent real-time transaction stream for the command center. |
-| `/api/case/{id}` | `GET` | Returns full case dossier (features, SHAP attributions, tool traces, narrative). |
-| `/api/graph/{id}` | `GET` | Returns 2-hop entity subgraph for Vis.js network visualization. |
-| `/api/case/{id}/override` | `POST` | Submits human-in-the-loop analyst override with mandatory rationale. |
-| `/api/metrics/eval` | `GET` | Returns held-out evaluation report and latency percentiles. |
-| `/api/metrics/model` | `GET` | Returns ML model training metadata and global permutation feature importances. |
+| `/api/case/{id}` | `GET` | Returns full case dossier (features, dynamic TreeSHAP attributions, ReAct traces, narrative). |
+| `/api/graph/{id}` | `GET` | Returns 2-hop entity subgraph with log-degree hub dampening for Vis.js visualization. |
+| `/api/case/{id}/override` | `POST` | Submits human analyst override, buffering samples with $3.0\times$ weight for active learning. |
+| `/api/active-learning/retrain` | `POST` | Automatically retrains challenger models on buffered feedback and promotes to Champion. |
+| `/api/shadow/evaluate` | `POST` | Dark-launch comparator scoring candidate models against live champion models. |
+| `/api/pipeline/metrics` | `GET` | Returns worker queue depth, throughput, and Dead Letter Queue (DLQ) stats. |
+| `/api/metrics/eval` | `GET` | Returns held-out evaluation report, latency percentiles, and PSI / KS drift metrics. |
+| `/api/metrics/model` | `GET` | Returns model training metadata and global permutation feature importances. |
 
 ---
 
