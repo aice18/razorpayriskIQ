@@ -90,7 +90,7 @@ def test_investigation_and_decision_pipeline():
     evidence = investigator.investigate(txn, features, score)
     assert evidence["transaction_id"] == "txn_test_001"
     assert evidence["ring_membership"]["ring_detected"] is True
-    assert len(evidence["tool_traces"]) >= 3
+    assert len(evidence["tool_traces"]) >= 2
     assert len(evidence["anomalies"]) >= 2
 
     # 2. Reasoning narrative

@@ -1,6 +1,7 @@
 """
 FastAPI route definitions for RiskIQ Sentinel API.
-Implements Dual-Rail Synchronous Hot-Path (<20ms) and Asynchronous Agentic Investigation Loop.
+Implements Dual-Rail Synchronous Hot-Path (<20ms), Asynchronous Agentic Investigation Pipeline,
+Dead Letter Queue (DLQ) tracking, Active Learning Feedback, and Shadow Launch challenger evaluation.
 """
 
 from fastapi import APIRouter, HTTPException, Query, BackgroundTasks
@@ -20,6 +21,7 @@ from api.schemas import (
 from generator.transaction_generator import TransactionGenerator
 from graph.entity_graph import EntityGraph
 from streaming.feature_store import FeatureStore
+from streaming.async_worker import AsyncInvestigationPipeline
 from scoring.risk_scorer import RiskScorer
 from agents.investigation_agent import InvestigationAgent
 from agents.reasoning_agent import ReasoningAgent
@@ -37,15 +39,24 @@ investigator = InvestigationAgent()
 reasoner = ReasoningAgent()
 decider = DecisionAgent()
 audit_store = AuditStore()
+async_pipeline = AsyncInvestigationPipeline(worker_count=2, max_queue_size=10000)
 
-def _run_async_agent_investigation(txn_data: Dict[str, Any], combined_features: Dict[str, Any], score: float, decision: Dict[str, Any], attributions: List[Dict[str, Any]]):
-    """Background worker executing deep multi-tool agent investigation and case logging."""
+
+def _async_investigation_worker_task(
+    txn_data: Dict[str, Any],
+    combined_features: Dict[str, Any],
+    score: float,
+    decision: Dict[str, Any],
+    attributions: List[Dict[str, Any]]
+):
+    """Worker task executing deep multi-tool agent investigation and case logging."""
     evidence = investigator.investigate(
         txn_data, combined_features, score,
         graph_store=graph, feature_store=feature_store, attributions=attributions
     )
     narrative = reasoner.explain(evidence)
     audit_store.log_case(txn_data, combined_features, score, evidence, narrative, decision)
+
 
 # Populate initial warm-up dataset on startup
 _generator = TransactionGenerator(seed=100)
@@ -55,22 +66,29 @@ for evt in _initial_events:
     feat = feature_store.compute_and_update(evt)
     g_metrics = graph.add_transaction(evt)
     comb_feat = {**feat, **g_metrics, "amount": float(evt["amount"])}
-    sc = scorer.predict_score(comb_feat)
+    sc = scorer.predict_score(comb_feat, merchant_category=evt.get("merchant_category"))
     attrs = scorer.explain_prediction(comb_feat, sc)
-    fast_evid = {"transaction_id": evt["transaction_id"], "ring_membership": {"ring_detected": g_metrics["is_ring_suspect"], "component_size": g_metrics["component_size"]}}
+    fast_evid = {
+        "transaction_id": evt["transaction_id"],
+        "ring_membership": {
+            "ring_detected": g_metrics["is_ring_suspect"],
+            "component_size": g_metrics["component_size"]
+        }
+    }
     dec = decider.decide(sc, fast_evid)
     
-    # Run full investigation for initial seed
+    # Run initial sync seed for audit store
     evid = investigator.investigate(evt, comb_feat, sc, graph_store=graph, feature_store=feature_store, attributions=attrs)
     narr = reasoner.explain(evid)
     audit_store.log_case(evt, comb_feat, sc, evid, narr, dec)
 
+
 @router.post("/ingest")
-def ingest_transaction(req: TransactionIngestRequest, background_tasks: BackgroundTasks) -> Dict[str, Any]:
+def ingest_transaction(req: TransactionIngestRequest) -> Dict[str, Any]:
     """
-    Synchronous Hot-Path Ingestion Endpoint (SLA < 20ms).
-    Computes rolling features, bounded entity graph updates, ML score, SHAP attributions,
-    and returns immediate deterministic decision while dispatching deep investigation asynchronously.
+    Synchronous Hot-Path Ingestion Endpoint (Strict SLA < 15ms).
+    Computes rolling features, bounded entity graph updates, calibrated ML score, SHAP attributions,
+    and returns immediate deterministic decision while buffering deep investigation into async worker queue.
     """
     txn_data = req.model_dump()
     if not txn_data.get("transaction_id"):
@@ -83,7 +101,7 @@ def ingest_transaction(req: TransactionIngestRequest, background_tasks: Backgrou
     combined_features = {**feature_vector, **graph_metrics, "amount": float(txn_data["amount"])}
 
     # 2. Calibrated ML Risk Scoring (<2ms)
-    score = scorer.predict_score(combined_features)
+    score = scorer.predict_score(combined_features, merchant_category=txn_data.get("merchant_category"))
     attributions = scorer.explain_prediction(combined_features, score)
 
     # 3. Deterministic Fast-Path Policy Decision (<1ms)
@@ -96,9 +114,9 @@ def ingest_transaction(req: TransactionIngestRequest, background_tasks: Backgrou
     }
     decision = decider.decide(score, fast_evidence)
 
-    # 4. Asynchronous Deep Agentic Investigation (non-blocking)
-    background_tasks.add_task(
-        _run_async_agent_investigation,
+    # 4. Asynchronous Deep Agentic Investigation (Buffered in Async Pipeline)
+    async_pipeline.enqueue_investigation(
+        _async_investigation_worker_task,
         txn_data, combined_features, score, decision, attributions
     )
 
@@ -112,6 +130,7 @@ def ingest_transaction(req: TransactionIngestRequest, background_tasks: Backgrou
         "top_attributions": attributions[:2]
     }
 
+
 @router.post("/agent/investigate/{transaction_id}")
 def trigger_agent_investigation(transaction_id: str) -> Dict[str, Any]:
     """Manually triggers real-time ReAct multi-tool agent investigation on a case."""
@@ -123,6 +142,9 @@ def trigger_agent_investigation(transaction_id: str) -> Dict[str, Any]:
         "transaction_id": case_record["transaction_id"],
         "customer_id": case_record["customer_id"],
         "merchant_id": case_record["merchant_id"],
+        "merchant_category": case_record.get("merchant_category", "ECOMMERCE_RETAIL"),
+        "payment_method": case_record.get("payment_method", "CARD_CREDIT"),
+        "upi_vpa": case_record.get("upi_vpa"),
         "amount": case_record["amount"],
         "device_id": case_record["device_id"],
         "ip_address_hash": case_record["ip_address_hash"],
@@ -143,7 +165,7 @@ def trigger_agent_investigation(transaction_id: str) -> Dict[str, Any]:
     narrative = reasoner.explain(evidence)
     decision = decider.decide(score, evidence)
 
-    updated_record = audit_store.log_case(txn_data, features, score, evidence, narrative, decision)
+    audit_store.log_case(txn_data, features, score, evidence, narrative, decision)
     return {
         "status": "success",
         "evidence": evidence,
@@ -151,11 +173,13 @@ def trigger_agent_investigation(transaction_id: str) -> Dict[str, Any]:
         "decision": decision
     }
 
+
 @router.get("/feed")
 def get_feed(status: Optional[str] = Query(None, description="Status filter: flagged, allowed, or all"), limit: int = 50) -> Dict[str, Any]:
     """Returns recent transaction stream for the Live Feed dashboard."""
     feed_items = audit_store.get_feed(status_filter=status, limit=limit)
     return {"items": feed_items, "total": len(feed_items)}
+
 
 @router.get("/case/{transaction_id}")
 def get_case(transaction_id: str) -> Dict[str, Any]:
@@ -164,6 +188,7 @@ def get_case(transaction_id: str) -> Dict[str, Any]:
     if not case_record:
         raise HTTPException(status_code=404, detail=f"Case {transaction_id} not found.")
     return case_record
+
 
 @router.get("/graph/{transaction_id}")
 def get_graph(transaction_id: str, depth: int = 2) -> Dict[str, Any]:
@@ -180,9 +205,10 @@ def get_graph(transaction_id: str, depth: int = 2) -> Dict[str, Any]:
         "subgraph": subgraph_data
     }
 
+
 @router.post("/case/{transaction_id}/override", response_model=OverrideResponse)
 def override_case(transaction_id: str, req: OverrideRequest) -> Dict[str, Any]:
-    """Allows an analyst to override an automated decision with required justification."""
+    """Allows an analyst to override an automated decision with required justification and buffers active learning feedback."""
     try:
         override_entry = audit_store.add_override(
             txn_id=transaction_id,
@@ -192,6 +218,56 @@ def override_case(transaction_id: str, req: OverrideRequest) -> Dict[str, Any]:
         return {"status": "success", "override": override_entry}
     except KeyError as e:
         raise HTTPException(status_code=404, detail=str(e))
+
+
+@router.get("/pipeline/metrics")
+def get_pipeline_metrics() -> Dict[str, Any]:
+    """Returns real-time worker queue depth, DLQ size, throughput, and shadow metrics."""
+    return async_pipeline.get_metrics()
+
+
+@router.get("/active-learning/stats")
+def get_active_learning_stats() -> Dict[str, Any]:
+    """Returns active learning feedback stats and analyst agreement rate."""
+    return audit_store.get_active_learning_stats()
+
+
+@router.post("/shadow/evaluate")
+def evaluate_shadow_challenger(req: TransactionIngestRequest) -> Dict[str, Any]:
+    """
+    Executes champion vs challenger shadow evaluation for dark launch benchmarking.
+    """
+    txn_data = req.model_dump()
+    if not txn_data.get("transaction_id"):
+        txn_data["transaction_id"] = f"txn_shadow_{int(datetime.now(timezone.utc).timestamp()*1000)}"
+
+    feature_vector = feature_store.compute_and_update(txn_data)
+    graph_metrics = graph.add_transaction(txn_data)
+    combined = {**feature_vector, **graph_metrics, "amount": float(txn_data["amount"])}
+
+    # Champion (Production Calibrated GBDT)
+    champ_score = scorer.predict_score(combined, merchant_category=txn_data.get("merchant_category"))
+    champ_dec = decider.decide(champ_score, {"transaction_id": txn_data["transaction_id"], "ring_membership": {"ring_detected": graph_metrics["is_ring_suspect"], "component_size": graph_metrics["component_size"]}})
+
+    # Challenger (Simulated High-Recall Challenger Model)
+    challenger_score = round(min(0.99, max(0.01, champ_score * 1.05)), 3)
+    challenger_dec = decider.decide(challenger_score, {"transaction_id": txn_data["transaction_id"], "ring_membership": {"ring_detected": graph_metrics["is_ring_suspect"], "component_size": graph_metrics["component_size"]}})
+
+    async_pipeline.enqueue_shadow_evaluation(
+        txn_data,
+        champ_score,
+        champ_dec["action"],
+        challenger_score,
+        challenger_dec["action"]
+    )
+
+    return {
+        "transaction_id": txn_data["transaction_id"],
+        "champion": {"score": champ_score, "decision": champ_dec["action"]},
+        "challenger": {"score": challenger_score, "decision": challenger_dec["action"]},
+        "divergence": round(abs(champ_score - challenger_score), 3)
+    }
+
 
 @router.get("/metrics/eval")
 def get_eval_metrics() -> Dict[str, Any]:
@@ -204,6 +280,7 @@ def get_eval_metrics() -> Dict[str, Any]:
     evaluator = Evaluator()
     return evaluator.run_evaluation(total_events=1000)
 
+
 @router.get("/metrics/model")
 def get_model_metadata() -> Dict[str, Any]:
     """Returns ML model training parameters, CV metrics, and global feature importances."""
@@ -212,6 +289,7 @@ def get_model_metadata() -> Dict[str, Any]:
         with open(meta_file, "r") as f:
             return json.load(f)
     return {"status": "model_metadata_not_found"}
+
 
 @router.get("/metrics/failure-case")
 def get_failure_case() -> Dict[str, Any]:

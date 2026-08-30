@@ -2,14 +2,17 @@
 Production-Grade Offline Evaluation Harness for Razorpay RiskIQ Sentinel.
 Evaluates the full pipeline against held-out transaction streams, computing:
 Precision, Recall, F1, PR-AUC, ROC-AUC, FPR @ 95% Recall, Slice-Level Analytics
-(UPI vs Cards, High vs Low Risk Merchants), Latency Percentiles (p50/p95/p99), and INR Financial Impact.
+(UPI vs Cards, High vs Low Risk Merchants), Latency Percentiles (p50/p95/p99),
+Population Stability Index (PSI), Kolmogorov-Smirnov (KS) Drift, and INR Financial Impact.
 """
 
 import time
 import json
 import os
+import math
 from typing import Dict, List, Any
 import numpy as np
+from scipy import stats
 from sklearn.metrics import precision_recall_curve, roc_auc_score, auc
 
 from generator.transaction_generator import TransactionGenerator
@@ -22,8 +25,30 @@ from agents.decision_agent import DecisionAgent
 from audit.audit_store import AuditStore
 
 
+def calculate_psi(expected: np.ndarray, actual: np.ndarray, num_buckets: int = 10) -> float:
+    """Calculates Population Stability Index (PSI) to detect concept and distribution drift."""
+    if len(expected) == 0 or len(actual) == 0:
+        return 0.0
+    
+    # Define bucket boundaries based on expected distribution quantiles
+    quantiles = np.linspace(0, 100, num_buckets + 1)
+    bins = np.percentile(expected, quantiles)
+    bins[0] = -np.inf
+    bins[-1] = np.inf
+
+    expected_counts = np.histogram(expected, bins=bins)[0]
+    actual_counts = np.histogram(actual, bins=bins)[0]
+
+    # Convert to fractions with Laplace smoothing
+    expected_pct = (expected_counts + 1e-5) / (len(expected) + 1e-5 * num_buckets)
+    actual_pct = (actual_counts + 1e-5) / (len(actual) + 1e-5 * num_buckets)
+
+    psi_val = np.sum((actual_pct - expected_pct) * np.log(actual_pct / expected_pct))
+    return float(np.round(psi_val, 4))
+
+
 class Evaluator:
-    """Evaluates RiskIQ Sentinel pipeline metrics on held-out test sets."""
+    """Evaluates RiskIQ Sentinel pipeline metrics, drift, and financial impact on held-out test sets."""
     
     def __init__(self, fp_cost_unit_inr: float = 500.0):
         self.fp_cost_unit_inr = fp_cost_unit_inr
@@ -46,6 +71,7 @@ class Evaluator:
 
         y_true = []
         y_scores = []
+        y_train_scores = []
         y_pred_flagged = []
         hotpath_latencies = []
         agent_latencies = []
@@ -123,8 +149,10 @@ class Evaluator:
                 if graph_metrics.get("is_ring_suspect") and ring_id:
                     rings_detected.add(ring_id)
 
-            # Collect metrics ONLY for held-out evaluation set
-            if is_holdout:
+            # Collect metrics: train baseline vs held-out evaluation set
+            if not is_holdout:
+                y_train_scores.append(score)
+            else:
                 y_true.append(1 if is_fraud_ground_truth else 0)
                 y_scores.append(score)
                 y_pred_flagged.append(1 if is_flagged else 0)
@@ -149,7 +177,7 @@ class Evaluator:
                     if is_flagged:
                         slice_metrics["merchant_categories"][mc]["detected"] += 1
 
-                # Capture representative failure/escalation case
+                # Capture representative graceful degradation case
                 if not is_fraud_ground_truth and is_flagged and failure_case is None:
                     evidence = investigator.investigate(event, combined_features, score, graph_store=graph, attributions=attributions)
                     narrative = reasoner.explain(evidence)
@@ -169,6 +197,7 @@ class Evaluator:
         y_true = np.array(y_true)
         y_pred = np.array(y_pred_flagged)
         y_scores = np.array(y_scores)
+        y_train_scores = np.array(y_train_scores)
 
         tp = int(np.sum((y_true == 1) & (y_pred == 1)))
         fp = int(np.sum((y_true == 0) & (y_pred == 1)))
@@ -183,6 +212,10 @@ class Evaluator:
         precisions, recalls, _ = precision_recall_curve(y_true, y_scores)
         pr_auc = round(float(auc(recalls, precisions)), 4)
         roc_auc = round(float(roc_auc_score(y_true, y_scores)), 4)
+
+        # Drift Analysis (PSI & KS Test)
+        psi_score = calculate_psi(y_train_scores, y_scores)
+        ks_stat, ks_pvalue = stats.ks_2samp(y_train_scores, y_scores) if len(y_train_scores) > 0 else (0.0, 1.0)
 
         fp_cost_total = round(fp * self.fp_cost_unit_inr, 2)
 
@@ -221,6 +254,12 @@ class Evaluator:
                 "ring_detection_recall": ring_recall,
                 "rings_injected": len(rings_injected),
                 "rings_detected": len(rings_detected)
+            },
+            "drift_and_stability": {
+                "psi_score": psi_score,
+                "psi_status": "STABLE" if psi_score < 0.10 else "MODERATE_DRIFT" if psi_score < 0.25 else "SIGNIFICANT_DRIFT",
+                "ks_statistic": round(float(ks_stat), 4),
+                "ks_pvalue": round(float(ks_pvalue), 4)
             },
             "latency_and_throughput": {
                 "hotpath_p50_latency_ms": p50_hotpath,

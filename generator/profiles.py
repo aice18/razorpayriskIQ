@@ -8,6 +8,7 @@ import hashlib
 
 PAYMENT_METHODS = ["UPI_VPA", "UPI_INTENT", "CARD_CREDIT", "CARD_DEBIT", "NETBANKING"]
 UPI_HANDLES = ["@okhdfcbank", "@oksbi", "@okicici", "@okaxis", "@paytm", "@ybl", "@ibl"]
+DISPOSABLE_UPI_HANDLES = ["@tempupi", "@freecharge_bot", "@disposable_pay", "@burner_vpa"]
 
 MERCHANT_CATEGORIES = {
     "merch_gaming_01": "GAMING_CRYPTO",

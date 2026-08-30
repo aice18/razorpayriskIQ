@@ -1,11 +1,12 @@
 """
 Specialized Investigation Tools for Autonomous ReAct Risk Agent.
 Enables active retrieval of entity topology, merchant baselines, velocity curves,
-and device intelligence without hallucination.
+UPI deep intelligence, and device profiling without hallucination.
 """
 
 from typing import Dict, Any, List, Optional
 import numpy as np
+
 
 class EntityGraphTool:
     """Tool for deep inspection of entity relationships and abuse rings."""
@@ -36,6 +37,7 @@ class EntityGraphTool:
             )
         }
 
+
 class MerchantProfileTool:
     """Tool for inspecting merchant risk baselines, category chargebacks, and ticket ratios."""
     name = "inspect_merchant_profile"
@@ -45,11 +47,11 @@ class MerchantProfileTool:
         merchant_id = txn["merchant_id"]
         amount = float(txn["amount"])
 
-        # Simulated merchant risk profiling
-        is_high_risk_category = merchant_id in ("merch_crypto_01", "merch_gaming_02", "merch_electronics_04")
-        merchant_avg_ticket = 3500.0 if "crypto" in merchant_id else 1800.0
+        # Merchant category profiling
+        is_high_risk_category = merchant_id in ("merch_crypto_01", "merch_gaming_02", "merch_crypto_02", "merch_gaming_01")
+        merchant_avg_ticket = 3500.0 if "crypto" in merchant_id or "gaming" in merchant_id else 1800.0
         amount_ratio = round(amount / merchant_avg_ticket, 2)
-        chargeback_rate_bps = 145 if is_high_risk_category else 12  # basis points
+        chargeback_rate_bps = 145 if is_high_risk_category else 15
 
         return {
             "tool": self.name,
@@ -61,6 +63,7 @@ class MerchantProfileTool:
                 f"Transaction amount is {amount_ratio}x of merchant benchmark. Chargeback baseline: {chargeback_rate_bps} bps."
             )
         }
+
 
 class VelocityAnomalyTool:
     """Tool for analyzing temporal velocity spikes and spend z-scores."""
@@ -93,6 +96,7 @@ class VelocityAnomalyTool:
             )
         }
 
+
 class DeviceIntelligenceTool:
     """Tool for analyzing device fingerprint consistency, IP ASN risk, and geo-travel."""
     name = "inspect_device_and_geo"
@@ -118,5 +122,37 @@ class DeviceIntelligenceTool:
                 f"Geo mismatch: Originating country '{txn_geo}' differs from home country '{home_geo}'. New device: {is_new_dev}."
                 if has_geo_mismatch
                 else f"Domestic payment from {home_geo}. Device first-seen: {is_new_dev}."
+            )
+        }
+
+
+class UPIIntelligenceTool:
+    """Tool for analyzing UPI VPA handle anomalies, SIM binding verification, and payment mode risk."""
+    name = "inspect_upi_profile"
+    description = "Evaluates UPI VPA handle safety, SIM binding verification status, and Intent/QR channel."
+
+    def execute(self, txn: Dict[str, Any], features: Dict[str, Any]) -> Dict[str, Any]:
+        vpa = txn.get("upi_vpa")
+        payment_method = txn.get("payment_method", "CARD_CREDIT")
+        vpa_risk = features.get("vpa_handle_risk", 0.0)
+        sim_bound = features.get("device_sim_bound", 1.0) > 0
+        is_qr = features.get("is_qr_intent", 0.0) > 0
+
+        is_high_risk_vpa = vpa_risk >= 0.50 or not sim_bound
+
+        return {
+            "tool": self.name,
+            "payment_method": payment_method,
+            "upi_vpa": vpa,
+            "vpa_handle_risk": vpa_risk,
+            "device_sim_bound": sim_bound,
+            "is_qr_intent": is_qr,
+            "is_high_risk_upi": is_high_risk_vpa,
+            "assessment": (
+                f"High-risk UPI pattern: VPA '{vpa}' risk {vpa_risk:.2f}, SIM binding: {sim_bound}."
+                if is_high_risk_vpa and "UPI" in payment_method
+                else f"Verified UPI handle '{vpa}' with valid hardware SIM binding."
+                if "UPI" in payment_method
+                else "Non-UPI payment channel."
             )
         }

@@ -9,7 +9,7 @@ import time
 import hashlib
 from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Any, Optional
-from generator.profiles import EntityPool, MERCHANT_CATEGORIES, PAYMENT_METHODS
+from generator.profiles import EntityPool, MERCHANT_CATEGORIES, PAYMENT_METHODS, DISPOSABLE_UPI_HANDLES
 
 
 class TransactionGenerator:
@@ -132,7 +132,23 @@ class TransactionGenerator:
             attack_vector = "LEGITIMATE_SPIKE"
 
         home_country = self.pool.customer_home_country.get(customer_id, "IN")
-        upi_vpa = self.pool.customer_upi_handle.get(customer_id, f"{customer_id}@okhdfcbank") if "UPI" in payment_method else None
+        
+        # UPI deep profiling signals
+        if "UPI" in payment_method:
+            if pattern in ("CARD_TESTING_BOT", "SYNTHETIC_RING", "ACCOUNT_TAKEOVER_ATO") and random.random() < 0.6:
+                upi_vpa = f"bot_{random.randint(100, 999)}{random.choice(DISPOSABLE_UPI_HANDLES)}"
+                vpa_handle_risk = 0.85
+                device_sim_bound = False
+            else:
+                upi_vpa = self.pool.customer_upi_handle.get(customer_id, f"{customer_id}@okhdfcbank")
+                vpa_handle_risk = 0.05
+                device_sim_bound = True
+            is_qr_intent = (payment_method == "UPI_INTENT")
+        else:
+            upi_vpa = None
+            vpa_handle_risk = 0.0
+            device_sim_bound = True
+            is_qr_intent = False
 
         return {
             "transaction_id": txn_id,
@@ -144,6 +160,9 @@ class TransactionGenerator:
             "merchant_category": merchant_cat,
             "payment_method": payment_method,
             "upi_vpa": upi_vpa,
+            "vpa_handle_risk": vpa_handle_risk,
+            "is_qr_intent": is_qr_intent,
+            "device_sim_bound": device_sim_bound,
             "device_id": device_id,
             "ip_address_hash": ip_hash,
             "card_fingerprint": card_fp,

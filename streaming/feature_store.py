@@ -54,7 +54,7 @@ class FeatureStore:
         self.redis_host = redis_host or os.environ.get("REDIS_HOST", "localhost")
         self.redis_port = int(redis_port or os.environ.get("REDIS_PORT", 6379))
         self.redis_client = None
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
 
         # Connect to Redis if configured & available
         if redis is not None and (os.environ.get("USE_REDIS", "false").lower() in ("true", "1") or os.environ.get("REDIS_HOST")):
@@ -179,6 +179,11 @@ class FeatureStore:
             home_country = txn.get("customer_home_country", "IN")
             geo_deviation = 1.0 if geo_country != home_country else 0.0
 
+            # UPI and SIM binding intelligence
+            vpa_handle_risk = float(txn.get("vpa_handle_risk", 0.0))
+            is_qr_intent = 1.0 if txn.get("is_qr_intent") else 0.0
+            device_sim_bound = 1.0 if txn.get("device_sim_bound", True) else 0.0
+
             return {
                 "velocity_1m": float(v1m),
                 "velocity_5m": float(v5m),
@@ -189,7 +194,10 @@ class FeatureStore:
                 "is_new_device": is_new_device,
                 "is_new_ip": is_new_ip,
                 "is_new_card": is_new_card,
-                "geo_deviation": geo_deviation
+                "geo_deviation": geo_deviation,
+                "vpa_handle_risk": vpa_handle_risk,
+                "is_qr_intent": is_qr_intent,
+                "device_sim_bound": device_sim_bound
             }
 
     def _compute_redis(
@@ -262,6 +270,11 @@ class FeatureStore:
         home_country = txn.get("customer_home_country", "IN")
         geo_deviation = 1.0 if geo_country != home_country else 0.0
 
+        # UPI and SIM binding intelligence
+        vpa_handle_risk = float(txn.get("vpa_handle_risk", 0.0))
+        is_qr_intent = 1.0 if txn.get("is_qr_intent") else 0.0
+        device_sim_bound = 1.0 if txn.get("device_sim_bound", True) else 0.0
+
         return {
             "velocity_1m": v1m,
             "velocity_5m": v5m,
@@ -272,7 +285,10 @@ class FeatureStore:
             "is_new_device": is_new_device,
             "is_new_ip": is_new_ip,
             "is_new_card": is_new_card,
-            "geo_deviation": geo_deviation
+            "geo_deviation": geo_deviation,
+            "vpa_handle_risk": vpa_handle_risk,
+            "is_qr_intent": is_qr_intent,
+            "device_sim_bound": device_sim_bound
         }
 
     def clear(self):

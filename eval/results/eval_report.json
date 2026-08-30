@@ -2,8 +2,8 @@
   "dataset_summary": {
     "total_events_processed": 2500,
     "heldout_events_evaluated": 750,
-    "fraud_count_in_holdout": 102,
-    "normal_count_in_holdout": 648
+    "fraud_count_in_holdout": 91,
+    "normal_count_in_holdout": 659
   },
   "performance_metrics": {
     "precision": 1.0,
@@ -14,83 +14,89 @@
     "false_positive_rate": 0.0,
     "false_positive_count": 0,
     "false_negative_count": 0,
-    "true_positive_count": 102,
-    "true_negative_count": 648,
+    "true_positive_count": 91,
+    "true_negative_count": 659,
     "estimated_fp_cost_inr": 0.0,
     "fp_cost_unit_assumption_inr": 500.0,
     "ring_detection_recall": 1.0,
     "rings_injected": 6,
     "rings_detected": 6
   },
+  "drift_and_stability": {
+    "psi_score": 0.0092,
+    "psi_status": "STABLE",
+    "ks_statistic": 0.0375,
+    "ks_pvalue": 0.4406
+  },
   "latency_and_throughput": {
-    "hotpath_p50_latency_ms": 8.31,
-    "hotpath_p95_latency_ms": 9.86,
-    "hotpath_p99_latency_ms": 12.22,
-    "agent_investigation_p95_ms": 0.29,
-    "throughput_events_per_sec": 100.1
+    "hotpath_p50_latency_ms": 10.37,
+    "hotpath_p95_latency_ms": 12.15,
+    "hotpath_p99_latency_ms": 13.76,
+    "agent_investigation_p95_ms": 0.34,
+    "throughput_events_per_sec": 85.2
   },
   "slices": {
     "payment_methods": {
+      "CARD_CREDIT": {
+        "total": 156,
+        "fraud": 57,
+        "detected": 57,
+        "recall": 1.0
+      },
       "UPI_VPA": {
         "total": 298,
-        "fraud": 17,
-        "detected": 17,
+        "fraud": 13,
+        "detected": 13,
+        "recall": 1.0
+      },
+      "UPI_INTENT": {
+        "total": 192,
+        "fraud": 10,
+        "detected": 10,
         "recall": 1.0
       },
       "CARD_DEBIT": {
-        "total": 68,
+        "total": 69,
         "fraud": 0,
         "detected": 0,
         "recall": 1.0
       },
-      "UPI_INTENT": {
-        "total": 191,
-        "fraud": 12,
-        "detected": 12,
-        "recall": 1.0
-      },
-      "CARD_CREDIT": {
-        "total": 160,
-        "fraud": 65,
-        "detected": 65,
-        "recall": 1.0
-      },
       "NETBANKING": {
-        "total": 33,
-        "fraud": 8,
-        "detected": 8,
+        "total": 35,
+        "fraud": 11,
+        "detected": 11,
         "recall": 1.0
       }
     },
     "merchant_categories": {
-      "UTILITY_BILLPAY": {
-        "total": 161,
-        "fraud": 19,
-        "detected": 19,
-        "recall": 1.0
-      },
-      "FOOD_GROCERY": {
-        "total": 185,
-        "fraud": 26,
-        "detected": 26,
+      "LUXURY_JEWELRY": {
+        "total": 94,
+        "fraud": 9,
+        "detected": 9,
         "recall": 1.0
       },
       "ECOMMERCE_RETAIL": {
-        "total": 158,
+        "total": 148,
+        "fraud": 17,
+        "detected": 17,
+        "recall": 1.0
+      },
+      "UTILITY_BILLPAY": {
+        "total": 163,
+        "fraud": 22,
+        "detected": 22,
+        "recall": 1.0
+      },
+      "FOOD_GROCERY": {
+        "total": 175,
         "fraud": 22,
         "detected": 22,
         "recall": 1.0
       },
       "GAMING_CRYPTO": {
-        "total": 163,
-        "fraud": 24,
-        "detected": 24,
-        "recall": 1.0
-      },
-      "LUXURY_JEWELRY": {
-        "total": 83,
-        "fraud": 11,
-        "detected": 11,
+        "total": 170,
+        "fraud": 21,
+        "detected": 21,
         "recall": 1.0
       }
     }

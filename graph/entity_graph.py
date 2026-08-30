@@ -1,10 +1,12 @@
 """
 Production-Grade Hybrid Entity Graph Store for Razorpay RiskIQ Sentinel.
 Combines sub-2ms Redis Adjacency Set indexing for hot-path degree centrality
-with bounded multi-hop NetworkX community & ring extraction for deep investigation.
+with log-degree inverse edge weighting (mega-hub dampening) and bounded multi-hop
+NetworkX community & ring extraction for deep investigation.
 """
 
 import os
+import math
 import threading
 from typing import Dict, List, Any, Set, Tuple, Optional
 from collections import defaultdict, deque
@@ -23,14 +25,15 @@ class EntityGraph:
     """
     Hybrid Graph Engine:
     1. Hot-Path: Redis Adjacency Sets (or local fast-lookup sets) for O(1) degree metrics and hub dampening.
-    2. Deep Path: Bounded NetworkX subgraph extractor for community/ring detection and UI visualization.
+    2. Log-Degree Edge Weighting: W = 1 / log2(2 + degree) to prevent public Wi-Fi/NAT false positive rings.
+    3. Deep Path: Bounded NetworkX subgraph extractor for community/ring detection and UI visualization.
     """
     
     def __init__(self, max_hub_degree: int = 150, redis_host: Optional[str] = None, redis_port: Optional[int] = None):
         self.max_hub_degree = max_hub_degree
         self.graph = nx.Graph()
         self.node_types: Dict[str, str] = {}
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
 
         # In-memory entity indices
         self.device_customers: Dict[str, Set[str]] = defaultdict(set)
@@ -81,11 +84,11 @@ class EntityGraph:
             self.graph.add_node(card, node_type="card")
             self.graph.add_node(merchant, node_type="merchant")
 
-            # Add topology edges
-            self.graph.add_edge(customer, device, relation="USED_DEVICE")
-            self.graph.add_edge(customer, card, relation="USED_CARD")
-            self.graph.add_edge(device, ip, relation="SEEN_ON_IP")
-            self.graph.add_edge(customer, merchant, relation="PAID_MERCHANT")
+            # Add topology edges with base weights
+            self.graph.add_edge(customer, device, relation="USED_DEVICE", weight=1.0)
+            self.graph.add_edge(customer, card, relation="USED_CARD", weight=1.0)
+            self.graph.add_edge(device, ip, relation="SEEN_ON_IP", weight=0.8)
+            self.graph.add_edge(customer, merchant, relation="PAID_MERCHANT", weight=0.2)
 
             # Update in-memory sets with mega-hub dampening
             if len(self.device_customers[device]) < self.max_hub_degree:
@@ -114,13 +117,17 @@ class EntityGraph:
 
     def get_entity_metrics(self, customer_id: str, device_id: str, ip_hash: str, card_fp: str) -> Dict[str, Any]:
         """
-        Extracts bounded topological graph metrics in sub-2ms.
-        Uses BFS with bounded 2-hop neighborhood expansion.
+        Extracts bounded topological graph metrics in sub-2ms with inverse log-degree weighting.
         """
         with self._lock:
             deg_dev = len(self.device_customers.get(device_id, set()))
             deg_ip = len(self.ip_customers.get(ip_hash, set()))
             deg_card = len(self.card_customers.get(card_fp, set()))
+
+            # Log-degree dampening factors for mega-hubs (e.g. public Wi-Fi or carrier NAT IPs)
+            # W = 1 / log2(2 + k)
+            ip_dampener = 1.0 / math.log2(2.0 + max(deg_ip - 1, 0))
+            dev_dampener = 1.0 if deg_dev < 15 else 1.0 / math.log2(2.0 + deg_dev)
 
             connected_customers: Set[str] = set()
             connected_customers.add(customer_id)
@@ -143,8 +150,17 @@ class EntityGraph:
                             break
 
             component_size = len(connected_customers)
+            
+            # Dampened ring classification & density score
             is_ring = (deg_dev >= 4) or (component_size >= 8 and deg_dev >= 3) or (deg_card >= 3)
-            ring_density_score = round(min(1.0, (deg_dev * 0.25 + deg_card * 0.35 + component_size * 0.05) / 3.0), 3)
+            
+            raw_density = (
+                deg_dev * dev_dampener * 0.35 +
+                deg_card * 0.40 +
+                min(component_size, 20) * 0.04 +
+                min(deg_ip, 10) * ip_dampener * 0.10
+            )
+            ring_density_score = round(min(1.0, raw_density / 2.5), 3)
 
             return {
                 "entity_degree_device": deg_dev,
@@ -153,6 +169,7 @@ class EntityGraph:
                 "component_size": component_size,
                 "is_ring_suspect": is_ring,
                 "ring_density_score": ring_density_score,
+                "ip_dampener": round(ip_dampener, 3),
                 "connected_customers": list(connected_customers)[:25]
             }
 
@@ -201,7 +218,8 @@ class EntityGraph:
                 edges.append({
                     "source": u,
                     "target": v,
-                    "relation": data.get("relation", "CONNECTED")
+                    "relation": data.get("relation", "CONNECTED"),
+                    "weight": data.get("weight", 1.0)
                 })
 
             return {"nodes": nodes, "edges": edges}
