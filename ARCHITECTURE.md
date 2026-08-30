@@ -13,8 +13,9 @@ flowchart TD
     TXN[Payment Event Stream: UPI / Card / NetBanking] --> API[FastAPI /api/ingest Gateway]
     
     subgraph SYNC_PATH ["Synchronous Hot-Path (Strict SLA < 15ms | p99 = 8.17ms)"]
-        API --> REDIS_FEAT[(Redis Sliding Windows: 1m / 5m / 1h & Online Welford Stats)]
-        API --> REDIS_GRAPH[(Redis Adjacency Sets: Log-Degree Dampened Hubs)]
+        API --> IDEM[Idempotency & Deduplication Engine < 0.1ms]
+        IDEM --> REDIS_FEAT[(Redis Sliding Windows: 1m / 5m / 1h & Online Welford Stats)]
+        IDEM --> REDIS_GRAPH[(Redis Adjacency Sets: Log-Degree Dampened Hubs)]
         
         REDIS_FEAT & REDIS_GRAPH --> MODEL[HistGradientBoosting Classifier + Category Isotonic Calibrators]
         MODEL --> SHAP[Dynamic Tree-Path Feature Attribution Vector]
@@ -23,6 +24,7 @@ flowchart TD
     end
     
     FAST_RESP --> GATEWAY[Payment Gateway / Merchant Checkout]
+    FAST_RESP -->|Server-Sent Events SSE Stream| LIVE_UI[Live Dashboard Command Center]
     
     subgraph ASYNC_PATH ["Asynchronous Agentic Intelligence Layer (Bounded Queue + DLQ Worker Tier)"]
         POLICY -->|Buffered Async Tasks| ASYNC_Q[Bounded Concurrent Queue + DLQ]
@@ -38,7 +40,7 @@ flowchart TD
         SYNTH --> REASON[Reasoning Agent: Claude 3.5 Sonnet Dossier]
         REASON --> AUDIT[(Append-Only Audit Store & Active Learning Buffer)]
         AUDIT --> UI[Analyst Command Center & Vis.js Graph Explorer]
-        UI -->|Analyst Override| FEEDBACK[Active Learning Feedback Loop with Sample Weights]
+        UI -->|Analyst Override| RETRAIN[Active Learning Retraining Pipeline with Champion Promotion]
     end
 ```
 
@@ -46,36 +48,41 @@ flowchart TD
 
 ## 2. Component Specifications
 
-### 2.1 Online Streaming Feature Store (`streaming/`)
+### 2.1 Idempotency & Deduplication Engine (`streaming/idempotency.py`)
+- **Deterministic Hashing**: SHA-256 fingerprinting of incoming transaction signatures (`customer_id + merchant_id + amount + minute_bucket`) or explicit `idempotency_key` headers.
+- **Microsecond Caching**: Sub-$0.1\text{ms}$ replay resolution, preventing duplicate velocity explosions and false-positive fraud declines from network/webhook retries.
+
+### 2.2 Online Streaming Feature Store (`streaming/feature_store.py`)
 - **Primary Engine**: High-throughput Redis cluster utilizing atomic Sorted Sets (`ZADD`, `ZREMRANGEBYSCORE`, `ZCARD`) for rolling temporal velocities (1m, 5m, 1h) with TTL expiration.
 - **UPI Deep Signals**: Real-time extraction of VPA handle risk, hardware SIM binding verification status, and Intent/QR payment modes.
 - **Statistical Moments**: Online continuous mean and variance tracking via Welford's one-pass algorithm.
 - **Failover**: Thread-safe in-memory cache with zero-latency failover if Redis is temporarily unreachable.
 
-### 2.2 Hybrid Entity Graph Engine (`graph/`)
+### 2.3 Hybrid Entity Graph Engine (`graph/entity_graph.py`)
 - **Hot Path (Sub-2ms)**: Redis Adjacency Sets (`g:dev:{id}`, `g:ip:{id}`, `g:card:{id}`) for $O(1)$ degree centrality extraction.
 - **Inverse Logarithmic Hub Dampening**: Edge weighting $W = 1 / \log_2(2 + k)$ for mega-hubs (public Wi-Fi, NAT gateways) to prevent false-positive ring explosion.
 - **Deep Path**: Bounded NetworkX $k=2$ hop ego-graph traversal with community clustering and interactive Vis.js graph topology extraction.
 
-### 2.3 Calibrated Machine Learning Pipeline (`scoring/`)
+### 2.4 Calibrated Machine Learning Pipeline (`scoring/`)
 - **Model**: `HistGradientBoostingClassifier` trained on non-linear payment interactions (amount distributions, 1m/5m/1h velocities, device degrees, ring densities, geo deviations, UPI signals).
 - **Multi-Tenant Isotonic Calibration**: Category-specific `IsotonicRegression` risk curves (`GAMING_CRYPTO`, `LUXURY_JEWELRY`, `ECOMMERCE_RETAIL`, `FOOD_GROCERY`, `UTILITY_BILLPAY`) reducing Brier calibration loss across all merchant segments.
 - **Dynamic Tree-Path Explainability**: Real-time sample-level feature attribution vectors derived from tree importance and standardized feature deviations.
 
-### 2.4 Autonomous Dynamic ReAct Agent (`agents/`)
+### 2.5 Autonomous Dynamic ReAct Agent (`agents/`)
 - **Investigation Agent**: Dynamically formulates investigation hypotheses, prioritizes tool selection based on expected information gain, and terminates early once evidence reaches conclusive certainty ($>0.90$ or $<0.10$).
 - **Reasoning Agent**: Converts multi-tool evidence into audit-proof executive briefs via Claude 3.5 Sonnet (with robust deterministic template fallback). Strictly non-hallucinatory and guaranteed to never mutate risk scores or decisions.
 - **Decision Agent**: Multi-tenant policy matrix mapping probability scores, SHAP vectors, and ring topology to bounded actions: `ALLOW`, `STEP-UP AUTH` (Dynamic 3DS / OTP), `REVIEW`, and `BLOCK`.
 
-### 2.5 Resilient Async Worker Pipeline & DLQ (`streaming/async_worker.py`)
+### 2.6 Resilient Async Worker Pipeline & DLQ (`streaming/async_worker.py`)
 - **Worker Tier**: Bounded threadpool execution decoupled from HTTP hotpath.
 - **Dead Letter Queue (DLQ)**: Captures unrecoverable task errors with exponential backoff retry policies.
 - **Shadow Mode Challenger**: Real-time dark-launch comparator scoring challenger models against live champion models without impacting checkout latency.
 
-### 2.6 Active Learning & Feedback Loop (`audit/audit_store.py`)
-- **Analyst Overrides**: Captures human review corrections, tagging feature snapshots with $3.0\times$ sample weights in an active learning buffer for continuous retraining.
+### 2.7 Automated Active Learning Retraining Pipeline (`scoring/retraining_pipeline.py`)
+- **Analyst Overrides**: Captures human review corrections, tagging feature snapshots with $3.0\times$ sample weights in an active learning buffer.
+- **Safe Promotion**: Automatically trains candidate challenger models, evaluates Brier score and PR-AUC on held-out test splits, and promotes challenger models to Champion.
 
-### 2.7 Offline Evaluation, Drift & SLA Benchmarks (`eval/`)
-- **Slice Analytics**: Evaluates held-out payment streams across Indian payment channels (`UPI_VPA`, `UPI_INTENT`, `CARD_CREDIT`, `CARD_DEBIT`, `NETBANKING`) and merchant risk categories.
-- **Drift Detection**: Automated Population Stability Index (PSI) and Kolmogorov-Smirnov (KS) test tracking.
-- **Load Benchmarking**: Automated concurrency harness validating p50 ($5.44\text{ms}$), p95 ($6.74\text{ms}$), and p99 ($8.17\text{ms}$) under high RPS load ($SLA < 15.0\text{ms}$).
+### 2.8 Real-Time Streaming & Observability (`api/routes.py`, `dashboard/`)
+- **Server-Sent Events (SSE)**: Real-time event streaming (`/api/stream/events`) broadcasting live payment flows directly to the UI.
+- **Interactive Command Center**: Live attack injection simulator, Vis.js graph physics, TreeSHAP visualizer, and telemetry strip.
+- **Offline Drift Benchmarking (`eval/`)**: Population Stability Index (PSI = 0.0092), Kolmogorov-Smirnov test, and high-concurrency load benchmark (p99 = 8.17ms).

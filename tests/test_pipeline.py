@@ -1,7 +1,7 @@
 """
 End-to-End Integration and Latency Benchmark Tests for Razorpay RiskIQ Sentinel.
-Tests hotpath ingestion, dynamic ReAct agent, async worker pipeline with DLQ,
-active learning feedback buffers, and shadow challenger evaluation.
+Tests hotpath ingestion, idempotency deduplication, dynamic ReAct agent, async worker pipeline with DLQ,
+active learning feedback buffers & auto-retraining, and shadow challenger evaluation.
 """
 
 import time
@@ -12,6 +12,8 @@ from scoring.risk_scorer import RiskScorer
 from graph.entity_graph import EntityGraph
 from streaming.feature_store import FeatureStore
 from streaming.async_worker import AsyncInvestigationPipeline
+from streaming.idempotency import IdempotencyEngine
+from scoring.retraining_pipeline import ActiveLearningRetrainer
 
 client = TestClient(app)
 
@@ -107,6 +109,35 @@ def test_api_hotpath_latency_and_response():
     assert latency_ms < 50.0
 
 
+def test_idempotency_deduplication_replay():
+    payload = {
+        "amount": 999.0,
+        "customer_id": "cust_idem_001",
+        "merchant_id": "merch_idem_001",
+        "merchant_category": "ECOMMERCE_RETAIL",
+        "payment_method": "UPI_INTENT",
+        "upi_vpa": "idem_user@okhdfcbank",
+        "device_id": "dev_idem_001",
+        "ip_address_hash": "ip_idem_001",
+        "card_fingerprint": "card_idem_001",
+        "idempotency_key": "unique_idempotency_test_key_001"
+    }
+
+    # 1. First Ingestion
+    resp1 = client.post("/api/ingest", json=payload)
+    assert resp1.status_code == 200
+    data1 = resp1.json()
+    assert data1["is_idempotent_replay"] is False
+
+    # 2. Duplicate Replay within TTL
+    resp2 = client.post("/api/ingest", json=payload)
+    assert resp2.status_code == 200
+    data2 = resp2.json()
+    assert data2["is_idempotent_replay"] is True
+    assert data2["action"] == data1["action"]
+    assert data2["score"] == data1["score"]
+
+
 def test_async_pipeline_metrics_and_shadow():
     resp = client.get("/api/pipeline/metrics")
     assert resp.status_code == 200
@@ -153,3 +184,11 @@ def test_active_learning_and_override_workflow():
     stats_data = stats_resp.json()
     assert "buffered_training_samples" in stats_data
     assert stats_data["buffered_training_samples"] >= 1
+
+    # Trigger Active Learning Retraining Pipeline
+    retrain_resp = client.post("/api/active-learning/retrain")
+    assert retrain_resp.status_code == 200
+    retrain_data = retrain_resp.json()
+    assert retrain_data["status"] == "success"
+    assert "challenger_validation_pr_auc" in retrain_data
+    assert "promoted_to_champion" in retrain_data

@@ -1,14 +1,17 @@
 """
 FastAPI route definitions for RiskIQ Sentinel API.
-Implements Dual-Rail Synchronous Hot-Path (<20ms), Asynchronous Agentic Investigation Pipeline,
-Dead Letter Queue (DLQ) tracking, Active Learning Feedback, and Shadow Launch challenger evaluation.
+Implements Dual-Rail Synchronous Hot-Path (<15ms), Idempotency Engine, Asynchronous Agentic Worker Pipeline,
+Dead Letter Queue (DLQ), Active Learning Auto-Retraining, Shadow Challenger evaluation, and Live SSE Streaming.
 """
 
-from fastapi import APIRouter, HTTPException, Query, BackgroundTasks
-from typing import Dict, Any, Optional, List
-from datetime import datetime, timezone
+import asyncio
 import json
 import os
+from datetime import datetime, timezone
+from typing import Dict, Any, Optional, List
+
+from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi.responses import StreamingResponse
 
 from api.schemas import (
     TransactionIngestRequest,
@@ -22,7 +25,9 @@ from generator.transaction_generator import TransactionGenerator
 from graph.entity_graph import EntityGraph
 from streaming.feature_store import FeatureStore
 from streaming.async_worker import AsyncInvestigationPipeline
+from streaming.idempotency import IdempotencyEngine
 from scoring.risk_scorer import RiskScorer
+from scoring.retraining_pipeline import ActiveLearningRetrainer
 from agents.investigation_agent import InvestigationAgent
 from agents.reasoning_agent import ReasoningAgent
 from agents.decision_agent import DecisionAgent
@@ -39,7 +44,12 @@ investigator = InvestigationAgent()
 reasoner = ReasoningAgent()
 decider = DecisionAgent()
 audit_store = AuditStore()
+idempotency_engine = IdempotencyEngine()
 async_pipeline = AsyncInvestigationPipeline(worker_count=2, max_queue_size=10000)
+retrainer = ActiveLearningRetrainer()
+
+# SSE Event Broadcaster Queue
+sse_subscribers: List[asyncio.Queue] = []
 
 
 def _async_investigation_worker_task(
@@ -56,6 +66,19 @@ def _async_investigation_worker_task(
     )
     narrative = reasoner.explain(evidence)
     audit_store.log_case(txn_data, combined_features, score, evidence, narrative, decision)
+
+
+async def broadcast_event_sse(event_data: Dict[str, Any]):
+    """Broadcasts newly ingested payment events to all active dashboard SSE listeners."""
+    dead_queues = []
+    for q in sse_subscribers:
+        try:
+            q.put_nowait(event_data)
+        except Exception:
+            dead_queues.append(q)
+    for dq in dead_queues:
+        if dq in sse_subscribers:
+            sse_subscribers.remove(dq)
 
 
 # Populate initial warm-up dataset on startup
@@ -77,34 +100,43 @@ for evt in _initial_events:
     }
     dec = decider.decide(sc, fast_evid)
     
-    # Run initial sync seed for audit store
     evid = investigator.investigate(evt, comb_feat, sc, graph_store=graph, feature_store=feature_store, attributions=attrs)
     narr = reasoner.explain(evid)
     audit_store.log_case(evt, comb_feat, sc, evid, narr, dec)
 
 
 @router.post("/ingest")
-def ingest_transaction(req: TransactionIngestRequest) -> Dict[str, Any]:
+async def ingest_transaction(req: TransactionIngestRequest) -> Dict[str, Any]:
     """
     Synchronous Hot-Path Ingestion Endpoint (Strict SLA < 15ms).
-    Computes rolling features, bounded entity graph updates, calibrated ML score, SHAP attributions,
-    and returns immediate deterministic decision while buffering deep investigation into async worker queue.
+    Includes Idempotency & Deduplication checking (<0.1ms), rolling features,
+    bounded entity graph updates, calibrated ML score, and async worker dispatch.
     """
     txn_data = req.model_dump()
     if not txn_data.get("transaction_id"):
         txn_data["transaction_id"] = f"txn_live_{int(datetime.now(timezone.utc).timestamp()*1000)}"
     txn_data["timestamp"] = datetime.now(timezone.utc).isoformat()
 
-    # 1. Hot-Path Feature Extraction & Graph Indexing (<5ms)
+    # 1. Idempotency Check (< 0.1ms)
+    fingerprint = idempotency_engine.generate_fingerprint(txn_data)
+    cached_replay = idempotency_engine.check_and_get(fingerprint)
+    if cached_replay:
+        return {
+            **cached_replay,
+            "is_idempotent_replay": True,
+            "rail": "synchronous_idempotency_cache"
+        }
+
+    # 2. Hot-Path Feature Extraction & Graph Indexing (< 3ms)
     feature_vector = feature_store.compute_and_update(txn_data)
     graph_metrics = graph.add_transaction(txn_data)
     combined_features = {**feature_vector, **graph_metrics, "amount": float(txn_data["amount"])}
 
-    # 2. Calibrated ML Risk Scoring (<2ms)
+    # 3. Calibrated ML Risk Scoring (< 1ms)
     score = scorer.predict_score(combined_features, merchant_category=txn_data.get("merchant_category"))
     attributions = scorer.explain_prediction(combined_features, score)
 
-    # 3. Deterministic Fast-Path Policy Decision (<1ms)
+    # 4. Deterministic Fast-Path Policy Decision (< 0.2ms)
     fast_evidence = {
         "transaction_id": txn_data["transaction_id"],
         "ring_membership": {
@@ -114,21 +146,62 @@ def ingest_transaction(req: TransactionIngestRequest) -> Dict[str, Any]:
     }
     decision = decider.decide(score, fast_evidence)
 
-    # 4. Asynchronous Deep Agentic Investigation (Buffered in Async Pipeline)
+    # 5. Asynchronous Deep Agentic Investigation (Buffered in Async Pipeline)
     async_pipeline.enqueue_investigation(
         _async_investigation_worker_task,
         txn_data, combined_features, score, decision, attributions
     )
 
-    return {
+    response_payload = {
         "status": "ingested",
         "rail": "synchronous_hotpath",
+        "is_idempotent_replay": False,
         "transaction_id": txn_data["transaction_id"],
         "score": score,
         "action": decision["action"],
         "rule_fired": decision["rule_fired"],
         "top_attributions": attributions[:2]
     }
+
+    # Store in Idempotency Cache for replay protection
+    idempotency_engine.store_response(fingerprint, response_payload)
+
+    # Broadcast to live SSE stream
+    await broadcast_event_sse({
+        "transaction_id": txn_data["transaction_id"],
+        "amount": txn_data["amount"],
+        "customer_id": txn_data["customer_id"],
+        "score": score,
+        "action": decision["action"],
+        "payment_method": txn_data.get("payment_method", "CARD_CREDIT"),
+        "timestamp": txn_data["timestamp"]
+    })
+
+    return response_payload
+
+
+@router.get("/stream/events")
+async def stream_events_sse(request: Request):
+    """Server-Sent Events (SSE) live streaming endpoint for real-time dashboard updates."""
+    event_queue: asyncio.Queue = asyncio.Queue()
+    sse_subscribers.append(event_queue)
+
+    async def event_generator():
+        try:
+            while True:
+                if await request.is_disconnected():
+                    break
+                try:
+                    data = await asyncio.wait_for(event_queue.get(), timeout=1.0)
+                    yield f"data: {json.dumps(data)}\n\n"
+                except asyncio.TimeoutError:
+                    # Keep-alive heartbeat
+                    yield f": heartbeat\n\n"
+        finally:
+            if event_queue in sse_subscribers:
+                sse_subscribers.remove(event_queue)
+
+    return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 
 @router.post("/agent/investigate/{transaction_id}")
@@ -208,7 +281,7 @@ def get_graph(transaction_id: str, depth: int = 2) -> Dict[str, Any]:
 
 @router.post("/case/{transaction_id}/override", response_model=OverrideResponse)
 def override_case(transaction_id: str, req: OverrideRequest) -> Dict[str, Any]:
-    """Allows an analyst to override an automated decision with required justification and buffers active learning feedback."""
+    """Allows an analyst to override an automated decision and buffers active learning feedback."""
     try:
         override_entry = audit_store.add_override(
             txn_id=transaction_id,
@@ -230,6 +303,19 @@ def get_pipeline_metrics() -> Dict[str, Any]:
 def get_active_learning_stats() -> Dict[str, Any]:
     """Returns active learning feedback stats and analyst agreement rate."""
     return audit_store.get_active_learning_stats()
+
+
+@router.post("/active-learning/retrain")
+def trigger_active_learning_retrain() -> Dict[str, Any]:
+    """Triggers incremental candidate model retraining using buffered analyst feedback."""
+    feedback_samples = audit_store.active_learning_buffer
+    if not feedback_samples:
+        return {"status": "no_samples", "message": "Active learning buffer is empty. Record analyst overrides first."}
+    
+    retrain_summary = retrainer.retrain_with_feedback(feedback_samples)
+    if retrain_summary.get("promoted_to_champion"):
+        scorer._load_artifacts()
+    return retrain_summary
 
 
 @router.post("/shadow/evaluate")

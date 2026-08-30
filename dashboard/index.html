@@ -133,7 +133,7 @@
     }
     .telemetry-items {
       display: flex;
-      gap: 24px;
+      gap: 20px;
       align-items: center;
     }
     .telemetry-val {
@@ -216,6 +216,15 @@
     }
     .sim-btn:hover {
       background: var(--accent-blue);
+      color: #FFF;
+    }
+    .sim-btn-idempotent {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #34D399;
+    }
+    .sim-btn-idempotent:hover {
+      background: #10B981;
       color: #FFF;
     }
 
@@ -478,7 +487,8 @@
       <div><span>Queue Buffer:</span> <span class="telemetry-val" id="tel-queue">0 / 10,000</span></div>
       <div><span>DLQ Errors:</span> <span class="telemetry-val" id="tel-dlq" style="color:#10B981;">0</span></div>
       <div><span>Hot-Path SLA (p99):</span> <span class="telemetry-val" id="tel-sla" style="color:#10B981;">8.17 ms</span></div>
-      <div><span>Active Learning Feedback:</span> <span class="telemetry-val" id="tel-al">0 Samples</span></div>
+      <div><span>Active Learning:</span> <span class="telemetry-val" id="tel-al">0 Samples</span></div>
+      <div><span>SSE Stream:</span> <span class="telemetry-val" id="tel-sse" style="color:#10B981;">● CONNECTED</span></div>
     </div>
     <div><span>Concept Drift (PSI):</span> <span class="telemetry-val" id="tel-psi">0.0092 (STABLE)</span></div>
   </div>
@@ -488,13 +498,14 @@
     <div id="feed-tab" class="tab-content active">
       <!-- Fast Ingestion Simulator Strip -->
       <div class="simulator-bar">
-        <div style="font-size:0.80rem; font-weight:600; color:#94A3B8;">⚡ Live Attack Vector Injection:</div>
+        <div style="font-size:0.80rem; font-weight:600; color:#94A3B8;">⚡ Live Attack Injection:</div>
         <div style="display:flex; gap:8px;">
           <button class="sim-btn" onclick="injectSimulatorEvent('NORMAL')">+ Normal UPI</button>
           <button class="sim-btn" onclick="injectSimulatorEvent('CARD_TESTING_BOT')">+ Card Testing Bot</button>
           <button class="sim-btn" onclick="injectSimulatorEvent('ACCOUNT_TAKEOVER_ATO')">+ High-Value ATO</button>
           <button class="sim-btn" onclick="injectSimulatorEvent('SYNTHETIC_RING')">+ Abuse Ring Member</button>
           <button class="sim-btn" onclick="injectSimulatorEvent('AMBIGUOUS')">+ Ambiguous Surge</button>
+          <button class="sim-btn sim-btn-idempotent" onclick="injectIdempotentReplay()">🔁 Idempotent Replay</button>
         </div>
       </div>
 
@@ -504,9 +515,9 @@
           <div class="card-header">
             <div class="card-title">
               <span style="display:inline-block; width:8px; height:8px; background:#10B981; border-radius:50%; box-shadow:0 0 8px #10B981;"></span>
-              Real-Time Ingestion Feed
+              Real-Time Ingestion Feed (SSE Live)
             </div>
-            <button onclick="fetchFeed()" class="btn-secondary" style="font-size:0.75rem; padding:4px 10px;">Refresh Stream</button>
+            <button onclick="fetchFeed()" class="btn-secondary" style="font-size:0.75rem; padding:4px 10px;">Refresh</button>
           </div>
           <div class="feed-list" id="feed-container">
             <div style="color:var(--text-muted); text-align:center; padding:2rem;">Loading stream...</div>
@@ -549,11 +560,14 @@
     <div id="shadow-tab" class="tab-content">
       <div class="card">
         <div class="card-header">
-          <div class="card-title">Shadow Mode Challenger Model Evaluation</div>
-          <button onclick="fetchShadowMetrics()" class="btn-secondary" style="font-size:0.75rem; padding:4px 10px;">Refresh Shadow Stats</button>
+          <div class="card-title">Shadow Mode Challenger & Active Learning Promotion</div>
+          <div style="display:flex; gap:8px;">
+            <button onclick="triggerRetraining()" class="btn-primary" style="font-size:0.75rem; padding:4px 12px;">Trigger Active Learning Retrain</button>
+            <button onclick="fetchShadowMetrics()" class="btn-secondary" style="font-size:0.75rem; padding:4px 10px;">Refresh Shadow Stats</button>
+          </div>
         </div>
         <div style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.6;">
-          Dark-launch evaluation running challenger ML models concurrently alongside live champion models. Divergences are buffered without impacting live checkout latencies.
+          Dark-launch evaluation running challenger ML models concurrently alongside live champion models. Active learning retrains challenger models with $3.0\times$ weighted human analyst overrides.
         </div>
         <div id="shadow-details-box" style="font-family:var(--font-mono); font-size:0.85rem; line-height:1.8; color:var(--text-muted);">
           Loading shadow launch metrics...
@@ -596,6 +610,29 @@
     const API_BASE = window.location.origin + "/api";
     let selectedTxnId = null;
     let networkGraph = null;
+    let lastInjectedPayload = null;
+
+    // Connect to Server-Sent Events (SSE) stream for live updates
+    function initSSE() {
+      if (!!window.EventSource) {
+        const source = new EventSource(`${API_BASE}/stream/events`);
+        source.onmessage = function(event) {
+          try {
+            const data = JSON.parse(event.data);
+            console.log("SSE New Event:", data);
+            fetchFeed();
+          } catch(e) {}
+        };
+        source.onerror = function() {
+          document.getElementById('tel-sse').innerText = "○ RECONNECTING";
+          document.getElementById('tel-sse').style.color = "#F59E0B";
+        };
+        source.onopen = function() {
+          document.getElementById('tel-sse').innerText = "● LIVE";
+          document.getElementById('tel-sse').style.color = "#10B981";
+        };
+      }
+    }
 
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -801,6 +838,7 @@
         if (res.ok) {
           alert("Override recorded and buffered into Active Learning loop.");
           selectCase(txnId);
+          fetchTelemetry();
         }
       } catch (err) {
         alert("Error submitting override: " + err);
@@ -877,6 +915,8 @@
       };
 
       const payload = sampleEvents[pattern];
+      lastInjectedPayload = payload;
+
       try {
         const res = await fetch(`${API_BASE}/ingest`, {
           method: 'POST',
@@ -890,6 +930,29 @@
         }
       } catch (err) {
         alert("Injection error: " + err);
+      }
+    }
+
+    async function injectIdempotentReplay() {
+      if (!lastInjectedPayload) {
+        alert("Inject a normal event first to test idempotent replay.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/ingest`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(lastInjectedPayload)
+        });
+        const data = await res.json();
+        if (data.is_idempotent_replay) {
+          alert(`⚡ IDEMPOTENT REPLAY DETECTED (< 0.1ms)!\nReturned cached decision '${data.action}' for transaction '${data.transaction_id}' without re-incrementing velocity counters.`);
+        } else {
+          alert("Ingested transaction: " + data.transaction_id);
+        }
+      } catch (err) {
+        alert("Replay error: " + err);
       }
     }
 
@@ -966,6 +1029,22 @@
       }
     }
 
+    async function triggerRetraining() {
+      try {
+        const res = await fetch(`${API_BASE}/active-learning/retrain`, { method: 'POST' });
+        const data = await res.json();
+        if (data.status === 'success') {
+          alert(`🎉 Active Learning Retraining Successful!\nPromoted to Champion: ${data.promoted_to_champion}\nChallenger PR-AUC: ${data.challenger_validation_pr_auc}\nBrier Score: ${data.challenger_brier_score}`);
+          fetchShadowMetrics();
+          fetchTelemetry();
+        } else {
+          alert(data.message || "Retraining notice: " + JSON.stringify(data));
+        }
+      } catch (err) {
+        alert("Retraining error: " + err);
+      }
+    }
+
     async function fetchMetrics() {
       try {
         const res = await fetch(`${API_BASE}/metrics/eval`);
@@ -1031,6 +1110,7 @@
 
     // Initialize on page load
     fetchFeed();
+    initSSE();
   </script>
 </body>
 </html>
