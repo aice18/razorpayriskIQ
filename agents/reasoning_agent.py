@@ -1,5 +1,5 @@
 """
-Reasoning & Case Dossier Agent for Razorpay RiskIQ.
+Reasoning & Case Dossier Agent for Razorpay RiskIQ Sentinel.
 Converts structured Investigation Agent evidence, tool traces, and SHAP attributions
 into analyst-ready executive briefs via Claude API (or deterministic template fallback).
 Guaranteed to never alter risk scores or policy decisions.
@@ -7,18 +7,20 @@ Guaranteed to never alter risk scores or policy decisions.
 
 import os
 import json
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
+
 
 class ReasoningAgent:
     """Generates plain-language analyst narrative and case dossier from multi-tool evidence."""
     
-    def __init__(self, api_key: str = None):
+    def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
         self.client = None
         if self.api_key:
             try:
-                import anthropic
-                self.client = anthropic.Anthropic(api_key=self.api_key)
+                import importlib
+                anthropic_module = importlib.import_module("anthropic")
+                self.client = anthropic_module.Anthropic(api_key=self.api_key)
             except Exception:
                 self.client = None
 
@@ -26,16 +28,14 @@ class ReasoningAgent:
         """
         Takes investigation evidence JSON and produces headline + plain language narrative.
         """
-        # Try Claude API first if client is available
         if self.client:
             try:
                 narrative_data = self._call_claude(evidence)
                 if narrative_data:
                     return narrative_data
             except Exception:
-                pass  # Fall back gracefully
+                pass
 
-        # Fallback to deterministic template generator
         return self._generate_template_narrative(evidence)
 
     def _call_claude(self, evidence: Dict[str, Any]) -> Dict[str, Any]:
@@ -50,7 +50,6 @@ STRICT INSTRUCTIONS:
 Investigation Evidence:
 {json.dumps(evidence, indent=2)}
 """
-
         response = self.client.messages.create(
             model="claude-3-5-sonnet-20241022",
             max_tokens=350,
@@ -60,7 +59,7 @@ Investigation Evidence:
 
         content_text = response.content[0].text
         if "{" in content_text and "}" in content_text:
-            json_str = content_text[content_text.find("{"):content_text.rfind("}")+1]
+            json_str = content_text[content_text.find("{"):content_text.rfind("}") + 1]
             return json.loads(json_str)
         
         return {
@@ -73,11 +72,18 @@ Investigation Evidence:
         """Deterministic, auditable template fallback when LLM API is unreachable."""
         txn_id = evidence["transaction_id"]
         score = evidence["score"]
-        anomalies = evidence.get("anomalies", [])
+        raw_anomalies = evidence.get("anomalies", [])
         ring = evidence.get("ring_membership", {})
         attributions = evidence.get("attributions", [])
         
-        # Build SHAP summary
+        # Normalize anomaly strings
+        anomaly_strings = []
+        for a in raw_anomalies:
+            if isinstance(a, dict):
+                anomaly_strings.append(a.get("detail", str(a)))
+            else:
+                anomaly_strings.append(str(a))
+
         top_attrs = [f"{a['feature']} ({a['value']})" for a in attributions[:2]] if attributions else []
         attr_str = f" Key contributing model factors: {', '.join(top_attrs)}." if top_attrs else ""
 
@@ -88,17 +94,18 @@ Investigation Evidence:
             narrative = (
                 f"Transaction {txn_id} (ML Risk Score: {score}) exhibits coordinated abuse ring patterns. "
                 f"The device fingerprint is actively linked to {dev_deg} distinct customer accounts across a "
-                f"graph component of {comp_size} entities.{attr_str} "
-                f"Anomalies detected: " + "; ".join([a["detail"] for a in anomalies]) + "."
+                f"graph component of {comp_size} entities.{attr_str}"
             )
+            if anomaly_strings:
+                narrative += f" Anomalies detected: {'; '.join(anomaly_strings)}."
             rationale = "High-density device sharing across multiple accounts indicates syndicated fraud; recommend blocking or step-up authentication."
-        elif len(anomalies) > 0:
-            primary_anomaly = anomalies[0]["detail"]
-            headline = f"Risk Alert (Score {score}): {anomalies[0]['type'].replace('_', ' ').title()}"
+        elif len(anomaly_strings) > 0:
+            primary_anomaly = anomaly_strings[0]
+            headline = f"Risk Alert (Score {score}): {primary_anomaly}"
             narrative = (
                 f"Transaction {txn_id} flagged with ML risk score of {score}. "
                 f"Primary anomaly: {primary_anomaly}.{attr_str} "
-                f"Total behavioral deviations identified: {len(anomalies)}."
+                f"Total behavioral deviations identified: {len(anomaly_strings)}."
             )
             rationale = "Elevated velocity or spend deviation exceeds baseline threshold; requires verification."
         else:

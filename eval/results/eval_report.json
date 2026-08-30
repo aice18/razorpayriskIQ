@@ -1,9 +1,9 @@
 {
   "dataset_summary": {
-    "total_events_processed": 2000,
-    "heldout_events_evaluated": 600,
-    "fraud_count_in_holdout": 95,
-    "normal_count_in_holdout": 505
+    "total_events_processed": 2500,
+    "heldout_events_evaluated": 750,
+    "fraud_count_in_holdout": 102,
+    "normal_count_in_holdout": 648
   },
   "performance_metrics": {
     "precision": 1.0,
@@ -14,20 +14,86 @@
     "false_positive_rate": 0.0,
     "false_positive_count": 0,
     "false_negative_count": 0,
-    "true_positive_count": 95,
-    "true_negative_count": 505,
+    "true_positive_count": 102,
+    "true_negative_count": 648,
     "estimated_fp_cost_inr": 0.0,
     "fp_cost_unit_assumption_inr": 500.0,
     "ring_detection_recall": 1.0,
-    "rings_injected": 5,
-    "rings_detected": 5
+    "rings_injected": 6,
+    "rings_detected": 6
   },
   "latency_and_throughput": {
-    "hotpath_p50_latency_ms": 8.21,
-    "hotpath_p95_latency_ms": 9.22,
-    "hotpath_p99_latency_ms": 10.29,
-    "agent_investigation_p95_ms": 0.37,
-    "throughput_events_per_sec": 98.6
+    "hotpath_p50_latency_ms": 8.31,
+    "hotpath_p95_latency_ms": 9.86,
+    "hotpath_p99_latency_ms": 12.22,
+    "agent_investigation_p95_ms": 0.29,
+    "throughput_events_per_sec": 100.1
+  },
+  "slices": {
+    "payment_methods": {
+      "UPI_VPA": {
+        "total": 298,
+        "fraud": 17,
+        "detected": 17,
+        "recall": 1.0
+      },
+      "CARD_DEBIT": {
+        "total": 68,
+        "fraud": 0,
+        "detected": 0,
+        "recall": 1.0
+      },
+      "UPI_INTENT": {
+        "total": 191,
+        "fraud": 12,
+        "detected": 12,
+        "recall": 1.0
+      },
+      "CARD_CREDIT": {
+        "total": 160,
+        "fraud": 65,
+        "detected": 65,
+        "recall": 1.0
+      },
+      "NETBANKING": {
+        "total": 33,
+        "fraud": 8,
+        "detected": 8,
+        "recall": 1.0
+      }
+    },
+    "merchant_categories": {
+      "UTILITY_BILLPAY": {
+        "total": 161,
+        "fraud": 19,
+        "detected": 19,
+        "recall": 1.0
+      },
+      "FOOD_GROCERY": {
+        "total": 185,
+        "fraud": 26,
+        "detected": 26,
+        "recall": 1.0
+      },
+      "ECOMMERCE_RETAIL": {
+        "total": 158,
+        "fraud": 22,
+        "detected": 22,
+        "recall": 1.0
+      },
+      "GAMING_CRYPTO": {
+        "total": 163,
+        "fraud": 24,
+        "detected": 24,
+        "recall": 1.0
+      },
+      "LUXURY_JEWELRY": {
+        "total": 83,
+        "fraud": 11,
+        "detected": 11,
+        "recall": 1.0
+      }
+    }
   },
   "graceful_failure_case": null
 }

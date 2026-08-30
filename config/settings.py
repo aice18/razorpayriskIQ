@@ -4,12 +4,19 @@ Uses pydantic-settings for strict type-safe environment configuration.
 """
 
 import os
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import Field
+
 
 class Settings(BaseSettings):
     """Application settings loaded from environment variables or .env file."""
     
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"
+    )
+
     ENV: str = Field("development", description="Environment: development, staging, production")
     DEBUG: bool = Field(False, description="Debug mode flag")
     
@@ -38,9 +45,6 @@ class Settings(BaseSettings):
     SCORE_BLOCK_THRESHOLD: float = Field(0.70, description="Threshold above which transaction is automatically blocked")
     FP_UNIT_COST_INR: float = Field(500.0, description="Estimated unit cost per false positive in INR")
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
 
 # Global settings instance
 settings = Settings()

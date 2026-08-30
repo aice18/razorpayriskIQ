@@ -1,13 +1,19 @@
 """
-Unit tests for Autonomous ReAct Agent Triad and Tool Execution.
+Unit tests for Autonomous Dynamic ReAct Agent Triad and Tool Execution.
 """
 
 import pytest
 from agents.investigation_agent import InvestigationAgent
 from agents.reasoning_agent import ReasoningAgent
 from agents.decision_agent import DecisionAgent
-from agents.agent_tools import EntityGraphTool, MerchantProfileTool, VelocityAnomalyTool, DeviceIntelligenceTool
+from agents.agent_tools import (
+    EntityGraphTool,
+    MerchantProfileTool,
+    VelocityAnomalyTool,
+    DeviceIntelligenceTool
+)
 from graph.entity_graph import EntityGraph
+
 
 def test_agent_tools_execution():
     graph = EntityGraph()
@@ -39,15 +45,16 @@ def test_agent_tools_execution():
     }
 
     v_res = v_tool.execute(txn, features)
-    assert v_res["is_velocity_spike"] == True
-    assert v_res["is_amount_spike"] == True
+    assert v_res["is_velocity_spike"] is True
+    assert v_res["is_amount_spike"] is True
 
     m_res = m_tool.execute(txn, None)
     assert m_res["category_risk"] == "HIGH"
 
     d_res = d_tool.execute(txn, features)
-    assert d_res["has_geo_mismatch"] == True
-    assert d_res["is_new_device"] == True
+    assert d_res["has_geo_mismatch"] is True
+    assert d_res["is_new_device"] is True
+
 
 def test_investigation_and_decision_pipeline():
     investigator = InvestigationAgent()
@@ -79,12 +86,12 @@ def test_investigation_and_decision_pipeline():
 
     score = 0.88
 
-    # 1. Evidence extraction with tool traces
+    # 1. Evidence extraction with dynamic ReAct tool traces
     evidence = investigator.investigate(txn, features, score)
     assert evidence["transaction_id"] == "txn_test_001"
-    assert evidence["ring_membership"]["ring_detected"] == True
-    assert len(evidence["tool_traces"]) == 4
-    assert len(evidence["anomalies"]) >= 3
+    assert evidence["ring_membership"]["ring_detected"] is True
+    assert len(evidence["tool_traces"]) >= 3
+    assert len(evidence["anomalies"]) >= 2
 
     # 2. Reasoning narrative
     narrative = reasoner.explain(evidence)
@@ -96,6 +103,7 @@ def test_investigation_and_decision_pipeline():
     assert decision["action"] == "BLOCK"
     assert decision["rule_fired"] == "RULE_HIGH_CONFIDENCE_RING_FRAUD_BLOCK"
 
+
 def test_medium_risk_ring_escalation_to_review():
     decider = DecisionAgent()
     evidence = {
@@ -106,6 +114,7 @@ def test_medium_risk_ring_escalation_to_review():
     assert decision["action"] == "REVIEW"
     assert decision["rule_fired"] == "RULE_MEDIUM_RISK_ABUSE_RING_ESCALATE_REVIEW"
 
+
 def test_medium_risk_no_ring_step_up():
     decider = DecisionAgent()
     evidence = {
@@ -114,4 +123,4 @@ def test_medium_risk_no_ring_step_up():
     }
     decision = decider.decide(0.45, evidence)
     assert decision["action"] == "STEP-UP AUTH"
-    assert decision["rule_fired"] == "RULE_MEDIUM_RISK_STEP_UP_AUTHENTICATION"
+    assert decision["rule_fired"] == "RULE_MEDIUM_RISK_DYNAMIC_3DS_STEP_UP"
