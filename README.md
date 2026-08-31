@@ -196,11 +196,14 @@ python -m eval.evaluate
 # 7. Execute Complete Unit & Integration Test Suite (13 Tests)
 python -m pytest -v
 
-# 8. Start the FastAPI Service & Live Command Center
-python -m uvicorn api.main:app --reload --port 8000
+# 8. Start the FastAPI Service & Live Command Center (One-Click Auto-Browser Launch)
+python run.py
+
+# Alternatively, run via direct uvicorn command:
+# python -m uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-Open **[http://localhost:8000](http://localhost:8000)** in your browser to launch the **Live Interactive RiskIQ Command Center**.
+Open **[http://localhost:8000](http://localhost:8000)** in your browser to launch the **Live Interactive RiskIQ Command Center**. Press `Ctrl+C` in your terminal to stop the server cleanly at any time.
 
 ---
 
