@@ -28,42 +28,49 @@ Traditional payment fraud detection systems evaluate transactions in strict isol
 
 ```mermaid
 flowchart TD
-    TXN[Synthetic Multi-Pattern Generator / Real Payment Stream] --> KAFKA[Kafka Stream Topics: riskiq.transactions.v1]
-    KAFKA --> FLINK[Flink / Sliding Window Feature Processor]
-    
-    subgraph RAIL_1 ["RAIL 1: Synchronous Hot-Path (Strict SLA < 15ms | p99 = 8.17ms)"]
-        FLINK --> IDEM[1. Idempotency Filter < 0.1ms]
-        IDEM --> REDIS_FEAT[(2. Redis Feature Store: 1m/5m/1h Sliding Windows & Welford Stats < 3ms)]
-        IDEM --> REDIS_GRAPH[(3. Bounded 2-Hop Entity Graph & Mega-Hub Dampener < 2ms)]
-        
-        REDIS_FEAT & REDIS_GRAPH --> HYBRID_SCORER[4. Calibrated ML GBDT Classifier < 1ms]
-        HYBRID_SCORER --> DECISION_MATRIX[5. Multi-Tenant Deterministic Policy Matrix < 1ms]
-        
-        DECISION_MATRIX -->|Score < Flag Threshold| FAST_ALLOW["Fast-Path ALLOW (Log & Bypass)"]
-        DECISION_MATRIX -->|Score >= Flag Threshold| FAST_DECISION["Immediate Action: STEP-UP (3DS) / BLOCK"]
+    subgraph INGESTION ["0. Ingestion Layer"]
+        RZP_HOOK["Razorpay Webhook Adapter<br/><code>/api/razorpay/webhook</code><br/>(HMAC-SHA256 Verified + Paise-to-INR)"]
+        CLIENT_API["Direct API Hot-Path<br/><code>/api/ingest</code>"]
+        SIM_STREAM["Live Transaction Simulator /<br/>Kafka Stream <code>riskiq.transactions.v1</code>"]
     end
 
-    FAST_ALLOW & FAST_DECISION --> GATEWAY[Payment Gateway / Merchant Checkout]
-    
-    subgraph RAIL_2 ["RAIL 2: Asynchronous Agentic Intelligence Layer (~ Seconds)"]
-        DECISION_MATRIX -->|Buffered Async Queue + DLQ| AGENT_INVESTIGATOR[1. Autonomous Dynamic ReAct Investigator]
-        AGENT_INVESTIGATOR --> SHAP_ATTR[2. Dynamic TreeSHAP Attribution Vector]
-        AGENT_INVESTIGATOR --> REASONING_AGENT[3. Reasoning Agent: Claude 3.5 Sonnet Narrative Synthesis]
-        REASONING_AGENT --> AUDIT_LOG[(4. Append-Only Immutable Audit Log)]
-        AUDIT_LOG --> SSE_STREAM[5. Server-Sent Events SSE Live Push]
-        SSE_STREAM --> LIVE_UI[Analyst Command Center: Live Feed + 2D/3D Graph Explorer]
+    INGESTION --> IDEM[1. SHA-256 Idempotency Filter < 0.1ms]
+
+    subgraph RAIL_1 ["RAIL 1: Synchronous Hot-Path (Strict SLA < 15ms | p99 = 8.17ms)"]
+        IDEM -->|Cache Miss| FEAT_STORE[(2. Redis Streaming Feature Store<br/>1m/5m/1h Sliding Windows + Welford O(1) Stats < 3ms)]
+        IDEM -->|Cache Miss| GRAPH_STORE[(3. NetworkX Bounded 2-Hop Graph<br/>Inverse Log-Degree Hub Dampener < 2ms)]
+        
+        FEAT_STORE & GRAPH_STORE --> GBDT_MODEL[4. HistGradientBoosting Classifier +<br/>Multi-Tenant Isotonic Calibrators per MCC < 1ms]
+        
+        GBDT_MODEL --> POLICY_MATRIX[5. Deterministic Policy Matrix < 1ms<br/>Calibrated Score + Ring Topology Checks]
+        
+        POLICY_MATRIX -->|P_fraud < 0.30| DEC_ALLOW["ALLOW (Fast-Path Log & Bypass)"]
+        POLICY_MATRIX -->|0.30 <= P_fraud < 0.50| DEC_STEPUP["STEP-UP AUTH (Dynamic 3DS / OTP)"]
+        POLICY_MATRIX -->|0.50 <= P_fraud < 0.70| DEC_REVIEW["REVIEW (Analyst Priority Queue)"]
+        POLICY_MATRIX -->|P_fraud >= 0.70| DEC_BLOCK["BLOCK (Immediate Hard Reject)"]
     end
+
+    IDEM -->|Cache Hit| IDEM_REPLAY["Idempotent Cached Replay (< 0.1ms)"]
+    DEC_ALLOW & DEC_STEPUP & DEC_REVIEW & DEC_BLOCK & IDEM_REPLAY --> CHECKOUT_RESPONSE["Payment Gateway / Checkout Response (< 15ms)"]
+
+    POLICY_MATRIX -->|Buffered Async Queue + DLQ Retry| ASYNC_WORKER
+
+    subgraph RAIL_2 ["RAIL 2: Asynchronous Agentic Worker Pipeline (~ Seconds)"]
+        ASYNC_WORKER["1. Autonomous Dynamic ReAct Investigator<br/>(Hypothesis Formulation + Dynamic Forensic Tooling)"]
+        ASYNC_WORKER --> SHAP_ENGINE["2. Dynamic TreeSHAP Attribution Engine<br/>(Sample-level Non-Linear Explanations)"]
+        SHAP_ENGINE --> LLM_AGENT["3. Generative Reasoning Agent<br/>(Claude 3.5 Sonnet / Template Fallback)"]
+        LLM_AGENT --> SAR_GEN["4. FIU-IND SAR Regulatory Compliance Engine<br/>(Official Suspicious Transaction Report Dossier)"]
+        SAR_GEN --> AUDIT_STORE[(5. Append-Only Immutable Audit Log)]
+        AUDIT_STORE --> SSE_HUB["6. Server-Sent Events (SSE) Live Broadcast"]
+    end
+
+    SSE_HUB --> DASHBOARD["Analyst Command Center Dashboard<br/>(Live Feed, 2D/3D Network Topology, SAR Dossier Modal)"]
 
     subgraph RAIL_3 ["RAIL 3: Closed-Loop Active Learning Engine (Continuous)"]
-        LIVE_UI -->|Human-in-the-Loop Analyst Overrides| OVERRIDE_BUFFER[1. Active Learning Buffer: 3.0x Sample Weight]
-        OVERRIDE_BUFFER --> SHADOW_COMP[2. Dark-Launch Shadow Mode Comparator]
-        SHADOW_COMP --> RETRAIN_PIPELINE[3. Automated Challenger Retraining & Safe Promotion: PR-AUC >= 0.95]
-        RETRAIN_PIPELINE -->|Champion Model Promotion| HYBRID_SCORER
-    end
-
-    subgraph OFFLINE_EVAL ["Offline Evaluation & Drift Harness"]
-        HYBRID_SCORER --> EVAL_HARNESS[Offline Eval Engine: Strict Time-Split Holdout]
-        EVAL_HARNESS --> METRICS_DASH[Held-Out Performance, PR-AUC, PSI Drift & FP Cost Report]
+        DASHBOARD -->|Human-in-the-Loop Analyst Overrides| OVERRIDE_BUFFER["1. Active Learning Buffer<br/>(3.0x Weight for Confirmed Overrides)"]
+        OVERRIDE_BUFFER --> SHADOW_MODE["2. Dark-Launch Shadow Mode Comparator<br/>(Champion vs. Challenger Dark Scoring)"]
+        SHADOW_MODE --> AUTO_RETRAIN["3. Automated Challenger Retraining & Gate<br/>(Validation PR-AUC >= 0.95 & Brier Loss Check)"]
+        AUTO_RETRAIN -->|Autonomous Promotion| GBDT_MODEL
     end
 ```
 
