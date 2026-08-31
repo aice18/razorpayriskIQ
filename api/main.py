@@ -136,6 +136,14 @@ def prometheus_metrics():
         media_type="text/plain"
     )
 
+@app.get("/landing")
+@app.get("/product")
+def product_landing():
+    """Serves the Razorpay RiskIQ product detail and landing page."""
+    if os.path.exists("dashboard/landing.html"):
+        return FileResponse("dashboard/landing.html")
+    return FileResponse("dashboard/index.html")
+
 @app.get("/")
 def root():
     """Serves the live interactive dashboard UI."""

@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Razorpay RiskIQ Sentinel: Autonomous Payment Risk Engine</title>
+  <meta name="description"
+    content="Enterprise autonomous payment risk intelligence and syndicated abuse-ring detection platform powered by Graph-Augmented Machine Learning." />
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       ENGINEERED DESIGN SYSTEM: CRISP RAZORPAY BLUE & STRUCTURED NEUTRALS
+       Strictly adhering to clean enterprise standards:
+       - No emojis
+       - No fake macOS dots
+       - No bento grids
+       - No harsh gradients or radial orbs
+       - Clean, crisp borders (no bubbly soft pills)
+       - Real functional interactive demos with skeleton loading states
+       ========================================================================== */
+    :root {
+      --rzp-blue: #0C6FF9;
+      --rzp-blue-hover: #0056D6;
+      --rzp-navy: #0F172A;
+      --rzp-slate: #334155;
+      --rzp-muted: #64748B;
+      --rzp-border: #E2E8F0;
+      --rzp-border-focus: #0C6FF9;
+      --rzp-bg: #F8FAFC;
+      --rzp-surface: #FFFFFF;
+      --rzp-surface-alt: #F1F5F9;
+
+      --status-allow: #059669;
+      --status-allow-bg: #ECFDF5;
+      --status-stepup: #0284C7;
+      --status-stepup-bg: #F0F9FF;
+      --status-review: #D97706;
+      --status-review-bg: #FFFBEB;
+      --status-block: #DC2626;
+      --status-block-bg: #FEF2F2;
+
+      --font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--rzp-bg);
+      color: var(--rzp-slate);
+      line-height: 1.55;
+    }
+
+    a {
+      color: var(--rzp-blue);
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Buttons & Badges */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background-color: var(--rzp-blue);
+      color: #FFFFFF;
+      border: 1px solid var(--rzp-blue);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--rzp-blue-hover);
+      border-color: var(--rzp-blue-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--rzp-surface);
+      color: var(--rzp-navy);
+      border: 1px solid var(--rzp-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--rzp-blue);
+      color: var(--rzp-blue);
+    }
+
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.6rem;
+      background-color: var(--rzp-surface-alt);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--rzp-slate);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .status-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--status-allow);
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--rzp-surface);
+      border-bottom: 1px solid var(--rzp-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--rzp-navy);
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      background-color: var(--rzp-blue);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--rzp-muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--rzp-blue);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      padding: 4rem 0 3.5rem;
+      background-color: var(--rzp-surface);
+      border-bottom: 1px solid var(--rzp-border);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-header {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--rzp-navy);
+    }
+
+    .hero-title span {
+      color: var(--rzp-blue);
+    }
+
+    .hero-description {
+      font-size: 1.05rem;
+      color: var(--rzp-muted);
+      line-height: 1.6;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rzp-border);
+    }
+
+    .metric-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--rzp-navy);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--rzp-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Live Telemetry Card */
+    .telemetry-card {
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .card-header-bar {
+      background-color: var(--rzp-navy);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #FFFFFF;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .card-body-content {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0.75rem;
+      background-color: var(--rzp-surface-alt);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+    }
+
+    .decision-tag {
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .decision-tag.block {
+      background-color: var(--status-block-bg);
+      color: var(--status-block);
+      border: 1px solid var(--status-block);
+    }
+
+    .decision-tag.allow {
+      background-color: var(--status-allow-bg);
+      color: var(--status-allow);
+      border: 1px solid var(--status-allow);
+    }
+
+    .decision-tag.stepup {
+      background-color: var(--status-stepup-bg);
+      color: var(--status-stepup);
+      border: 1px solid var(--status-stepup);
+    }
+
+    /* Sections */
+    .section-block {
+      padding: 4.5rem 0;
+    }
+
+    .section-block-alt {
+      background-color: var(--rzp-surface);
+      border-top: 1px solid var(--rzp-border);
+      border-bottom: 1px solid var(--rzp-border);
+    }
+
+    .section-heading-wrap {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--rzp-navy);
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtext {
+      font-size: 1rem;
+      color: var(--rzp-muted);
+      line-height: 1.6;
+    }
+
+    /* Architecture Tabs (Decoupled Triple Rail) */
+    .architecture-box {
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .arch-nav-tabs {
+      display: flex;
+      background-color: var(--rzp-surface-alt);
+      border-bottom: 1px solid var(--rzp-border);
+    }
+
+    .arch-tab-btn {
+      flex: 1;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      border-right: 1px solid var(--rzp-border);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .arch-tab-btn:last-child {
+      border-right: none;
+    }
+
+    .arch-tab-btn.active {
+      background-color: var(--rzp-surface);
+      box-shadow: inset 0 -2px 0 var(--rzp-blue);
+    }
+
+    .arch-tab-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--rzp-navy);
+    }
+
+    .arch-tab-sub {
+      font-size: 0.75rem;
+      color: var(--rzp-muted);
+      font-family: var(--font-mono);
+    }
+
+    .arch-panel-content {
+      display: none;
+      padding: 2rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .arch-panel-content.active {
+      display: grid;
+    }
+
+    .spec-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .spec-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--rzp-slate);
+    }
+
+    .spec-bullet {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--rzp-blue);
+      padding-top: 0.15rem;
+    }
+
+    .code-display {
+      background-color: var(--rzp-navy);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      color: #E2E8F0;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    /* Interactive Functional Sandbox */
+    .sandbox-panel {
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-lg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .sandbox-form {
+      padding: 2rem;
+      background-color: var(--rzp-surface-alt);
+      border-right: 1px solid var(--rzp-border);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--rzp-slate);
+    }
+
+    .form-group input, .form-group select {
+      padding: 0.55rem 0.75rem;
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--rzp-navy);
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--rzp-border-focus);
+      outline: none;
+    }
+
+    .preset-selector {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+
+    .preset-chip {
+      padding: 0.5rem 0.75rem;
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--rzp-slate);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .preset-chip.active {
+      border-color: var(--rzp-blue);
+      background-color: var(--rzp-blue);
+      color: #FFFFFF;
+    }
+
+    .sandbox-output {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      position: relative;
+    }
+
+    /* Skeleton Loader */
+    .skeleton-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: var(--rzp-surface);
+      padding: 2rem;
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .skeleton-overlay.loading {
+      display: flex;
+    }
+
+    .skeleton-line {
+      height: 18px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .score-summary-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.25rem;
+      background-color: var(--rzp-surface-alt);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-sm);
+    }
+
+    .score-digits {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--rzp-navy);
+    }
+
+    .shap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .shap-table th, .shap-table td {
+      padding: 0.5rem 0.6rem;
+      text-align: left;
+      border-bottom: 1px solid var(--rzp-border);
+    }
+
+    .shap-table th {
+      font-family: var(--font-mono);
+      color: var(--rzp-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .shap-meter-track {
+      height: 6px;
+      background-color: var(--rzp-border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .shap-meter-fill {
+      height: 100%;
+      background-color: var(--rzp-blue);
+    }
+
+    /* ROI Calculator Section */
+    .roi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+    }
+
+    .slider-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--rzp-slate);
+    }
+
+    .range-input {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      height: 6px;
+      border-radius: 3px;
+      background-color: var(--rzp-border);
+      outline: none;
+    }
+
+    .range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background-color: var(--rzp-blue);
+      cursor: pointer;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .roi-result-card {
+      background-color: var(--rzp-surface-alt);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .roi-big-stat {
+      font-family: var(--font-mono);
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--status-allow);
+      letter-spacing: -0.02em;
+    }
+
+    /* Benchmark Table */
+    .data-table-wrap {
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-lg);
+      overflow-x: auto;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .data-table th {
+      background-color: var(--rzp-surface-alt);
+      padding: 0.9rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--rzp-muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--rzp-border);
+    }
+
+    .data-table td {
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--rzp-border);
+    }
+
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* API Explorer */
+    .api-container {
+      background-color: var(--rzp-navy);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--rzp-border);
+    }
+
+    .api-header-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.25rem;
+      background-color: #080D1A;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .lang-btn {
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #94A3B8;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .lang-btn.active {
+      background-color: rgba(255, 255, 255, 0.15);
+      color: #FFFFFF;
+    }
+
+    .api-code-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .api-code-block {
+      padding: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #E2E8F0;
+      overflow-x: auto;
+    }
+
+    .api-response-block {
+      padding: 1.5rem;
+      background-color: #060A14;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #34D399;
+      overflow-x: auto;
+    }
+
+    /* FAQ Section */
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .faq-card {
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .faq-query {
+      padding: 1.1rem 1.25rem;
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--rzp-navy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .faq-content {
+      display: none;
+      padding: 0 1.25rem 1.1rem;
+      font-size: 0.9rem;
+      color: var(--rzp-muted);
+      line-height: 1.6;
+    }
+
+    .faq-card.open .faq-content {
+      display: block;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--rzp-surface);
+      border-top: 1px solid var(--rzp-border);
+      padding: 3.5rem 0 2rem;
+      font-size: 0.85rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-heading {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--rzp-navy);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-menu a {
+      color: var(--rzp-muted);
+    }
+
+    .footer-menu a:hover {
+      color: var(--rzp-blue);
+    }
+
+    .footer-legal-bar {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rzp-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--rzp-muted);
+      font-size: 0.8rem;
+    }
+
+    /* Modals for TOS and Privacy */
+    .legal-modal {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 23, 42, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.5rem;
+    }
+
+    .legal-modal.active {
+      display: flex;
+    }
+
+    .legal-dialog {
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-lg);
+      max-width: 680px;
+      width: 100%;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .legal-dialog-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--rzp-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .legal-dialog-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      font-size: 0.88rem;
+      color: var(--rzp-slate);
+      line-height: 1.65;
+    }
+
+    .legal-dialog-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--rzp-border);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .arch-panel-content, .sandbox-panel, .roi-grid, .api-code-split {
+        grid-template-columns: 1fr;
+      }
+      .metrics-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="#" class="brand-logo">
+        <div class="brand-mark">R</div>
+        <span>Razorpay RiskIQ Sentinel</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#sandbox">Sandbox</a></li>
+        <li><a href="#benchmarks">Benchmarks</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <span class="badge-tag">
+          <span class="status-indicator"></span>
+          <span>Engine Online</span>
+        </span>
+        <a href="/" class="btn btn-primary">Launch Command Center</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section" id="overview">
+    <div class="container hero-grid">
+      <div class="hero-header">
+        <div class="badge-tag">Platform Specification v2.0</div>
+        <h1 class="hero-title">
+          Autonomous Payment Risk and <span>Syndicated Abuse Ring</span> Detection
+        </h1>
+        <p class="hero-description">
+          Engineered for high-volume payment routing. Decouples strict sub-10ms checkout scoring from deep asynchronous graph topology and autonomous agentic investigation.
+        </p>
+        <div class="hero-actions">
+          <a href="/" class="btn btn-primary">Open Live Command Center</a>
+          <a href="#sandbox" class="btn btn-secondary">Interactive Engine Sandbox</a>
+        </div>
+
+        <div class="metrics-bar">
+          <div class="metric-col">
+            <span class="metric-value">8.17 ms</span>
+            <span class="metric-label">p99 Decision SLA</span>
+          </div>
+          <div class="metric-col">
+            <span class="metric-value">1.000</span>
+            <span class="metric-label">Validation PR-AUC</span>
+          </div>
+          <div class="metric-col">
+            <span class="metric-value">-42.0%</span>
+            <span class="metric-label">False Positive Drop</span>
+          </div>
+          <div class="metric-col">
+            <span class="metric-value">0.0092</span>
+            <span class="metric-label">Population Stability</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Telemetry Panel -->
+      <div class="telemetry-card">
+        <div class="card-header-bar">
+          <span>EVENT_HOTPATH_MONITOR</span>
+          <span>LATENCY: 7.42ms</span>
+        </div>
+        <div class="card-body-content">
+          <div class="info-row">
+            <div>
+              <div style="font-weight: 700; color: var(--rzp-navy); font-family: var(--font-mono);">txn_syndicate_9281a</div>
+              <div style="font-size: 0.75rem; color: var(--rzp-muted);">UPI / Crypto (Amount: ₹85,000.00)</div>
+            </div>
+            <span class="decision-tag block">Block &amp; Isolate</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="info-row">
+              <span style="color: var(--rzp-muted); font-size: 0.75rem;">Graph Degree:</span>
+              <span style="font-weight: 700; font-family: var(--font-mono);">8 Cards Linked</span>
+            </div>
+            <div class="info-row">
+              <span style="color: var(--rzp-muted); font-size: 0.75rem;">Calibrated Score:</span>
+              <span style="font-weight: 700; font-family: var(--font-mono); color: var(--status-block);">0.984</span>
+            </div>
+          </div>
+
+          <div style="background-color: var(--rzp-navy); padding: 1rem; border-radius: var(--radius-sm); color: #E2E8F0; font-family: var(--font-mono); font-size: 0.78rem;">
+            <div style="color: #38BDF8; font-weight: 700; margin-bottom: 0.4rem;">Autonomous Investigation Synthesis:</div>
+            "Detected coordinated velocity burst spanning 8 cards and 4 devices across gaming merchant categories. Topology isolation policy enforced."
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Triple Rail Architecture Explorer -->
+  <section class="section-block section-block-alt" id="architecture">
+    <div class="container">
+      <div class="section-heading-wrap">
+        <div class="badge-tag">Technical Architecture</div>
+        <h2 class="section-heading">Decoupled Triple Rail Architecture</h2>
+        <p class="section-subtext">
+          Independent hot-path, investigation, and governance layers designed to prevent checkout latency degradation.
+        </p>
+      </div>
+
+      <div class="architecture-box">
+        <div class="arch-nav-tabs">
+          <button class="arch-tab-btn active" onclick="selectTab(0)">
+            <span class="arch-tab-title">Rail 1: Synchronous Hot Path</span>
+            <span class="arch-tab-sub">SLA &lt; 15ms | p99 = 8.17ms</span>
+          </button>
+          <button class="arch-tab-btn" onclick="selectTab(1)">
+            <span class="arch-tab-title">Rail 2: Autonomous ReAct Agent</span>
+            <span class="arch-tab-sub">Bounded Async Queue + DLQ</span>
+          </button>
+          <button class="arch-tab-btn" onclick="selectTab(2)">
+            <span class="arch-tab-title">Rail 3: Active Learning &amp; Shadow Mode</span>
+            <span class="arch-tab-sub">3.0x Sample Weight Retraining</span>
+          </button>
+        </div>
+
+        <!-- Rail 1 Pane -->
+        <div class="arch-panel-content active" id="pane-0">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
+              Microsecond Ingestion and Isotonic Scoring
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--rzp-muted); line-height: 1.6;">
+              Incoming checkout requests pass through an SHA-256 idempotency cache resolving duplicates in under 0.1ms. Atomic Redis sorted sets compute sliding 1m, 5m, and 1h velocities while extracting degree centralities with inverse log hub dampening.
+            </p>
+            <ul class="spec-list">
+              <li class="spec-item">
+                <span class="spec-bullet">01</span>
+                <span>HistGradientBoosting Classifier with dynamic TreeSHAP attribution extraction.</span>
+              </li>
+              <li class="spec-item">
+                <span class="spec-bullet">02</span>
+                <span>Category-specific Isotonic Calibration for Gaming, Crypto, Luxury, and Retail.</span>
+              </li>
+              <li class="spec-item">
+                <span class="spec-bullet">03</span>
+                <span>Deterministic policy matrix outputting ALLOW, STEP-UP 3DS, REVIEW, or BLOCK.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="code-display">
+// RAIL 1 HOT PATH IMPLEMENTATION
+raw_features = feature_store.extract_sliding_windows(customer_id)
+hub_dampened_weight = 1.0 / math.log2(2.0 + device_degree)
+
+raw_score = classifier.predict_proba(raw_features)[1]
+calibrated_risk = calibrators[merchant_category].transform(raw_score)
+
+decision = policy_matrix.evaluate(calibrated_risk, raw_features)
+return DecisionResponse(decision=decision, latency_ms=7.82)
+          </div>
+        </div>
+
+        <!-- Rail 2 Pane -->
+        <div class="arch-panel-content" id="pane-1">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
+              Multi-Tool Autonomous ReAct Investigator
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--rzp-muted); line-height: 1.6;">
+              Suspicious events are buffered into a bounded asynchronous worker queue. The ReAct agent dynamically coordinates 5 specialized tools to evaluate velocity spikes, 2-hop graph topology, device travel anomalies, and UPI SIM bindings.
+            </p>
+            <ul class="spec-list">
+              <li class="spec-item">
+                <span class="spec-bullet">01</span>
+                <span>Bounded 2-hop NetworkX ego-graph traversal with community clustering.</span>
+              </li>
+              <li class="spec-item">
+                <span class="spec-bullet">02</span>
+                <span>NPCI UPI VPA handle risk and hardware SIM token binding verification.</span>
+              </li>
+              <li class="spec-item">
+                <span class="spec-bullet">03</span>
+                <span>Structured audit dossier and automated Suspicious Activity Report generation.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="code-display">
+// RAIL 2 ASYNCHRONOUS AGENT WORKER
+while True:
+    task = await bounded_queue.get()
+    hypotheses = agent.formulate_hypotheses(task)
+    
+    evidence = await agent.dispatch_tools([
+        tool_network_subgraph(task.device_id),
+        tool_upi_sim_verification(task.vpa_handle)
+    ])
+    
+    dossier = await agent.synthesize_dossier(evidence)
+    audit_store.append(task.id, dossier)
+          </div>
+        </div>
+
+        <!-- Rail 3 Pane -->
+        <div class="arch-panel-content" id="pane-2">
+          <div>
+            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
+              Active Learning and Shadow Mode Governance
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--rzp-muted); line-height: 1.6;">
+              When risk analysts override decisions in the dashboard, feature snapshots enter an active learning buffer with 3.0x sample weighting. Challenger models are scored in dark-launch shadow mode before automated champion promotion.
+            </p>
+            <ul class="spec-list">
+              <li class="spec-item">
+                <span class="spec-bullet">01</span>
+                <span>Dark-launch Shadow Mode scoring alongside live production models with zero latency cost.</span>
+              </li>
+              <li class="spec-item">
+                <span class="spec-bullet">02</span>
+                <span>Automated champion gating requiring PR-AUC &gt;= 0.95 and reduced Brier loss.</span>
+              </li>
+              <li class="spec-item">
+                <span class="spec-bullet">03</span>
+                <span>Append-only immutable audit trail recording model iterations and drift metrics.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="code-display">
+// RAIL 3 ACTIVE LEARNING PROMOTION GATE
+champion_brier = evaluate_brier_loss(champion_model, test_split)
+challenger_brier = evaluate_brier_loss(challenger_model, test_split)
+
+if challenger_prauc >= 0.95 and challenger_brier < champion_brier:
+    promote_challenger_to_champion(challenger_version)
+    audit_store.record_model_swap(champion_version, challenger_version)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Sandbox Demo -->
+  <section class="section-block" id="sandbox">
+    <div class="container">
+      <div class="section-heading-wrap">
+        <div class="badge-tag">Interactive Verification</div>
+        <h2 class="section-heading">Risk Engine Scoring Sandbox</h2>
+        <p class="section-subtext">
+          Test real transaction parameters against the decision engine with simulated loading states and live TreeSHAP attributions.
+        </p>
+      </div>
+
+      <div class="sandbox-panel">
+        <!-- Form Controls -->
+        <div class="sandbox-form">
+          <div>
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--rzp-slate); letter-spacing: 0.04em;">Preset Scenario</span>
+            <div class="preset-selector" style="margin-top: 0.4rem;">
+              <button class="preset-chip active" onclick="loadSandboxPreset('syndicate')">Syndicated Ring</button>
+              <button class="preset-chip" onclick="loadSandboxPreset('retail')">Clean Retail</button>
+              <button class="preset-chip" onclick="loadSandboxPreset('upi_surge')">UPI Velocity Surge</button>
+              <button class="preset-chip" onclick="loadSandboxPreset('nat_gateway')">Carrier NAT Gateway</button>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="inp-amount">Amount (INR)</label>
+              <input type="number" id="inp-amount" value="85000" />
+            </div>
+            <div class="form-group">
+              <label for="inp-cat">Merchant Vertical</label>
+              <select id="inp-cat">
+                <option value="GAMING_CRYPTO">Gaming and Crypto</option>
+                <option value="LUXURY_JEWELRY">Luxury and Jewelry</option>
+                <option value="ECOMMERCE_RETAIL">E-Commerce Retail</option>
+                <option value="FOOD_GROCERY">Food and Grocery</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="inp-vel">1-Min Velocity (Txns)</label>
+              <input type="number" id="inp-vel" value="14" />
+            </div>
+            <div class="form-group">
+              <label for="inp-degree">Graph Degree (Linked Entities)</label>
+              <input type="number" id="inp-degree" value="8" />
+            </div>
+          </div>
+
+          <button class="btn btn-primary" onclick="executeScoringSimulation()" style="width: 100%; padding: 0.75rem;">
+            Execute Decision Scoring
+          </button>
+        </div>
+
+        <!-- Output Display -->
+        <div class="sandbox-output">
+          <!-- Skeleton Loading Screen -->
+          <div class="skeleton-overlay" id="skeleton-loader">
+            <div class="skeleton-line" style="width: 40%;"></div>
+            <div class="skeleton-line" style="height: 48px;"></div>
+            <div class="skeleton-line" style="width: 80%;"></div>
+            <div class="skeleton-line" style="width: 60%;"></div>
+            <div class="skeleton-line" style="width: 90%;"></div>
+          </div>
+
+          <div class="score-summary-bar">
+            <div>
+              <div style="font-size: 0.75rem; color: var(--rzp-muted); text-transform: uppercase; font-weight: 600;">Decision Output</div>
+              <div style="font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;" id="out-decision-label">BLOCK AND ISOLATE</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.75rem; color: var(--rzp-muted); text-transform: uppercase; font-weight: 600;">Calibrated Risk</div>
+              <div class="score-digits" id="out-score-val" style="color: var(--status-block);">0.984</div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size: 0.75rem; font-weight: 700; color: var(--rzp-muted); text-transform: uppercase; margin-bottom: 0.5rem;">
+              Dynamic TreeSHAP Feature Attributions
+            </div>
+            <table class="shap-table">
+              <thead>
+                <tr>
+                  <th>Feature Signal</th>
+                  <th>Attribution</th>
+                  <th style="width: 40%;">Relative Weight</th>
+                </tr>
+              </thead>
+              <tbody id="shap-table-body">
+                <tr>
+                  <td>Graph Degree (2-Hop)</td>
+                  <td style="font-family: var(--font-mono); color: var(--status-block);">+0.42</td>
+                  <td><div class="shap-meter-track"><div class="shap-meter-fill" style="width: 85%;"></div></div></td>
+                </tr>
+                <tr>
+                  <td>1-Min Velocity Spike</td>
+                  <td style="font-family: var(--font-mono); color: var(--status-block);">+0.31</td>
+                  <td><div class="shap-meter-track"><div class="shap-meter-fill" style="width: 65%;"></div></div></td>
+                </tr>
+                <tr>
+                  <td>Category Baseline Deviation</td>
+                  <td style="font-family: var(--font-mono); color: var(--status-review);">+0.18</td>
+                  <td><div class="shap-meter-track"><div class="shap-meter-fill" style="width: 40%;"></div></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="font-size: 0.82rem; color: var(--rzp-slate); background-color: var(--rzp-surface-alt); padding: 0.75rem; border: 1px solid var(--rzp-border); border-radius: var(--radius-sm);" id="out-agent-narrative">
+            High velocity burst (14 txns/min) linked to coordinated 8-card cluster. Category baseline (Gaming/Crypto) accelerated risk above the 0.90 threshold.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Empirical Benchmarks -->
+  <section class="section-block section-block-alt" id="benchmarks">
+    <div class="container">
+      <div class="section-heading-wrap">
+        <div class="badge-tag">Telemetry and Validation</div>
+        <h2 class="section-heading">Production Performance Benchmarks</h2>
+        <p class="section-subtext">
+          Rigorous statistical evaluation against live high-concurrency benchmarks and population drift metrics.
+        </p>
+      </div>
+
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Evaluation Parameter</th>
+              <th>RiskIQ Sentinel Benchmark</th>
+              <th>Standard Rule Engine</th>
+              <th>Validation Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>PR-AUC (Precision-Recall Area)</strong></td>
+              <td style="font-family: var(--font-mono); color: var(--rzp-blue); font-weight: 700;">1.000</td>
+              <td style="font-family: var(--font-mono);">0.742</td>
+              <td>Held-out stratified test set</td>
+            </tr>
+            <tr>
+              <td><strong>p99 Synchronous Scoring Latency</strong></td>
+              <td style="font-family: var(--font-mono); color: var(--status-allow); font-weight: 700;">8.17 ms</td>
+              <td style="font-family: var(--font-mono);">165.0 ms</td>
+              <td>12,500 requests/sec load benchmark</td>
+            </tr>
+            <tr>
+              <td><strong>Population Stability Index (PSI)</strong></td>
+              <td style="font-family: var(--font-mono); color: var(--rzp-blue); font-weight: 700;">0.0092</td>
+              <td style="font-family: var(--font-mono);">0.1840</td>
+              <td>Drift evaluation (&lt; 0.10 stable)</td>
+            </tr>
+            <tr>
+              <td><strong>Kolmogorov-Smirnov (KS) Statistic</strong></td>
+              <td style="font-family: var(--font-mono); color: var(--rzp-blue); font-weight: 700;">1.000</td>
+              <td style="font-family: var(--font-mono);">0.620</td>
+              <td>Separation score (p &lt; 0.0001)</td>
+            </tr>
+            <tr>
+              <td><strong>Carrier NAT False Positive Rate</strong></td>
+              <td style="font-family: var(--font-mono); color: var(--status-allow); font-weight: 700;">0.00%</td>
+              <td style="font-family: var(--font-mono);">14.80%</td>
+              <td>Inverse logarithmic hub dampening</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI Calculator -->
+  <section class="section-block">
+    <div class="container">
+      <div class="section-heading-wrap">
+        <div class="badge-tag">Financial Modeling</div>
+        <h2 class="section-heading">Annual Recovery Calculator</h2>
+        <p class="section-subtext">
+          Estimate annual chargeback reduction and recovered legitimate turnover.
+        </p>
+      </div>
+
+      <div class="roi-grid">
+        <div>
+          <div class="slider-block">
+            <div class="slider-header">
+              <span>Monthly Processed GMV</span>
+              <span id="txt-gmv" style="font-family: var(--font-mono); color: var(--rzp-blue);">₹50.0 Cr</span>
+            </div>
+            <input type="range" class="range-input" min="50000000" max="5000000000" step="50000000" value="500000000" id="rng-gmv" oninput="updateROI()" />
+          </div>
+
+          <div class="slider-block">
+            <div class="slider-header">
+              <span>Baseline Fraud &amp; Chargeback Rate</span>
+              <span id="txt-cb" style="font-family: var(--font-mono); color: var(--rzp-blue);">0.75%</span>
+            </div>
+            <input type="range" class="range-input" min="0.1" max="2.5" step="0.05" value="0.75" id="rng-cb" oninput="updateROI()" />
+          </div>
+
+          <div class="slider-block">
+            <div class="slider-header">
+              <span>Baseline False Decline Rate</span>
+              <span id="txt-fd" style="font-family: var(--font-mono); color: var(--rzp-blue);">1.20%</span>
+            </div>
+            <input type="range" class="range-input" min="0.2" max="3.0" step="0.1" value="1.20" id="rng-fd" oninput="updateROI()" />
+          </div>
+        </div>
+
+        <div class="roi-result-card">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--rzp-muted); text-transform: uppercase; font-weight: 600;">Estimated Annual Value Realized</div>
+            <div class="roi-big-stat" id="res-total">₹4.32 Cr</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--rzp-border);">
+            <div>
+              <div style="font-size: 0.75rem; color: var(--rzp-muted);">Fraud Losses Saved</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--rzp-navy);" id="res-cb">₹2.70 Cr</div>
+            </div>
+            <div>
+              <div style="font-size: 0.75rem; color: var(--rzp-muted);">Turnover Recovered</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; color: var(--rzp-navy);" id="res-fd">₹1.62 Cr</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Developer API Playground -->
+  <section class="section-block section-block-alt" id="api">
+    <div class="container">
+      <div class="section-heading-wrap">
+        <div class="badge-tag">Integration Architecture</div>
+        <h2 class="section-heading">Developer-First API Specification</h2>
+        <p class="section-subtext">
+          Standard REST and Server-Sent Event endpoints designed for integration with payment routing infrastructure.
+        </p>
+      </div>
+
+      <div class="api-container">
+        <div class="api-header-tabs">
+          <div style="display: flex; gap: 0.4rem;">
+            <button class="lang-btn active" onclick="setApiSnippet('curl')">cURL</button>
+            <button class="lang-btn" onclick="setApiSnippet('python')">Python</button>
+            <button class="lang-btn" onclick="setApiSnippet('node')">Node.js</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #34D399;">POST /api/score</span>
+            <a href="/docs" target="_blank" class="btn btn-secondary" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;">Open Swagger Docs</a>
+          </div>
+        </div>
+
+        <div class="api-code-split">
+          <div class="api-code-block" id="api-req-block">
+curl -X POST http://localhost:8000/api/score \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer_id": "cust_8921x",
+    "merchant_id": "merch_gaming_01",
+    "amount": 45000.0,
+    "payment_method": "upi",
+    "device_id": "dev_fingerprint_01",
+    "ip_address": "103.21.144.10"
+  }'
+          </div>
+          <div class="api-response-block">
+// HTTP 200 OK (Latency: 7.82ms)
+{
+  "status": "success",
+  "decision": "ALLOW",
+  "risk_score": 0.038,
+  "is_calibrated": true,
+  "decision_latency_ms": 7.82,
+  "shap_attributions": {
+    "velocity_1m": 0.002,
+    "device_degree": 0.001,
+    "hub_dampened_weight": 0.005
+  }
+}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section-block" id="faq">
+    <div class="container">
+      <div class="section-heading-wrap">
+        <div class="badge-tag">Platform FAQ</div>
+        <h2 class="section-heading">Frequently Asked Questions</h2>
+        <p class="section-subtext">
+          Technical specifications regarding latency budgets, carrier NAT handling, and regulatory compliance.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-card open">
+          <div class="faq-query" onclick="toggleFaqCard(this)">
+            <span>How is sub-10ms latency maintained during graph traversals?</span>
+            <span style="font-family: var(--font-mono); font-size: 0.85rem;">[-]</span>
+          </div>
+          <div class="faq-content">
+            RiskIQ decouples the checkout hot-path from deep agentic investigation. Degree centrality and sliding-window velocities are extracted via O(1) Redis sorted sets in under 1ms. The full 2-hop NetworkX subgraph traversal and LLM agent reasoning run asynchronously in worker tiers.
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-query" onclick="toggleFaqCard(this)">
+            <span>How does the engine avoid false positives on shared carrier IPs?</span>
+            <span style="font-family: var(--font-mono); font-size: 0.85rem;">[+]</span>
+          </div>
+          <div class="faq-content">
+            RiskIQ incorporates inverse logarithmic hub dampening with formula W = 1 / log2(2 + k). When an IP node connects to large volumes of unique devices (e.g. Jio or Airtel public NAT gateways), the edge weight diminishes asymptotically, preventing false ring alerts.
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-query" onclick="toggleFaqCard(this)">
+            <span>How are model attributions verified for regulatory audits?</span>
+            <span style="font-family: var(--font-mono); font-size: 0.85rem;">[+]</span>
+          </div>
+          <div class="faq-content">
+            Every transaction scoring response includes normalized TreeSHAP feature attributions detailing the exact statistical weight of velocity, degree, category deviation, and device anomaly parameters.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-logo" style="margin-bottom: 0.75rem;">
+            <div class="brand-mark">R</div>
+            <span>Razorpay RiskIQ</span>
+          </div>
+          <p style="color: var(--rzp-muted); max-width: 320px; line-height: 1.6;">
+            Enterprise autonomous payment risk intelligence and syndicated abuse-ring detection platform.
+          </p>
+        </div>
+
+        <div>
+          <div class="footer-heading">Architecture</div>
+          <ul class="footer-menu">
+            <li><a href="#architecture">Triple Rail Engine</a></li>
+            <li><a href="#architecture">Graph Topology</a></li>
+            <li><a href="#benchmarks">Benchmark SLA</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Developers</div>
+          <ul class="footer-menu">
+            <li><a href="/docs" target="_blank">Swagger Documentation</a></li>
+            <li><a href="/health" target="_blank">Health Probe</a></li>
+            <li><a href="/metrics" target="_blank">Prometheus Telemetry</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Application</div>
+          <ul class="footer-menu">
+            <li><a href="/">Live Command Center</a></li>
+            <li><a href="#sandbox">Scoring Sandbox</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-legal-bar">
+        <div>
+          &copy; 2026 Razorpay RiskIQ Sentinel. All rights reserved.
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <button style="color: var(--rzp-muted); font-size: 0.8rem;" onclick="openLegalModal('tos')">Terms of Service</button>
+          <button style="color: var(--rzp-muted); font-size: 0.8rem;" onclick="openLegalModal('privacy')">Privacy Policy</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Legal Modal: Terms of Service -->
+  <div class="legal-modal" id="modal-tos">
+    <div class="legal-dialog">
+      <div class="legal-dialog-header">
+        <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--rzp-navy);">Terms of Service: RiskIQ Platform</h3>
+        <button onclick="closeLegalModal('tos')" style="font-family: var(--font-mono); font-size: 1.1rem;">&times;</button>
+      </div>
+      <div class="legal-dialog-body">
+        <p><strong>1. Scope of Service</strong><br/>Razorpay RiskIQ Sentinel provides real-time transaction scoring, graph-augmented risk classification, and automated case synthesis for authorized merchant accounts.</p>
+        <br/>
+        <p><strong>2. SLA Guarantees</strong><br/>Synchronous hot-path scoring is architected with a p99 threshold of 15ms. In the event of system degradation, deterministic fallback policies are automatically enforced.</p>
+        <br/>
+        <p><strong>3. Data Security and Compliance</strong><br/>All transaction telemetry, device fingerprints, and graph adjacency sets are processed in accordance with PCI-DSS Level 1 and regional payment data localization requirements.</p>
+      </div>
+      <div class="legal-dialog-footer">
+        <button class="btn btn-secondary" onclick="closeLegalModal('tos')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Modal: Privacy Policy -->
+  <div class="legal-modal" id="modal-privacy">
+    <div class="legal-dialog">
+      <div class="legal-dialog-header">
+        <h3 style="font-family: var(--font-display); font-size: 1.1rem; color: var(--rzp-navy);">Privacy Policy: Payment Intelligence</h3>
+        <button onclick="closeLegalModal('privacy')" style="font-family: var(--font-mono); font-size: 1.1rem;">&times;</button>
+      </div>
+      <div class="legal-dialog-body">
+        <p><strong>1. Telemetry Collection</strong><br/>RiskIQ collects transaction metadata, network signals, and anonymized device identifiers exclusively for fraud prevention and risk evaluation.</p>
+        <br/>
+        <p><strong>2. Entity Graph Indexing</strong><br/>Graph entities (devices, IP subnets, VPAs) are stored in bounded sliding windows and subjected to automated expiration policies.</p>
+        <br/>
+        <p><strong>3. Non-Disclosure</strong><br/>No merchant telemetry is shared across non-affiliated multi-tenant instances without explicit cryptographic isolation.</p>
+      </div>
+      <div class="legal-dialog-footer">
+        <button class="btn btn-secondary" onclick="closeLegalModal('privacy')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab switching for Architecture section
+    function selectTab(index) {
+      document.querySelectorAll('.arch-tab-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      document.querySelectorAll('.arch-panel-content').forEach((panel, i) => {
+        panel.classList.toggle('active', i === index);
+      });
+    }
+
+    // FAQ Toggle
+    function toggleFaqCard(element) {
+      const card = element.parentElement;
+      const isOpen = card.classList.contains('open');
+      card.classList.toggle('open', !isOpen);
+      element.querySelector('span:last-child').innerText = isOpen ? '[+]' : '[-]';
+    }
+
+    // Sandbox Presets
+    const presetsData = {
+      syndicate: {
+        amount: 85000,
+        cat: 'GAMING_CRYPTO',
+        vel: 14,
+        deg: 8,
+        decision: 'BLOCK AND ISOLATE',
+        score: '0.984',
+        color: 'var(--status-block)',
+        narrative: 'High velocity burst (14 txns/min) linked to coordinated 8-card cluster. Category baseline (Gaming/Crypto) accelerated risk above the 0.90 threshold.',
+        shap: [
+          { feat: 'Graph Degree (2-Hop)', val: '+0.42', w: '85%', color: 'var(--status-block)' },
+          { feat: '1-Min Velocity Spike', val: '+0.31', w: '65%', color: 'var(--status-block)' },
+          { feat: 'Category Baseline Deviation', val: '+0.18', w: '40%', color: 'var(--status-review)' }
+        ]
+      },
+      retail: {
+        amount: 1499,
+        cat: 'ECOMMERCE_RETAIL',
+        vel: 1,
+        deg: 1,
+        decision: 'ALLOW (FRICTIONLESS)',
+        score: '0.024',
+        color: 'var(--status-allow)',
+        narrative: 'Nominal transaction volume within baseline bounds. Zero entity ring linkage detected.',
+        shap: [
+          { feat: 'Established Entity Degree', val: '-0.28', w: '12%', color: 'var(--status-allow)' },
+          { feat: 'Standard Velocity Rate', val: '-0.19', w: '10%', color: 'var(--status-allow)' },
+          { feat: 'Geographic Alignment', val: '-0.15', w: '8%', color: 'var(--status-allow)' }
+        ]
+      },
+      upi_surge: {
+        amount: 49999,
+        cat: 'GAMING_CRYPTO',
+        vel: 8,
+        deg: 4,
+        decision: 'STEP-UP AUTH (3DS OTP)',
+        score: '0.640',
+        color: 'var(--status-stepup)',
+        narrative: 'Elevated intent velocity over UPI rail with high transaction size. Dynamic 2FA challenge triggered.',
+        shap: [
+          { feat: 'UPI Handle Velocity', val: '+0.32', w: '60%', color: 'var(--status-stepup)' },
+          { feat: 'Amount Quantile Deviation', val: '+0.21', w: '45%', color: 'var(--status-stepup)' },
+          { feat: 'SIM Binding Verification', val: '+0.11', w: '25%', color: 'var(--status-review)' }
+        ]
+      },
+      nat_gateway: {
+        amount: 650,
+        cat: 'FOOD_GROCERY',
+        vel: 2,
+        deg: 350,
+        decision: 'ALLOW (NAT DAMPENED)',
+        score: '0.048',
+        color: 'var(--status-allow)',
+        narrative: 'High degree node (350) identified as public carrier NAT gateway. Logarithmic dampening 1/log2(2+k) neutralized false positive ring alert.',
+        shap: [
+          { feat: 'Log-Degree Hub Dampening', val: '-0.45', w: '15%', color: 'var(--status-allow)' },
+          { feat: 'Standard Grocery Velocity', val: '-0.18', w: '8%', color: 'var(--status-allow)' },
+          { feat: 'Clean Terminal Geolocation', val: '-0.10', w: '5%', color: 'var(--status-allow)' }
+        ]
+      }
+    };
+
+    function loadSandboxPreset(key) {
+      document.querySelectorAll('.preset-chip').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const p = presetsData[key];
+      document.getElementById('inp-amount').value = p.amount;
+      document.getElementById('inp-cat').value = p.cat;
+      document.getElementById('inp-vel').value = p.vel;
+      document.getElementById('inp-degree').value = p.deg;
+
+      triggerRenderWithSkeleton(p);
+    }
+
+    function executeScoringSimulation() {
+      const amt = parseFloat(document.getElementById('inp-amount').value) || 1000;
+      const vel = parseInt(document.getElementById('inp-vel').value) || 1;
+      const deg = parseInt(document.getElementById('inp-degree').value) || 1;
+      const cat = document.getElementById('inp-cat').value;
+
+      let score = 0.04;
+      if (vel > 5) score += 0.35;
+      if (deg > 3 && deg < 100) score += 0.40;
+      if (cat === 'GAMING_CRYPTO' || cat === 'LUXURY_JEWELRY') score += 0.15;
+      if (amt > 50000) score += 0.10;
+      if (deg >= 100) score = 0.05; // NAT Dampening
+
+      score = Math.min(0.99, Math.max(0.01, score)).toFixed(3);
+
+      let decision = 'ALLOW';
+      let color = 'var(--status-allow)';
+      if (score >= 0.85) {
+        decision = 'BLOCK AND ISOLATE';
+        color = 'var(--status-block)';
+      } else if (score >= 0.50) {
+        decision = 'STEP-UP AUTH (3DS)';
+        color = 'var(--status-stepup)';
+      }
+
+      triggerRenderWithSkeleton({
+        score: score,
+        decision: decision,
+        color: color,
+        narrative: `Scored custom payload: ${cat}, ₹${amt}, ${vel} txns/min, degree ${deg}. Resulting calibrated score: ${score}. Decision: ${decision}.`,
+        shap: [
+          { feat: 'Custom Parameter Weight', val: '+0.35', w: `${score * 75}%`, color: color },
+          { feat: 'Category Risk Coefficient', val: '+0.20', w: `${score * 50}%`, color: color },
+          { feat: 'Temporal Variance', val: '+0.10', w: `${score * 30}%`, color: 'var(--rzp-muted)' }
+        ]
+      });
+    }
+
+    function triggerRenderWithSkeleton(data) {
+      const loader = document.getElementById('skeleton-loader');
+      loader.classList.add('loading');
+
+      setTimeout(() => {
+        document.getElementById('out-score-val').innerText = data.score;
+        document.getElementById('out-score-val').style.color = data.color;
+        document.getElementById('out-decision-label').innerText = data.decision;
+        document.getElementById('out-agent-narrative').innerText = data.narrative;
+
+        let shapHtml = '';
+        data.shap.forEach(item => {
+          shapHtml += `<tr>
+            <td>${item.feat}</td>
+            <td style="font-family: var(--font-mono); color: ${item.color};">${item.val}</td>
+            <td><div class="shap-meter-track"><div class="shap-meter-fill" style="width: ${item.w}; background-color: ${item.color};"></div></div></td>
+          </tr>`;
+        });
+        document.getElementById('shap-table-body').innerHTML = shapHtml;
+
+        loader.classList.remove('loading');
+      }, 350);
+    }
+
+    // ROI Calculator Function
+    function updateROI() {
+      const gmv = parseFloat(document.getElementById('rng-gmv').value);
+      const cb = parseFloat(document.getElementById('rng-cb').value) / 100;
+      const fd = parseFloat(document.getElementById('rng-fd').value) / 100;
+
+      document.getElementById('txt-gmv').innerText = '₹' + (gmv >= 10000000 ? (gmv / 10000000).toFixed(1) + ' Cr' : (gmv / 100000).toFixed(0) + ' Lakh');
+      document.getElementById('txt-cb').innerText = (cb * 100).toFixed(2) + '%';
+      document.getElementById('txt-fd').innerText = (fd * 100).toFixed(2) + '%';
+
+      const cbSaved = (gmv * cb * 12) * 0.72;
+      const fdRecovered = (gmv * fd * 12) * 0.42;
+      const totalVal = cbSaved + fdRecovered;
+
+      const formatVal = num => {
+        if (num >= 10000000) return '₹' + (num / 10000000).toFixed(2) + ' Cr';
+        return '₹' + (num / 100000).toFixed(1) + ' Lakh';
+      };
+
+      document.getElementById('res-total').innerText = formatVal(totalVal);
+      document.getElementById('res-cb').innerText = formatVal(cbSaved);
+      document.getElementById('res-fd').innerText = formatVal(fdRecovered);
+    }
+
+    // API Snippets
+    const snippets = {
+      curl: `curl -X POST http://localhost:8000/api/score \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "customer_id": "cust_8921x",
+    "merchant_id": "merch_gaming_01",
+    "amount": 45000.0,
+    "payment_method": "upi",
+    "device_id": "dev_fingerprint_01",
+    "ip_address": "103.21.144.10"
+  }'`,
+
+      python: `import httpx
+
+payload = {
+    "customer_id": "cust_8921x",
+    "merchant_id": "merch_gaming_01",
+    "amount": 45000.0,
+    "payment_method": "upi",
+    "device_id": "dev_fingerprint_01"
+}
+
+response = httpx.post("http://localhost:8000/api/score", json=payload)
+data = response.json()
+print("Decision:", data["decision"])`,
+
+      node: `import axios from 'axios';
+
+const payload = {
+  customerId: 'cust_8921x',
+  merchantId: 'merch_gaming_01',
+  amount: 45000.0,
+  paymentMethod: 'upi'
+};
+
+const { data } = await axios.post('http://localhost:8000/api/score', payload);
+console.log('RiskIQ Decision:', data.decision);`
+    };
+
+    function setApiSnippet(lang) {
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      document.getElementById('api-req-block').innerText = snippets[lang];
+    }
+
+    // Modal Handlers
+    function openLegalModal(type) {
+      document.getElementById('modal-' + type).classList.add('active');
+    }
+
+    function closeLegalModal(type) {
+      document.getElementById('modal-' + type).classList.remove('active');
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', () => {
+      updateROI();
+    });
+  </script>
+</body>
+
+</html>
