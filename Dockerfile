@@ -27,5 +27,5 @@ COPY . .
 # Expose API port
 EXPOSE 8000
 
-# Run FastAPI backend via Uvicorn
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+# Run FastAPI backend via Uvicorn (dynamically binds to cloud platform $PORT or defaults to 8000)
+CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8000} --workers ${WORKERS:-2}"]
