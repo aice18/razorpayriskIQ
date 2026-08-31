@@ -62,6 +62,19 @@ def startup_banner():
     print("   👉 Service Health:      http://localhost:8000/health")
     print("="*60 + "\n")
 
+@app.on_event("shutdown")
+def shutdown_cleanup():
+    try:
+        from api.routes import sse_subscribers
+        for q in list(sse_subscribers):
+            try:
+                q.put_nowait({"type": "shutdown"})
+            except Exception:
+                pass
+        sse_subscribers.clear()
+    except Exception:
+        pass
+
 @app.get("/health")
 def health_check():
     """Health check endpoint for Kubernetes liveness probes."""

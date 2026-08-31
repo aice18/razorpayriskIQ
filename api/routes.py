@@ -260,11 +260,15 @@ async def stream_events_sse(request: Request):
                 if await request.is_disconnected():
                     break
                 try:
-                    data = await asyncio.wait_for(event_queue.get(), timeout=1.0)
+                    data = await asyncio.wait_for(event_queue.get(), timeout=0.5)
+                    if isinstance(data, dict) and data.get("type") == "shutdown":
+                        break
                     yield f"data: {json.dumps(data)}\n\n"
                 except asyncio.TimeoutError:
                     # Keep-alive heartbeat
                     yield f": heartbeat\n\n"
+        except (asyncio.CancelledError, GeneratorExit):
+            pass
         finally:
             if event_queue in sse_subscribers:
                 sse_subscribers.remove(event_queue)
