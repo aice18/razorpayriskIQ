@@ -149,12 +149,19 @@ class TransactionGenerator:
             vpa_handle_risk = 0.0
             device_sim_bound = True
             is_qr_intent = False
+        # Multi-currency support (Razorpay Global Payments)
+        geo_currency_map = {
+            "IN": "INR", "US": "USD", "SG": "SGD", "GB": "GBP", "AE": "AED", "MY": "MYR", "NG": "USD"
+        }
+        currency = geo_currency_map.get(geo, "INR")
+        if geo == "IN" and random.random() < 0.15:
+            currency = random.choice(["USD", "EUR", "SGD", "GBP", "AED"])
 
         return {
             "transaction_id": txn_id,
             "timestamp": timestamp.isoformat(),
             "amount": amount,
-            "currency": "INR",
+            "currency": currency,
             "customer_id": customer_id,
             "merchant_id": merchant_id,
             "merchant_category": merchant_cat,

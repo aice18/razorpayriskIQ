@@ -11,11 +11,20 @@ class TransactionIngestRequest(BaseModel):
     currency: str = "INR"
     customer_id: str
     merchant_id: str
+    merchant_category: Optional[str] = "ECOMMERCE_RETAIL"
+    payment_method: Optional[str] = "CARD_CREDIT"
+    upi_vpa: Optional[str] = None
+    vpa_handle_risk: Optional[float] = 0.0
+    is_qr_intent: Optional[bool] = False
+    device_sim_bound: Optional[bool] = True
     device_id: str
     ip_address_hash: str
     card_fingerprint: str
     geo_country: str = "IN"
     customer_home_country: str = "IN"
+    idempotency_key: Optional[str] = None
+
+    model_config = {"extra": "allow"}
 
 class OverrideRequest(BaseModel):
     new_action: str = Field(..., description="Action to set: ALLOW, STEP-UP AUTH, REVIEW, BLOCK")
@@ -25,7 +34,9 @@ class FeedItem(BaseModel):
     transaction_id: str
     timestamp: str
     amount: float
+    currency: Optional[str] = "INR"
     customer_id: str
+    payment_method: Optional[str] = "CARD_CREDIT"
     score: float
     status: str
     action: str

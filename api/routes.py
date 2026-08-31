@@ -7,10 +7,12 @@ Dead Letter Queue (DLQ), Active Learning Auto-Retraining, Shadow Challenger eval
 import asyncio
 import json
 import os
+import hmac
+import hashlib
 from datetime import datetime, timezone
 from typing import Dict, Any, Optional, List
 
-from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi import APIRouter, HTTPException, Query, Request, Header
 from fastapi.responses import StreamingResponse
 
 from api.schemas import (
@@ -170,6 +172,7 @@ async def ingest_transaction(req: TransactionIngestRequest) -> Dict[str, Any]:
     await broadcast_event_sse({
         "transaction_id": txn_data["transaction_id"],
         "amount": txn_data["amount"],
+        "currency": txn_data.get("currency", "INR"),
         "customer_id": txn_data["customer_id"],
         "score": score,
         "action": decision["action"],
@@ -178,6 +181,71 @@ async def ingest_transaction(req: TransactionIngestRequest) -> Dict[str, Any]:
     })
 
     return response_payload
+
+
+@router.post("/razorpay/webhook")
+async def ingest_razorpay_webhook(
+    request: Request,
+    x_razorpay_signature: Optional[str] = Header(None)
+) -> Dict[str, Any]:
+    """
+    Native Razorpay Webhook Ingestion Adapter.
+    Accepts standard Razorpay event webhooks (e.g. payment.authorized, order.paid),
+    verifies HMAC-SHA256 signature if provided, transforms payload to Sentinel features,
+    and runs synchronous hot-path risk decisioning.
+    """
+    body = await request.body()
+    secret = os.environ.get("RAZORPAY_WEBHOOK_SECRET", "rzp_webhook_secret_sandbox_2026")
+    
+    if x_razorpay_signature:
+        expected_sig = hmac.new(secret.encode(), body, hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(expected_sig, x_razorpay_signature):
+            raise HTTPException(status_code=400, detail="Invalid Razorpay Webhook Signature")
+
+    try:
+        payload = json.loads(body.decode("utf-8")) if body else {}
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid JSON payload")
+
+    payment_entity = payload.get("payload", {}).get("payment", {}).get("entity", payload)
+    
+    # Map Razorpay native fields (paise -> INR, methods, notes)
+    raw_amount = payment_entity.get("amount", 10000)
+    # If amount is large integer without decimal, treat as paise
+    amount_inr = float(raw_amount) / 100.0 if float(raw_amount) > 100 and isinstance(raw_amount, int) else float(raw_amount)
+    
+    method = str(payment_entity.get("method", "card")).upper()
+    notes = payment_entity.get("notes", {})
+    if isinstance(notes, list):
+        notes = {}
+
+    cust_id = payment_entity.get("customer_id") or payment_entity.get("contact") or payment_entity.get("email") or "cust_rzp_anon"
+    merch_id = payment_entity.get("merchant_id") or notes.get("merchant_id", "merch_rzp_default")
+    dev_id = notes.get("device_id") or f"dev_rzp_{payment_entity.get('id', 'anon')}"
+    ip_raw = notes.get("ip") or payment_entity.get("ip") or "127.0.0.1"
+    ip_hash = hashlib.sha256(str(ip_raw).encode()).hexdigest()[:16]
+    card_fp = payment_entity.get("token_id") or hashlib.sha256(str(payment_entity.get("card_id", "card_default")).encode()).hexdigest()[:16]
+
+    ingest_req = TransactionIngestRequest(
+        transaction_id=payment_entity.get("id"),
+        amount=amount_inr,
+        currency=payment_entity.get("currency", "INR"),
+        customer_id=str(cust_id),
+        merchant_id=str(merch_id),
+        device_id=str(dev_id),
+        ip_address_hash=ip_hash,
+        card_fingerprint=card_fp,
+        geo_country=notes.get("country", "IN"),
+        customer_home_country="IN"
+    )
+
+    decision_res = await ingest_transaction(ingest_req)
+    return {
+        "status": "processed",
+        "razorpay_event": payload.get("event", "payment.authorized"),
+        "razorpay_payment_id": payment_entity.get("id"),
+        "decision": decision_res
+    }
 
 
 @router.get("/stream/events")

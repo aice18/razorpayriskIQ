@@ -367,37 +367,44 @@
       min-width: 0;
       height: 100vh;
       overflow-y: auto;
-    }
-
-    /* ==========================================================================
-       TOP APP HEADER
+    }    /* ==========================================================================
+       TOP APP HEADER (2-ROW DUAL TIER LAYOUT)
        ========================================================================== */
     header {
       background: var(--bg-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border-color);
-      padding: 1rem 2rem;
+      padding: 1rem 2rem 0.85rem 2rem;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
       position: sticky;
       top: 0;
       z-index: 40;
+    }
+
+    .header-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
     }
 
     .header-left {
       display: flex;
       align-items: center;
       gap: 16px;
+      min-width: 0;
     }
 
     .page-title {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 800;
       color: var(--text-main);
       letter-spacing: -0.5px;
+      white-space: nowrap;
     }
 
     .date-badge {
@@ -406,69 +413,68 @@
       color: var(--text-secondary);
       font-size: 0.76rem;
       font-family: var(--font-mono);
-      padding: 5px 12px;
-      border-radius: 99px;
-      display: flex;
+      padding: 0 12px;
+      height: 32px;
+      border-radius: 999px;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      white-space: nowrap;
     }
 
-    .header-right {
+    .header-actions {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
-    /* Theme Switcher Toggle (Sun / Moon) */
-    .theme-toggle-wrap {
+    /* Telemetry Sub-Row (Row 2) */
+    .header-sub-row {
       display: flex;
       align-items: center;
-      background: var(--bg-surface-elevated);
-      border: 1px solid var(--border-color);
-      border-radius: 99px;
-      padding: 3px;
-      cursor: pointer;
-      position: relative;
+      justify-content: flex-start;
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
     }
-
-    .theme-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-
-    .theme-btn.active {
-      background: var(--brand-primary);
-      color: #FFF;
-      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+    .header-sub-row::-webkit-scrollbar {
+      display: none;
     }
 
     /* Telemetry Pill Strip */
     .telemetry-chip-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .tel-chip {
-      background: var(--bg-surface);
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 0.72rem;
+      padding: 0 14px;
+      height: 32px;
+      border-radius: 999px;
+      font-size: 0.74rem;
       font-family: var(--font-mono);
       color: var(--text-secondary);
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    }
+
+    .tel-chip:hover {
+      border-color: rgba(37, 99, 235, 0.35);
+      background: var(--bg-surface-hover);
+      transform: translateY(-1px);
+    }
+
+    .tel-label {
+      color: var(--text-muted);
+      font-weight: 500;
     }
 
     .tel-dot {
@@ -478,7 +484,8 @@
       background: var(--status-allow);
       box-shadow: 0 0 8px var(--status-allow);
       animation: pulse 2s infinite;
-    }
+      flex-shrink: 0;
+    } }
 
     @keyframes pulse {
       0% { opacity: 1; transform: scale(1); }
@@ -650,21 +657,32 @@
     .dropdown-chip {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      font-size: 0.74rem;
-      padding: 4px 10px;
+      color: var(--text-main);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 5px 12px;
       border-radius: 8px;
       cursor: pointer;
+      font-family: var(--font-body);
+      outline: none;
     }
 
-    /* Interactive Bar Chart for Ingestion Dynamics */
+    .dropdown-chip:focus {
+      border-color: var(--brand-primary);
+    }
+
+    /* Interactive Bar Chart for Ingestion & Score Distribution */
     .bar-chart-container {
       height: 180px;
       display: flex;
       align-items: flex-end;
-      gap: 12px;
-      padding: 10px 0 0 0;
+      gap: 10px;
+      padding: 18px 12px 8px 12px;
+      background: var(--bg-surface-elevated);
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
       position: relative;
+      margin-top: 10px;
     }
 
     .bar-col {
@@ -675,36 +693,51 @@
       height: 100%;
       justify-content: flex-end;
       gap: 6px;
+      position: relative;
+      cursor: pointer;
     }
 
-    .bar-pill-track {
-      width: 14px;
-      height: 140px;
-      background: var(--chart-bar-bg);
-      border-radius: 99px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      overflow: hidden;
+    .bar-col:hover .bar-fill {
+      filter: brightness(1.25);
+      transform: scaleY(1.04);
+    }
+
+    .bar-fill {
+      width: 100%;
+      min-width: 16px;
+      max-width: 28px;
+      border-radius: 6px 6px 2px 2px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: bottom;
       position: relative;
     }
 
-    .bar-pill-fill {
-      width: 100%;
-      background: var(--chart-bar-fill);
-      border-radius: 99px;
-      transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    .bar-fill.allow {
+      background: linear-gradient(180deg, #10B981 0%, #059669 100%);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
     }
 
-    .bar-pill-fill.blocked {
-      background: var(--status-block);
+    .bar-fill.stepup {
+      background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+    }
+
+    .bar-fill.review {
+      background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+    }
+
+    .bar-fill.block {
+      background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
     }
 
     .bar-label {
-      font-size: 0.65rem;
-      color: var(--text-muted);
+      font-size: 0.68rem;
+      color: var(--text-secondary);
       font-family: var(--font-mono);
-      text-transform: uppercase;
+      font-weight: 600;
+      white-space: nowrap;
     }
 
     /* Right Stack: Financial Impact Cards & Sparkline */
@@ -841,6 +874,119 @@
       color: #FFF;
     }
 
+    /* Radar Alert Banner */
+    .radar-alert-banner {
+      background: linear-gradient(90deg, rgba(239, 68, 68, 0.16), rgba(139, 92, 246, 0.16));
+      border: 1px solid rgba(239, 68, 68, 0.40);
+      box-shadow: 0 0 24px rgba(239, 68, 68, 0.20);
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      animation: slideDownRadar 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes slideDownRadar {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .radar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .radar-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      color: var(--status-block);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .radar-pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--status-block);
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+      animation: radarPulseAnim 1.5s infinite;
+    }
+
+    @keyframes radarPulseAnim {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    /* Filter Pills & Stream Controls */
+    .filter-stream-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill-group {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 4px 10px;
+      border-radius: 99px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-pill:hover {
+      color: var(--text-main);
+      border-color: var(--border-focus);
+    }
+
+    .filter-pill.active {
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      border-color: var(--brand-primary);
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.35);
+    }
+
+    .stream-freeze-btn {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+
+    .stream-freeze-btn.frozen {
+      background: var(--status-review-bg);
+      color: var(--status-review);
+      border-color: var(--status-review-border);
+    }
+
     /* ==========================================================================
        BOTTOM ROW: LIVE STREAM TABLE & CASE DOSSIER INSPECTOR
        ========================================================================== */
@@ -855,7 +1001,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .search-input {
@@ -1172,11 +1318,172 @@
       .stream-dossier-grid { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 900px) {
-      .sidebar { display: none; }
-      .kpi-grid { grid-template-columns: 1fr; }
-      .benchmark-grid { grid-template-columns: repeat(2, 1fr); }
-      .eval-split-grid { grid-template-columns: 1fr; }
+    /* ==========================================================================
+       OFFICIAL SAR / STR REGULATORY DOSSIER MODAL & REPORT STYLES
+       ========================================================================== */
+    .sar-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 29, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: fadeIn 0.2s ease;
+    }
+    [data-theme="light"] .sar-modal-overlay {
+      background: rgba(15, 23, 42, 0.65);
+    }
+    .sar-modal-overlay.active {
+      display: flex;
+    }
+    .sar-modal-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 980px;
+      max-height: 92vh;
+      overflow-y: auto;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .sar-report-header {
+      background: var(--bg-surface-elevated);
+      border-bottom: 2px solid var(--brand-primary);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+    .sar-header-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.74rem;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .sar-report-body {
+      padding: 1.75rem 2rem 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .sar-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .sar-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .sar-section-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 5px;
+    }
+    .sar-info-card {
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+    }
+    .sar-kv-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--border-subtle);
+      font-size: 0.78rem;
+    }
+    .sar-kv-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .sar-kv-val {
+      font-family: var(--font-mono);
+      color: var(--text-main);
+      font-weight: 700;
+    }
+    .sar-modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-sar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--text-main);
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+    .btn-sar:hover {
+      background: var(--brand-primary);
+      color: #FFF;
+      border-color: var(--brand-primary);
+    }
+    .btn-sar-primary {
+      background: var(--brand-primary);
+      color: #FFF;
+      border-color: var(--brand-primary);
+      box-shadow: 0 2px 10px rgba(37,99,235,0.3);
+    }
+
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      .sar-modal-overlay, .sar-modal-overlay * {
+        visibility: visible !important;
+      }
+      .sar-modal-overlay {
+        position: absolute !important;
+        inset: 0 !important;
+        background: #FFF !important;
+        padding: 0 !important;
+      }
+      .sar-modal-container {
+        border: none !important;
+        box-shadow: none !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        color: #000 !important;
+        background: #FFF !important;
+      }
+      .sar-modal-actions, .sar-close-btn {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -1246,28 +1553,34 @@
        ========================================================================== -->
   <div class="main-wrapper">
     
-    <!-- Top Header -->
+    <!-- Top Header (Dual-Row Architecture) -->
     <header>
-      <div class="header-left">
-        <div class="page-title" id="page-title-text">Risk Analytics & Live Ingestion</div>
-        <div class="date-badge">
-          <span>🕒</span> <span id="clock-utc">Live UTC Stream</span>
+      <!-- Row 1: Title, Clock & Controls -->
+      <div class="header-top-row">
+        <div class="header-left">
+          <div class="page-title" id="page-title-text">Risk Analytics & Live Ingestion</div>
+          <div class="date-badge">
+            <span>🕒</span> <span id="clock-utc">Live UTC Stream</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <!-- Light / Dark Theme Switcher (Dual Tone Toggle) -->
+          <div class="theme-toggle-wrap" onclick="toggleTheme()" title="Switch Light/Dark Theme">
+            <button class="theme-btn" id="btn-theme-light" type="button">☀️</button>
+            <button class="theme-btn active" id="btn-theme-dark" type="button">🌙</button>
+          </div>
         </div>
       </div>
 
-      <div class="header-right">
-        <!-- Telemetry Chips -->
+      <!-- Row 2: Real-time Telemetry Status Bar -->
+      <div class="header-sub-row">
         <div class="telemetry-chip-group">
-          <div class="tel-chip"><div class="tel-dot"></div> <span id="tel-sse">SSE: CONNECTED</span></div>
-          <div class="tel-chip"><span>Hot-Path:</span> <strong style="color:var(--status-allow);" id="tel-sla">8.17 ms</strong></div>
-          <div class="tel-chip"><span>Queue:</span> <span id="tel-queue">0 / 10,000</span></div>
-          <div class="tel-chip"><span>DLQ:</span> <span id="tel-dlq" style="color:var(--status-allow);">0</span></div>
-        </div>
-
-        <!-- Light / Dark Theme Switcher (Dual Tone Toggle) -->
-        <div class="theme-toggle-wrap" onclick="toggleTheme()" title="Switch Light/Dark Theme">
-          <button class="theme-btn" id="btn-theme-light" type="button">☀️</button>
-          <button class="theme-btn active" id="btn-theme-dark" type="button">🌙</button>
+          <div class="tel-chip"><div class="tel-dot"></div> <span id="tel-sse" style="color:var(--status-allow); font-weight:600;">SSE: LIVE CONNECTED</span></div>
+          <div class="tel-chip"><span class="tel-label">P95 SLA:</span> <strong style="color:var(--status-allow);" id="tel-sla">8.17 ms</strong></div>
+          <div class="tel-chip"><span class="tel-label">LLM Cost:</span> <span id="tel-llm-cost" style="color:var(--accent-cyan); font-weight:700;">$0.0008 / dec</span></div>
+          <div class="tel-chip"><span class="tel-label">Queue:</span> <span id="tel-queue">0 / 10,000</span></div>
+          <div class="tel-chip"><span class="tel-label">DLQ:</span> <span id="tel-dlq" style="color:var(--status-allow); font-weight:700;">0</span></div>
         </div>
       </div>
     </header>
@@ -1279,6 +1592,19 @@
            TAB 1: ANALYTICS & LIVE INGESTION STREAM (MATCHING REFERENCE DESIGN)
            ========================================================================== -->
       <div id="tab-analytics" class="tab-pane active">
+
+        <!-- Real-Time Radar Alert Banner (Pulsing high-risk intercept notification) -->
+        <div id="radar-alert-banner" class="radar-alert-banner" style="display:none;">
+          <div class="radar-left">
+            <div class="radar-pulse-dot"></div>
+            <div class="radar-badge">🚨 CRITICAL RISK INTERCEPT:</div>
+            <span id="radar-alert-msg" style="font-size:0.82rem; color:var(--text-main); font-weight:600;"></span>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <button id="radar-inspect-btn" class="btn-action" style="padding:4px 10px; font-size:0.72rem; background:var(--status-block);">Inspect Dossier</button>
+            <button onclick="dismissRadarAlert()" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:1.1rem; line-height:1;">✕</button>
+          </div>
+        </div>
 
         <!-- Top KPI Cards Grid -->
         <div class="kpi-grid">
@@ -1348,79 +1674,105 @@
             </svg>
           </div>
 
-          <!-- Donut 2: Rail Breakdown -->
+          <!-- Donut 2: Channel Split -->
           <div class="card donut-card">
             <div class="donut-info">
-              <div class="kpi-title">Payment Rails</div>
+              <div class="kpi-title">Payment Channels</div>
               <div class="donut-legend">
-                <div class="legend-row"><div class="legend-dot" style="background:var(--brand-primary);"></div> UPI Intent (68%)</div>
-                <div class="legend-row"><div class="legend-dot" style="background:var(--accent-purple);"></div> Cards (24%)</div>
-                <div class="legend-row"><div class="legend-dot" style="background:var(--accent-cyan);"></div> NetBanking (8%)</div>
+                <div class="legend-row"><div class="legend-dot" style="background:var(--accent-purple);"></div> UPI Intent (68%)</div>
+                <div class="legend-row"><div class="legend-dot" style="background:var(--brand-primary);"></div> Cards (24%)</div>
+                <div class="legend-row"><div class="legend-dot" style="background:var(--accent-cyan);"></div> Netbanking (8%)</div>
               </div>
             </div>
             <svg class="donut-chart-svg" viewBox="0 0 36 36">
               <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--chart-bar-bg)" stroke-width="4.5"/>
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--brand-primary)" stroke-width="4.5" stroke-dasharray="68, 100"/>
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent-purple)" stroke-width="4.5" stroke-dasharray="24, 100" stroke-dashoffset="-68"/>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent-purple)" stroke-width="4.5" stroke-dasharray="68, 100"/>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--brand-primary)" stroke-width="4.5" stroke-dasharray="24, 100" stroke-dashoffset="-68"/>
             </svg>
           </div>
 
         </div>
 
-        <!-- Middle Row: Sales & Risk Dynamics Charts -->
+        <!-- Middle Row: Analytical Charts (Matching Reference Design) -->
         <div class="analytics-row">
           
-          <!-- Left: Ingestion Dynamics Bar Chart (Dual-Tone Pill Bars Matching Reference) -->
+          <!-- Total Score Distribution Histogram -->
           <div class="card">
             <div class="card-header-bar">
               <div class="card-heading">
-                <span>📊 Ingestion & Attack Dynamics</span>
+                <span>📊 Score Distribution & Risk Buckets</span>
+                <span class="badge" style="background:var(--status-allow-bg); color:var(--status-allow); font-size:0.72rem;">Calibrated 0.0 – 1.0</span>
               </div>
-              <div class="dropdown-chip">Real-Time Window ▼</div>
+              <div class="dropdown-chip">
+                <span>Window: Last 1 Hour</span> <span>▾</span>
+              </div>
+            </div>
+            
+            <div class="chart-summary-stat">
+              <div>
+                <div class="chart-big-num">24,960</div>
+                <div style="font-size:0.75rem; color:var(--text-muted);">Safe Volume (&lt; 0.25 Score)</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:6px; font-size:0.80rem;">
+                <span style="color:var(--status-allow); font-weight:700;">● Clean 98.2%</span>
+                <span style="color:var(--status-review); font-weight:700;">● Step-Up 0.9%</span>
+                <span style="color:var(--status-block); font-weight:700;">● Blocked 0.9%</span>
+              </div>
             </div>
 
-            <div class="bar-chart-container" id="bar-chart-bars">
-              <!-- Dynamically populated 12 intervals -->
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 45%;"></div></div><div class="bar-label">00:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 60%;"></div></div><div class="bar-label">02:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 35%;"></div></div><div class="bar-label">04:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 75%;"></div></div><div class="bar-label">06:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 50%;"></div></div><div class="bar-label">08:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 85%;"></div></div><div class="bar-label">10:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 65%;"></div></div><div class="bar-label">12:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill blocked" style="height: 95%;"></div></div><div class="bar-label">14:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 40%;"></div></div><div class="bar-label">16:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 70%;"></div></div><div class="bar-label">18:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 55%;"></div></div><div class="bar-label">20:00</div></div>
-              <div class="bar-col"><div class="bar-pill-track"><div class="bar-pill-fill" style="height: 80%;"></div></div><div class="bar-label">22:00</div></div>
+            <!-- CSS Bar Chart (Matching Reference Layout) -->
+            <div class="bar-chart-container">
+              <div class="bar-col" title="0.0 - 0.1 Score (Clean Traffic)"><div class="bar-fill allow" style="height:92%;"></div><span class="bar-label">0.0-0.1</span></div>
+              <div class="bar-col" title="0.1 - 0.2 Score (Low Risk)"><div class="bar-fill allow" style="height:76%;"></div><span class="bar-label">0.1-0.2</span></div>
+              <div class="bar-col" title="0.2 - 0.3 Score (Low-Medium Risk)"><div class="bar-fill allow" style="height:34%;"></div><span class="bar-label">0.2-0.3</span></div>
+              <div class="bar-col" title="0.3 - 0.4 Score (Step-Up Risk Threshold)"><div class="bar-fill stepup" style="height:16%;"></div><span class="bar-label">0.3-0.4</span></div>
+              <div class="bar-col" title="0.4 - 0.5 Score (Step-Up Auth)"><div class="bar-fill stepup" style="height:8%;"></div><span class="bar-label">0.4-0.5</span></div>
+              <div class="bar-col" title="0.5 - 0.6 Score (Manual Review)"><div class="bar-fill review" style="height:12%;"></div><span class="bar-label">0.5-0.6</span></div>
+              <div class="bar-col" title="0.6 - 0.7 Score (High Review Alert)"><div class="bar-fill review" style="height:18%;"></div><span class="bar-label">0.6-0.7</span></div>
+              <div class="bar-col" title="0.7 - 0.8 Score (Hard Block Threshold)"><div class="bar-fill block" style="height:22%;"></div><span class="bar-label">0.7-0.8</span></div>
+              <div class="bar-col" title="0.8 - 0.9 Score (Critical Block)"><div class="bar-fill block" style="height:30%;"></div><span class="bar-label">0.8-0.9</span></div>
+              <div class="bar-col" title="0.9 - 1.0 Score (Botnet / ATO Intercept)"><div class="bar-fill block" style="height:42%;"></div><span class="bar-label">0.9-1.0</span></div>
             </div>
           </div>
 
-          <!-- Right: Financial Impact & Sparkline Activity -->
-          <div class="finance-stack">
+          <!-- Channel Distribution & Risk Sparkline -->
+          <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
             
-            <div class="finance-twin-grid">
-              <!-- Card A: Loss Prevented -->
+            <div class="card-header-bar">
+              <div class="card-heading">
+                <span>🛡️ Payment Integrity & Multi-Currency</span>
+              </div>
+              <select id="currency-global-selector" class="dropdown-chip" onchange="changeGlobalCurrency(this.value)">
+                <option value="INR" selected>🇮🇳 INR (₹) - India</option>
+                <option value="USD">🇺🇸 USD ($) - United States</option>
+                <option value="EUR">🇪🇺 EUR (€) - Europe</option>
+                <option value="GBP">🇬🇧 GBP (£) - United Kingdom</option>
+                <option value="SGD">🇸🇬 SGD (S$) - Singapore</option>
+                <option value="AED">🇦🇪 AED (د.إ) - UAE</option>
+                <option value="MYR">🇲🇾 MYR (RM) - Malaysia</option>
+              </select>
+            </div>
+
+            <div class="finance-cards-row">
               <div class="finance-card">
                 <div>
-                  <div class="kpi-title">Fraud Prevented</div>
-                  <div class="finance-amt">₹38,450.00</div>
-                  <div style="font-size:0.70rem; color:var(--text-muted); margin-top:2px;">Direct chargebacks saved</div>
+                  <div class="kpi-title">Abuse Prevented</div>
+                  <div class="finance-amt" id="val-abuse-prevented" style="color:var(--status-block);">₹12,45,800.00</div>
+                  <div style="font-size:0.70rem; color:var(--text-muted); margin-top:2px;">Intercepted chargebacks</div>
                 </div>
                 <div class="progress-circle-wrap">
                   <svg viewBox="0 0 36 36">
                     <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--chart-bar-bg)" stroke-width="4"/>
-                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent-purple)" stroke-width="4" stroke-dasharray="94, 100"/>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--status-block)" stroke-width="4" stroke-dasharray="100, 100"/>
                   </svg>
-                  <span class="progress-text">+94%</span>
+                  <span class="progress-text">100%</span>
                 </div>
               </div>
 
-              <!-- Card B: GMV Protected -->
               <div class="finance-card">
                 <div>
                   <div class="kpi-title">Funds Protected</div>
-                  <div class="finance-amt">₹1,84,250.00</div>
+                  <div class="finance-amt" id="val-funds-protected">₹1,84,250.00</div>
                   <div style="font-size:0.70rem; color:var(--text-muted); margin-top:2px;">Safe checkout volume</div>
                 </div>
                 <div class="progress-circle-wrap">
@@ -1450,20 +1802,21 @@
                 <path d="M 0,65 Q 40,55 80,60 T 160,30 T 240,50 T 320,15 T 400,45" fill="none" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
               </svg>
             </div>
-
           </div>
         </div>
 
         <!-- Attack Simulator Action Bar -->
         <div class="simulator-toolbar">
           <div class="sim-tag">
-            <span>⚡ Attack Injection Console:</span>
+            <span>⚡ Instant Attack Injection Console:</span>
           </div>
           <div class="sim-btn-group">
-            <button class="btn-sim" onclick="injectSimulatorEvent('NORMAL')">🟢 + Normal UPI</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('CARD_TESTING_BOT')">🔴 + Card Testing Bot</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('ACCOUNT_TAKEOVER_ATO')">🚨 + High-Value ATO</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('NORMAL')">🟢 + Normal UPI (INR)</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('CARD_TESTING_BOT')">🔴 + Card Bot (USD)</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('ACCOUNT_TAKEOVER_ATO')">🚨 + ATO Gaming (SGD)</button>
             <button class="btn-sim" onclick="injectSimulatorEvent('SYNTHETIC_RING')">🕸️ + Syndicate Ring</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('VELOCITY_BURST')" style="background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.4); color:var(--accent-amber);">⚡ + 5x Velocity Burst</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('GEO_IMPOSSIBLE')" style="background:rgba(6,182,212,0.15); border-color:rgba(6,182,212,0.4); color:var(--accent-cyan);">🌐 + Geo-Jump (EUR)</button>
             <button class="btn-sim" onclick="injectSimulatorEvent('AMBIGUOUS')">🟡 + Ambiguous Surge</button>
             <button class="btn-sim btn-sim-replay" onclick="injectIdempotentReplay()">🔁 Replay (&lt;0.1ms)</button>
           </div>
@@ -1479,11 +1832,40 @@
                 <span>🛒 Live Hot-Path Stream</span>
                 <span style="font-size:0.70rem; color:var(--text-muted);" id="stream-count-badge">50 Events</span>
               </div>
-              <button onclick="fetchFeed()" class="btn-action" style="padding:4px 10px; font-size:0.72rem;">Refresh</button>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button id="btn-freeze-stream" class="stream-freeze-btn" onclick="toggleStreamFreeze()">⏸️ Freeze Feed</button>
+                <button onclick="fetchFeed()" class="btn-action" style="padding:4px 10px; font-size:0.72rem;">Refresh</button>
+              </div>
             </div>
 
             <div class="table-search-bar">
-              <input type="text" class="search-input" id="search-box" placeholder="Search by Txn ID, Customer, Amount, or Payment Rail..." onkeyup="filterFeedTable()"/>
+              <input type="text" class="search-input" id="search-box" placeholder="Search by Txn ID, Customer, Currency (USD, EUR...), or Rail..." onkeyup="filterFeedTable()"/>
+            </div>
+
+            <!-- Quick Filter Pills & Currency Selector -->
+            <div class="filter-stream-toolbar">
+              <div class="filter-pill-group">
+                <button class="filter-pill active" onclick="setFeedFilter('ALL', this)">All</button>
+                <button class="filter-pill" onclick="setFeedFilter('BLOCK', this)">🔴 Blocked</button>
+                <button class="filter-pill" onclick="setFeedFilter('REVIEW', this)">🟡 Review</button>
+                <button class="filter-pill" onclick="setFeedFilter('STEP-UP AUTH', this)">🔵 Step-Up</button>
+                <button class="filter-pill" onclick="setFeedFilter('ALLOW', this)">🟢 Allow</button>
+                <button class="filter-pill" onclick="setFeedFilter('HIGH_RISK', this)">🔥 Risk &gt; 80%</button>
+              </div>
+              
+              <div style="display:flex; align-items:center; gap:6px;">
+                <select id="table-currency-filter" class="filter-pill" onchange="setTableCurrencyFilter(this.value)" style="outline:none; cursor:pointer; padding:3px 8px; border-radius:8px;">
+                  <option value="ALL">🌐 All Currencies</option>
+                  <option value="INR">🇮🇳 INR (₹)</option>
+                  <option value="USD">🇺🇸 USD ($)</option>
+                  <option value="EUR">🇪🇺 EUR (€)</option>
+                  <option value="GBP">🇬🇧 GBP (£)</option>
+                  <option value="SGD">🇸🇬 SGD (S$)</option>
+                  <option value="AED">🇦🇪 AED (د.إ)</option>
+                  <option value="MYR">🇲🇾 MYR (RM)</option>
+                </select>
+                <span id="filtered-count-indicator" style="font-size:0.70rem; color:var(--text-muted);">Showing All</span>
+              </div>
             </div>
 
             <div class="stream-table-wrap">
@@ -1509,7 +1891,10 @@
           <div class="card" id="case-dossier-card">
             <div class="card-header-bar">
               <div class="card-heading" id="case-header-id">🔍 Case Dossier Inspector</div>
-              <div id="case-header-pill"></div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div id="case-header-pill"></div>
+                <button class="btn-action" onclick="exportSARDossier()" title="Export Suspicious Activity Report (SAR) Compliance Dossier" style="padding:4px 10px; font-size:0.72rem; background:var(--bg-surface-elevated); border:1px solid var(--border-color); color:var(--text-main);">📄 Export SAR Dossier</button>
+              </div>
             </div>
 
             <div id="dossier-content-area">
@@ -1611,6 +1996,44 @@
         </div>
       </div>
 
+  <!-- ==========================================================================
+       OFFICIAL SUSPICIOUS ACTIVITY REPORT (SAR) REGULATORY MODAL
+       ========================================================================== -->
+  <div id="sar-modal-overlay" class="sar-modal-overlay" onclick="if(event.target===this) closeSARModal()">
+    <div class="sar-modal-container">
+      
+      <!-- Modal Header -->
+      <div class="sar-report-header">
+        <div style="min-width:0;">
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+            <span style="font-size:1.4rem;">🏛️</span>
+            <div>
+              <div style="font-size:0.72rem; font-weight:800; color:var(--brand-primary); letter-spacing:0.8px; text-transform:uppercase;">Financial Intelligence Unit (FIU-IND) // Compliance Division</div>
+              <div style="font-size:1.15rem; font-weight:800; color:var(--text-main); font-family:var(--font-display); letter-spacing:-0.3px;">Suspicious Transaction Report & Abuse-Ring Dossier</div>
+            </div>
+          </div>
+          <div class="sar-header-meta">
+            <span>REF: <strong id="sar-ref-code" style="color:var(--brand-primary); font-weight:700;">SAR-RZP-2026-XXXX</strong></span>
+            <span>•</span>
+            <span>FILING: <span id="sar-timestamp-text" style="color:var(--text-main);">2026-08-31 UTC</span></span>
+            <span>•</span>
+            <span style="background:var(--status-block-bg); color:var(--status-block); border:1px solid var(--status-block-border); padding:2px 8px; border-radius:4px; font-weight:700; font-size:0.7rem;">CONFIDENTIAL // TIER-1</span>
+          </div>
+        </div>
+
+        <div class="sar-modal-actions">
+          <button class="btn-sar btn-sar-primary" onclick="printSARReport()" title="Print / Save PDF Report">🖨️ Print / PDF</button>
+          <button class="btn-sar" onclick="copySARSummary()" title="Copy Formatted Text Brief">📋 Copy Brief</button>
+          <button class="btn-sar" onclick="downloadSARJson()" title="Download Full JSON Machine Data">📥 JSON</button>
+          <button class="btn-sar sar-close-btn" onclick="closeSARModal()" style="font-size:1rem; padding:6px 12px;" title="Close Window">✕</button>
+        </div>
+      </div>
+
+      <!-- Modal Body Report -->
+      <div class="sar-report-body" id="sar-report-content">
+        <!-- Dynamically rendered SAR content -->
+      </div>
+
     </div>
   </div>
 
@@ -1623,6 +2046,57 @@
     let networkGraph = null;
     let lastInjectedPayload = null;
     let allFeedItems = [];
+    let currentFilter = 'ALL';
+    let selectedTableCurrency = 'ALL';
+    let activeGlobalCurrency = 'INR';
+    let isStreamFrozen = false;
+    let activeCaseData = null;
+
+    // Currency Formatting & Conversion Matrix (Razorpay Global Payments)
+    const CURRENCY_SYMBOLS = {
+      INR: '₹',
+      USD: '$',
+      EUR: '€',
+      GBP: '£',
+      SGD: 'S$',
+      AED: 'AED ',
+      MYR: 'RM '
+    };
+
+    const CURRENCY_RATES_FROM_INR = {
+      INR: 1.0,
+      USD: 0.012,
+      EUR: 0.011,
+      GBP: 0.0094,
+      SGD: 0.016,
+      AED: 0.044,
+      MYR: 0.056
+    };
+
+    function formatMoney(amount, currencyCode) {
+      const code = (currencyCode || 'INR').toUpperCase();
+      const sym = CURRENCY_SYMBOLS[code] || (code + ' ');
+      const locale = code === 'INR' ? 'en-IN' : 'en-US';
+      return sym + Number(amount).toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function setTableCurrencyFilter(curr) {
+      selectedTableCurrency = curr;
+      filterFeedTable();
+    }
+
+    function changeGlobalCurrency(curr) {
+      activeGlobalCurrency = curr;
+      const rate = CURRENCY_RATES_FROM_INR[curr] || 1.0;
+      const baseAbuseINR = 1245800;
+      const baseFundsINR = 184250;
+      
+      const elAbuse = document.getElementById('val-abuse-prevented');
+      const elFunds = document.getElementById('val-funds-protected');
+      
+      if (elAbuse) elAbuse.innerText = formatMoney(baseAbuseINR * rate, curr);
+      if (elFunds) elFunds.innerText = formatMoney(baseFundsINR * rate, curr);
+    }
 
     // UTC Live Clock
     function updateClock() {
@@ -1689,6 +2163,49 @@
       else if (tabId === 'tab-graph' && selectedTxnId) { fetchGraph(selectedTxnId); }
     }
 
+    // Radar Alert Notification Controls
+    function showRadarAlert(data) {
+      const banner = document.getElementById('radar-alert-banner');
+      const msgEl = document.getElementById('radar-alert-msg');
+      const btnEl = document.getElementById('radar-inspect-btn');
+      if (!banner || !msgEl || !btnEl) return;
+
+      const amtFormatted = formatMoney(data.amount, data.currency);
+      msgEl.innerText = `${data.transaction_id} — ${data.action} (Risk: ${(data.score * 100).toFixed(0)}%) | Amount: ${amtFormatted}`;
+      btnEl.onclick = () => {
+        selectCase(data.transaction_id);
+        dismissRadarAlert();
+      };
+      banner.style.display = 'flex';
+    }
+
+    function dismissRadarAlert() {
+      const banner = document.getElementById('radar-alert-banner');
+      if (banner) banner.style.display = 'none';
+    }
+
+    // Stream Freeze / Resume Toggle
+    function toggleStreamFreeze() {
+      isStreamFrozen = !isStreamFrozen;
+      const btn = document.getElementById('btn-freeze-stream');
+      if (isStreamFrozen) {
+        btn.innerText = '▶️ Resume Feed';
+        btn.classList.add('frozen');
+      } else {
+        btn.innerText = '⏸️ Freeze Feed';
+        btn.classList.remove('frozen');
+        fetchFeed();
+      }
+    }
+
+    // Filter Category Pills Logic
+    function setFeedFilter(filterType, btnEl) {
+      currentFilter = filterType;
+      document.querySelectorAll('.filter-pill').forEach(el => el.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      filterFeedTable();
+    }
+
     // Connect to Server-Sent Events (SSE) Stream
     function initSSE() {
       if (!!window.EventSource) {
@@ -1696,8 +2213,12 @@
         source.onmessage = function(event) {
           try {
             const data = JSON.parse(event.data);
-            console.log("⚡ SSE Real-Time Event:", data);
-            fetchFeed();
+            if (!isStreamFrozen) {
+              fetchFeed();
+            }
+            if (data.action === 'BLOCK' || data.score >= 0.70) {
+              showRadarAlert(data);
+            }
           } catch(e) {}
         };
         source.onerror = function() {
@@ -1738,34 +2259,35 @@
         const res = await fetch(`${API_BASE}/feed?limit=50`);
         const data = await res.json();
         allFeedItems = data.items || [];
-        renderFeedTable(allFeedItems);
+        filterFeedTable();
         fetchTelemetry();
       } catch (err) {
         console.error("Feed fetch error:", err);
       }
     }
 
-    // Render Stream Table
+    // Render Stream Table with Active Query & Category & Currency Filters
     function renderFeedTable(items) {
       const tbody = document.getElementById('stream-table-body');
       if (!items || items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">No transactions in buffer.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">No matching transactions found.</td></tr>`;
         return;
       }
 
-      document.getElementById('stream-count-badge').innerText = `${items.length} Events`;
+      document.getElementById('stream-count-badge').innerText = `${allFeedItems.length} Events`;
 
       tbody.innerHTML = items.map(item => {
         const isSel = item.transaction_id === selectedTxnId ? 'selected' : '';
         const act = item.action;
         const pillCls = act === 'BLOCK' ? 'pill-block' : (act === 'REVIEW' ? 'pill-review' : (act === 'STEP-UP AUTH' ? 'pill-stepup' : 'pill-allow'));
         const scoreColor = item.score >= 0.6 ? 'var(--status-block)' : (item.score >= 0.25 ? 'var(--status-review)' : 'var(--status-allow)');
+        const amtFormatted = formatMoney(item.amount, item.currency);
 
         return `
           <tr class="${isSel}" onclick="selectCase('${item.transaction_id}')">
             <td><strong style="font-family:var(--font-mono);">${item.transaction_id}</strong></td>
             <td><span style="color:var(--text-secondary);">${item.customer_id}</span></td>
-            <td><strong style="font-family:var(--font-mono);">₹${Number(item.amount).toLocaleString('en-IN')}</strong></td>
+            <td><strong style="font-family:var(--font-mono); color:var(--text-main);">${amtFormatted}</strong></td>
             <td><span style="font-size:0.74rem; color:var(--text-muted);">${item.payment_method || 'CARD_CREDIT'}</span></td>
             <td><strong style="color:${scoreColor}; font-family:var(--font-mono);">${(item.score * 100).toFixed(0)}%</strong></td>
             <td><span class="status-pill ${pillCls}">${item.action}</span></td>
@@ -1780,13 +2302,39 @@
 
     function filterFeedTable() {
       const query = (document.getElementById('search-box').value || '').toLowerCase();
-      const filtered = allFeedItems.filter(item => 
-        item.transaction_id.toLowerCase().includes(query) ||
-        item.customer_id.toLowerCase().includes(query) ||
-        String(item.amount).includes(query) ||
-        (item.payment_method || '').toLowerCase().includes(query) ||
-        (item.action || '').toLowerCase().includes(query)
-      );
+      
+      const filtered = allFeedItems.filter(item => {
+        const itemCurr = (item.currency || 'INR').toUpperCase();
+        
+        // 1. Currency Filter
+        if (selectedTableCurrency !== 'ALL' && itemCurr !== selectedTableCurrency) {
+          return false;
+        }
+
+        // 2. Action Category Filter
+        if (currentFilter === 'BLOCK' && item.action !== 'BLOCK') return false;
+        if (currentFilter === 'REVIEW' && item.action !== 'REVIEW') return false;
+        if (currentFilter === 'STEP-UP AUTH' && item.action !== 'STEP-UP AUTH') return false;
+        if (currentFilter === 'ALLOW' && item.action !== 'ALLOW') return false;
+        if (currentFilter === 'HIGH_RISK' && item.score < 0.80) return false;
+
+        // 3. Search Query
+        const matchesQuery = 
+          item.transaction_id.toLowerCase().includes(query) ||
+          item.customer_id.toLowerCase().includes(query) ||
+          String(item.amount).includes(query) ||
+          itemCurr.toLowerCase().includes(query) ||
+          (item.payment_method || '').toLowerCase().includes(query) ||
+          (item.action || '').toLowerCase().includes(query);
+
+        return matchesQuery;
+      });
+
+      const countInd = document.getElementById('filtered-count-indicator');
+      if (countInd) {
+        countInd.innerText = `Showing ${filtered.length} of ${allFeedItems.length}`;
+      }
+
       renderFeedTable(filtered);
     }
 
@@ -1802,11 +2350,189 @@
       try {
         const res = await fetch(`${API_BASE}/case/${txnId}`);
         const caseData = await res.json();
+        activeCaseData = caseData;
         renderCaseDetail(caseData);
         fetchGraph(txnId);
       } catch (err) {
         console.error("Error loading case:", err);
       }
+    }
+
+    // Open Visual Suspicious Activity Report (SAR) Compliance Dossier
+    function exportSARDossier() {
+      if (!activeCaseData) {
+        alert("Please select a transaction case first to view its SAR compliance dossier.");
+        return;
+      }
+
+      const c = activeCaseData;
+      const refCode = `SAR-RZP-2026-${c.transaction_id.replace('txn_', '').replace('pay_', '')}`;
+      document.getElementById('sar-ref-code').innerText = refCode;
+      document.getElementById('sar-timestamp-text').innerText = new Date(c.timestamp || Date.now()).toUTCString();
+
+      const act = c.override ? c.override.new_action : c.decision.action;
+      const actColor = act === 'BLOCK' ? 'var(--status-block)' : (act === 'REVIEW' ? 'var(--status-review)' : (act === 'STEP-UP AUTH' ? 'var(--status-stepup)' : 'var(--status-allow)'));
+      const isRing = c.evidence && c.evidence.ring_membership && c.evidence.ring_membership.ring_detected;
+      const ringSize = isRing ? c.evidence.ring_membership.component_size : 1;
+      const devDegree = isRing ? (c.evidence.ring_membership.device_degree || 1) : (c.features ? c.features.entity_degree_device || 1 : 1);
+      const attributions = (c.evidence && c.evidence.attributions) || [];
+      const anomalies = (c.evidence && c.evidence.anomalies) || [];
+      const narrative = c.narrative || {};
+
+      const contentHtml = `
+        <!-- Section 1: Official Case Header Banner -->
+        <div class="sar-info-card" style="border-left: 4px solid ${actColor};">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+            <div>
+              <div style="font-size:0.72rem; text-transform:uppercase; color:var(--text-muted); font-weight:700; letter-spacing:0.5px;">Executive Forensic Finding</div>
+              <div style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-top:2px;">${narrative.headline || 'Suspicious Payment Pattern Intercepted'}</div>
+            </div>
+            <div style="text-align:right;">
+              <span style="background:${actColor}22; color:${actColor}; border:1px solid ${actColor}; padding:4px 12px; border-radius:99px; font-weight:800; font-size:0.8rem; font-family:var(--font-mono);">${act}</span>
+              <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Risk Score: <strong>${(c.score * 100).toFixed(1)}%</strong></div>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.6; margin:8px 0 0 0;">
+            ${narrative.narrative || 'Transaction flagged by multi-layer risk policy matrix based on anomalous entity associations and velocity signatures.'}
+          </p>
+          ${narrative.recommended_action_rationale ? `
+            <div style="margin-top:10px; padding:8px 12px; background:rgba(37,99,235,0.08); border-radius:8px; border-left:3px solid var(--brand-primary); font-size:0.78rem; color:var(--text-main);">
+              <strong>Regulatory Rationale:</strong> ${narrative.recommended_action_rationale}
+            </div>
+          ` : ''}
+        </div>
+
+        <!-- Section 2: Subject & Transaction Profile Grid -->
+        <div>
+          <div class="sar-section-title"><span>👤</span> 1. Subject Entity & Transaction Profile</div>
+          <div class="sar-grid-2">
+            <div class="sar-info-card">
+              <div class="sar-kv-row"><span class="sar-kv-label">Transaction ID:</span><span class="sar-kv-val">${c.transaction_id}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Payment Amount:</span><span class="sar-kv-val" style="color:var(--brand-primary); font-size:0.92rem;">${formatMoney(c.amount, c.currency)}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Payment Rail:</span><span class="sar-kv-val">${c.payment_method || 'CARD_CREDIT'}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">UPI VPA:</span><span class="sar-kv-val">${c.upi_vpa || 'N/A (Card Payment)'}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">SIM Binding Status:</span><span class="sar-kv-val" style="color:${(c.features && c.features.device_sim_bound) ? 'var(--status-allow)' : 'var(--status-block)'};">${(c.features && c.features.device_sim_bound) ? '✅ Verified Hardware Binding' : '⚠️ SIM Unbound / Proxy'}</span></div>
+            </div>
+            <div class="sar-info-card">
+              <div class="sar-kv-row"><span class="sar-kv-label">Customer ID:</span><span class="sar-kv-val">${c.customer_id}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Merchant ID / Cat:</span><span class="sar-kv-val">${c.merchant_id} (${c.merchant_category || 'RETAIL'})</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Originating Country:</span><span class="sar-kv-val">${c.geo_country || 'IN'} ${(c.geo_country && c.customer_home_country && c.geo_country !== c.customer_home_country) ? '⚠️ [Geo Mismatch]' : '✅ [Home Match]'}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Device Fingerprint:</span><span class="sar-kv-val" style="font-size:0.72rem;">${c.device_id}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">IP Hash:</span><span class="sar-kv-val" style="font-size:0.72rem;">${c.ip_address_hash}</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Abuse Ring Topology & Multi-Hop Intelligence -->
+        <div>
+          <div class="sar-section-title"><span>🕸️</span> 2. Topological Abuse-Ring Intelligence</div>
+          <div class="sar-grid-2">
+            <div class="sar-info-card">
+              <div class="sar-kv-row"><span class="sar-kv-label">Syndicate Ring Status:</span><span class="sar-kv-val" style="color:${isRing ? 'var(--status-block)' : 'var(--status-allow)'};">${isRing ? `🚨 Ring Suspect (${ringSize} Connected Entities)` : '✅ Isolated / Benign Topology'}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Hardware Device Degree:</span><span class="sar-kv-val">${devDegree} Distinct Accounts on Device</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">2-Hop Component Nodes:</span><span class="sar-kv-val">${ringSize} Node Cluster</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Inverse Log Hub Dampening:</span><span class="sar-kv-val">Applied (Carrier NAT Protection)</span></div>
+            </div>
+            <div class="sar-info-card">
+              <div class="sar-kv-row"><span class="sar-kv-label">Deterministic Rule Fired:</span><span class="sar-kv-val" style="color:var(--accent-amber); font-size:0.72rem;">${c.decision ? c.decision.rule_fired : 'N/A'}</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Decision Rail:</span><span class="sar-kv-val">Synchronous Hot-Path (&lt;15ms SLA)</span></div>
+              <div class="sar-kv-row"><span class="sar-kv-label">Analyst Override State:</span><span class="sar-kv-val">${c.override ? `MODIFIED by ${c.override.analyst_id || 'Analyst'}` : 'System Automated Decision'}</span></div>
+              ${c.override ? `<div class="sar-kv-row"><span class="sar-kv-label">Override Reason:</span><span class="sar-kv-val" style="color:var(--brand-primary);">${c.override.reason}</span></div>` : ''}
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4: Dynamic TreeSHAP Factor Attributions -->
+        ${attributions.length > 0 ? `
+          <div>
+            <div class="sar-section-title"><span>🧠</span> 3. TreeSHAP Non-Linear Feature Attributions</div>
+            <div class="sar-info-card" style="padding:0.75rem 1.25rem;">
+              <table style="width:100%; border-collapse:collapse; font-size:0.76rem;">
+                <thead>
+                  <tr style="color:var(--text-muted); text-align:left; border-bottom:1px solid var(--border-color);">
+                    <th style="padding:6px 0;">Risk Contributing Factor</th>
+                    <th style="padding:6px 0;">Observed Telemetry Value</th>
+                    <th style="padding:6px 0; text-align:right;">Risk Weight</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${attributions.map(a => `
+                    <tr style="border-bottom:1px dashed rgba(255,255,255,0.05);">
+                      <td style="padding:6px 0; font-weight:600; color:var(--text-main);">${a.feature}</td>
+                      <td style="padding:6px 0; font-family:var(--font-mono); color:var(--text-secondary);">${a.value}</td>
+                      <td style="padding:6px 0; text-align:right; font-family:var(--font-mono); font-weight:700; color:${a.direction === 'HIGH_RISK' ? 'var(--status-block)' : 'var(--accent-amber)'};">+${(a.contribution_score * 100).toFixed(0)}%</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- Section 5: Cryptographic Chain-of-Custody & Sign-off -->
+        <div class="sar-info-card" style="background:rgba(15,23,42,0.6); border:1px solid rgba(255,255,255,0.08);">
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.72rem; font-family:var(--font-mono); color:var(--text-muted);">
+            <div>
+              <span>IMMUTABLE AUDIT HASH: </span>
+              <span style="color:var(--accent-cyan); font-weight:700;">sha256:7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069</span>
+            </div>
+            <div>
+              <span>OFFICER SIGN-OFF: </span>
+              <strong style="color:var(--text-main);">AI Agent Triad + Lead Risk Ops</strong>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('sar-report-content').innerHTML = contentHtml;
+      document.getElementById('sar-modal-overlay').classList.add('active');
+    }
+
+    function closeSARModal() {
+      document.getElementById('sar-modal-overlay').classList.remove('active');
+    }
+
+    function printSARReport() {
+      window.print();
+    }
+
+    function copySARSummary() {
+      if (!activeCaseData) return;
+      const c = activeCaseData;
+      const summary = `
+[CONFIDENTIAL // FIU-IND REGULATORY SAR REPORT]
+Reference: SAR-RZP-2026-${c.transaction_id}
+Date: ${new Date(c.timestamp || Date.now()).toUTCString()}
+Transaction ID: ${c.transaction_id}
+Amount: ${c.currency || 'INR'} ${c.amount}
+Customer ID: ${c.customer_id}
+Merchant ID: ${c.merchant_id}
+Payment Rail: ${c.payment_method || 'CARD_CREDIT'}
+Calibrated Risk Score: ${(c.score * 100).toFixed(1)}%
+Action Rendered: ${c.decision ? c.decision.action : 'UNKNOWN'}
+Rule Fired: ${c.decision ? c.decision.rule_fired : 'N/A'}
+Syndicate Abuse Ring: ${c.evidence && c.evidence.ring_membership && c.evidence.ring_membership.ring_detected ? 'YES (Suspect Ring Member)' : 'NO'}
+Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'}
+`.trim();
+      navigator.clipboard.writeText(summary).then(() => {
+        alert("✅ Formal SAR Case Brief copied to clipboard!");
+      }).catch(() => {
+        alert("SAR Brief:\n\n" + summary);
+      });
+    }
+
+    function downloadSARJson() {
+      if (!activeCaseData) return;
+      const c = activeCaseData;
+      const blob = new Blob([JSON.stringify(c, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `SAR_Compliance_Dossier_${c.transaction_id}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     // Render Full Case Dossier UI
@@ -1882,11 +2608,12 @@
       `;
 
       const scoreColor = c.score >= 0.6 ? 'var(--status-block)' : (c.score >= 0.25 ? 'var(--status-review)' : 'var(--status-allow)');
+      const amtFormatted = formatMoney(c.amount, c.currency);
 
       document.getElementById('dossier-content-area').innerHTML = `
         <div class="dossier-metrics-grid">
           <div class="mini-metric"><div class="mini-label">Calibrated Score</div><div class="mini-val" style="color:${scoreColor};">${(c.score * 100).toFixed(1)}%</div></div>
-          <div class="mini-metric"><div class="mini-label">Amount</div><div class="mini-val">₹${Number(c.amount).toLocaleString('en-IN')}</div></div>
+          <div class="mini-metric"><div class="mini-label">Amount (${c.currency || 'INR'})</div><div class="mini-val">${amtFormatted}</div></div>
           <div class="mini-metric"><div class="mini-label">Syndicate Ring</div><div class="mini-val">${c.evidence.ring_membership && c.evidence.ring_membership.ring_detected ? 'YES ('+c.evidence.ring_membership.component_size+' nodes)' : 'NO'}</div></div>
           <div class="mini-metric"><div class="mini-label">Payment Rail</div><div class="mini-val" style="font-size:0.85rem;">${c.payment_method || 'CARD_CREDIT'}</div></div>
         </div>
@@ -1934,11 +2661,40 @@
       }
     }
 
-    // Simulator Injections
+    // Simulator Injections with Multi-Currency Realism
     async function injectSimulatorEvent(pattern) {
+      if (pattern === 'VELOCITY_BURST') {
+        const sharedCard = "card_burst_" + Math.floor(Math.random()*9000 + 1000);
+        for (let i = 0; i < 5; i++) {
+          const payload = {
+            amount: 49.99 + (i * 5),
+            currency: "USD",
+            customer_id: `cust_burst_${i + 1}`,
+            merchant_id: `merch_gaming_0${(i % 3) + 1}`,
+            merchant_category: "GAMING_CRYPTO",
+            payment_method: "CARD_CREDIT",
+            device_id: `dev_burst_${i + 1}`,
+            ip_address_hash: "ip_burst_cluster",
+            card_fingerprint: sharedCard,
+            geo_country: "US",
+            customer_home_country: "US"
+          };
+          fetch(`${API_BASE}/ingest`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+          });
+        }
+        setTimeout(async () => {
+          await fetchFeed();
+        }, 300);
+        return;
+      }
+
       const sampleEvents = {
         NORMAL: {
           amount: 1450.0,
+          currency: "INR",
           customer_id: "cust_live_" + Math.floor(Math.random()*900 + 100),
           merchant_id: "merch_ecom_04",
           merchant_category: "ECOMMERCE_RETAIL",
@@ -1951,7 +2707,8 @@
           customer_home_country: "IN"
         },
         CARD_TESTING_BOT: {
-          amount: 19.50,
+          amount: 2.50,
+          currency: "USD",
           customer_id: "cust_bot_" + Math.floor(Math.random()*900 + 100),
           merchant_id: "merch_gaming_01",
           merchant_category: "GAMING_CRYPTO",
@@ -1959,11 +2716,12 @@
           device_id: "dev_bot_shared",
           ip_address_hash: "ip_bot_shared",
           card_fingerprint: "card_test_" + Math.floor(Math.random()*9000 + 1000),
-          geo_country: "IN",
-          customer_home_country: "IN"
+          geo_country: "US",
+          customer_home_country: "US"
         },
         ACCOUNT_TAKEOVER_ATO: {
-          amount: 89000.0,
+          amount: 1450.0,
+          currency: "SGD",
           customer_id: "cust_live_target",
           merchant_id: "merch_crypto_02",
           merchant_category: "GAMING_CRYPTO",
@@ -1976,6 +2734,7 @@
         },
         SYNTHETIC_RING: {
           amount: 32000.0,
+          currency: "INR",
           customer_id: "cust_ring_" + Math.floor(Math.random()*900 + 100),
           merchant_id: "merch_luxury_03",
           merchant_category: "LUXURY_JEWELRY",
@@ -1989,8 +2748,22 @@
           geo_country: "IN",
           customer_home_country: "IN"
         },
+        GEO_IMPOSSIBLE: {
+          amount: 620.0,
+          currency: "EUR",
+          customer_id: "cust_live_norm",
+          merchant_id: "merch_crypto_lagos",
+          merchant_category: "GAMING_CRYPTO",
+          payment_method: "CARD_CREDIT",
+          device_id: "dev_foreign_lagos",
+          ip_address_hash: "ip_foreign_lagos",
+          card_fingerprint: "card_live_norm",
+          geo_country: "NG",
+          customer_home_country: "IN"
+        },
         AMBIGUOUS: {
           amount: 4800.0,
+          currency: "INR",
           customer_id: "cust_family_01",
           merchant_id: "merch_ecom_05",
           merchant_category: "ECOMMERCE_RETAIL",

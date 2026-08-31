@@ -195,3 +195,58 @@ def test_active_learning_and_override_workflow():
     assert retrain_data["status"] == "success"
     assert "challenger_validation_pr_auc" in retrain_data
     assert "promoted_to_champion" in retrain_data
+
+
+def test_razorpay_webhook_ingestion():
+    import json
+    import hmac
+    import hashlib
+
+    webhook_payload = {
+        "event": "payment.authorized",
+        "payload": {
+            "payment": {
+                "entity": {
+                    "id": "pay_test_rzp_hook_001",
+                    "amount": 250000, # 2500.00 INR (paise)
+                    "currency": "INR",
+                    "status": "authorized",
+                    "method": "card",
+                    "contact": "+919876543210",
+                    "email": "customer@example.com",
+                    "notes": {
+                        "device_id": "dev_rzp_test_001",
+                        "ip": "103.21.244.1",
+                        "merchant_id": "merch_rzp_ecom_01",
+                        "country": "IN"
+                    }
+                }
+            }
+        }
+    }
+
+    body_bytes = json.dumps(webhook_payload).encode("utf-8")
+    secret = "rzp_webhook_secret_sandbox_2026"
+    valid_sig = hmac.new(secret.encode(), body_bytes, hashlib.sha256).hexdigest()
+
+    # 1. Test with valid HMAC signature
+    resp = client.post(
+        "/api/razorpay/webhook",
+        content=body_bytes,
+        headers={"Content-Type": "application/json", "x-razorpay-signature": valid_sig}
+    )
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "processed"
+    assert data["razorpay_payment_id"] == "pay_test_rzp_hook_001"
+    assert "decision" in data
+    assert data["decision"]["score"] >= 0.0
+
+    # 2. Test with invalid HMAC signature (should be rejected)
+    bad_resp = client.post(
+        "/api/razorpay/webhook",
+        content=body_bytes,
+        headers={"Content-Type": "application/json", "x-razorpay-signature": "invalid_signature_hash"}
+    )
+    assert bad_resp.status_code == 400
+

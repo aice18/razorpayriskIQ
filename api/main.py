@@ -53,6 +53,15 @@ app.include_router(api_router, prefix="/api")
 if os.path.exists("dashboard"):
     app.mount("/static", StaticFiles(directory="dashboard"), name="static")
 
+@app.on_event("startup")
+def startup_banner():
+    print("\n" + "="*60)
+    print("🚀 Razorpay RiskIQ (Sentinel) is now online!")
+    print("   👉 Live Command Center: http://localhost:8000")
+    print("   👉 Interactive Swagger: http://localhost:8000/docs")
+    print("   👉 Service Health:      http://localhost:8000/health")
+    print("="*60 + "\n")
+
 @app.get("/health")
 def health_check():
     """Health check endpoint for Kubernetes liveness probes."""

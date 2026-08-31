@@ -216,7 +216,7 @@ def train_and_evaluate_model():
     final_model.fit(X.values, y)
 
     # Compute Feature Importances via Permutation Importance
-    perm_imp = permutation_importance(final_model, X, y, n_repeats=5, random_state=42)
+    perm_imp = permutation_importance(final_model, X.values, y, n_repeats=5, random_state=42)
     importance_dict = {
         col: round(float(imp), 4)
         for col, imp in zip(FEATURE_COLUMNS, perm_imp.importances_mean)
