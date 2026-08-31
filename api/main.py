@@ -4,6 +4,9 @@ Hardened for enterprise production deployment with metrics, CORS, health checks,
 """
 
 import os
+import warnings
+warnings.filterwarnings("ignore")
+
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -78,13 +81,14 @@ def startup_banner():
 @app.on_event("shutdown")
 def shutdown_cleanup():
     try:
-        from api.routes import sse_subscribers
-        for q in list(sse_subscribers):
+        import api.routes as r
+        r.IS_SHUTTING_DOWN = True
+        for q in list(r.sse_subscribers):
             try:
                 q.put_nowait({"type": "shutdown"})
             except Exception:
                 pass
-        sse_subscribers.clear()
+        r.sse_subscribers.clear()
     except Exception:
         pass
 

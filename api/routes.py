@@ -248,6 +248,8 @@ async def ingest_razorpay_webhook(
     }
 
 
+IS_SHUTTING_DOWN = False
+
 @router.get("/stream/events")
 async def stream_events_sse(request: Request):
     """Server-Sent Events (SSE) live streaming endpoint for real-time dashboard updates."""
@@ -256,18 +258,19 @@ async def stream_events_sse(request: Request):
 
     async def event_generator():
         try:
-            while True:
+            while not IS_SHUTTING_DOWN:
                 if await request.is_disconnected():
                     break
                 try:
-                    data = await asyncio.wait_for(event_queue.get(), timeout=0.5)
+                    data = await asyncio.wait_for(event_queue.get(), timeout=0.25)
                     if isinstance(data, dict) and data.get("type") == "shutdown":
                         break
                     yield f"data: {json.dumps(data)}\n\n"
                 except asyncio.TimeoutError:
-                    # Keep-alive heartbeat
+                    if IS_SHUTTING_DOWN:
+                        break
                     yield f": heartbeat\n\n"
-        except (asyncio.CancelledError, GeneratorExit):
+        except (asyncio.CancelledError, GeneratorExit, Exception):
             pass
         finally:
             if event_queue in sse_subscribers:

@@ -27,8 +27,8 @@ def main():
     import threading
     threading.Thread(target=open_browser, daemon=True).start()
 
-    # Run Uvicorn with instant shutdown on Ctrl+C (no hanging on active SSE streams)
-    uvicorn.run("api.main:app", host="0.0.0.0", port=8000, reload=True, timeout_graceful_shutdown=0)
+    # Run Uvicorn with clean 1-second graceful shutdown on Ctrl+C
+    uvicorn.run("api.main:app", host="0.0.0.0", port=8000, reload=True, timeout_graceful_shutdown=1)
 
 if __name__ == "__main__":
     main()

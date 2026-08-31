@@ -6,9 +6,13 @@ Optimized with C-level NumPy array conversion for ultra-low latency (< 1ms).
 
 import os
 import json
+import warnings
 import joblib
 from typing import Dict, Any, Tuple, List, Optional
 import numpy as np
+
+# Suppress minor cross-version unpickle warnings
+warnings.filterwarnings("ignore")
 
 FEATURE_COLUMNS = [
     "amount",
