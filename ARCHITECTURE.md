@@ -4,15 +4,15 @@
 
 ---
 
-## 1. Dual-Rail Distributed Architecture
+## 1. Triple-Rail Distributed Architecture
 
-RiskIQ operates on an asynchronous **Dual-Rail Architecture** that strictly decouples the high-throughput payment checkout hot path ($SLA < 15\text{ms}$ | $p99 = 8.17\text{ms}$) from deep agentic investigation:
+RiskIQ operates on an asynchronous **Triple-Rail Architecture** that strictly decouples the high-throughput payment checkout hot path ($SLA < 15\text{ms}$ | $p99 = 8.17\text{ms}$) from deep agentic investigation:
 
 ```mermaid
 flowchart TD
-    TXN[Payment Event Stream: UPI / Card / NetBanking] --> API[FastAPI /api/ingest Gateway]
+    TXN[Payment Event Stream: UPI / Card / NetBanking / Razorpay Webhook] --> API[FastAPI Ingestion Gateway]
     
-    subgraph SYNC_PATH ["Synchronous Hot-Path (Strict SLA < 15ms | p99 = 8.17ms)"]
+    subgraph RAIL_1 ["RAIL 1: Synchronous Hot-Path (Strict SLA < 15ms | p99 = 8.17ms)"]
         API --> IDEM[Idempotency & Deduplication Engine < 0.1ms]
         IDEM --> REDIS_FEAT[(Redis Sliding Windows: 1m / 5m / 1h & Online Welford Stats)]
         IDEM --> REDIS_GRAPH[(Redis Adjacency Sets: Log-Degree Dampened Hubs)]
@@ -26,7 +26,7 @@ flowchart TD
     FAST_RESP --> GATEWAY[Payment Gateway / Merchant Checkout]
     FAST_RESP -->|Server-Sent Events SSE Stream| LIVE_UI[Live Dashboard Command Center]
     
-    subgraph ASYNC_PATH ["Asynchronous Agentic Intelligence Layer (Bounded Queue + DLQ Worker Tier)"]
+    subgraph RAIL_2 ["RAIL 2: Asynchronous Agentic Intelligence Layer (Bounded Queue + DLQ Worker Tier)"]
         POLICY -->|Buffered Async Tasks| ASYNC_Q[Bounded Concurrent Queue + DLQ]
         ASYNC_Q --> AGENT[Autonomous Dynamic ReAct Investigator]
         
@@ -37,10 +37,15 @@ flowchart TD
         AGENT -->|Hypothesis 5: UPI Risk & SIM| T5[Tool: UPI VPA & Hardware SIM Verification]
         
         T1 & T2 & T3 & T4 & T5 --> SYNTH[Structured Evidence Synthesis & Attribution Grounding]
-        SYNTH --> REASON[Reasoning Agent: Claude 3.5 Sonnet Dossier]
+        SYNTH --> REASON[Reasoning Agent: Google Gemini 2.0 / Claude 3.5 Sonnet / SAR Dossier]
         REASON --> AUDIT[(Append-Only Audit Store & Active Learning Buffer)]
         AUDIT --> UI[Analyst Command Center & Vis.js Graph Explorer]
-        UI -->|Analyst Override| RETRAIN[Active Learning Retraining Pipeline with Champion Promotion]
+    end
+
+    subgraph RAIL_3 ["RAIL 3: Continuous Governance & Shadow Mode Layer"]
+        UI -->|Analyst Override| RETRAIN[Active Learning Retraining Pipeline with 3.0x Weights]
+        RETRAIN --> SHADOW[Dark-Launch Shadow Mode Comparator & Champion Gate]
+        SHADOW -->|Validation PR-AUC >= 0.95| MODEL
     end
 ```
 

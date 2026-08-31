@@ -3,10 +3,11 @@
 
 [![Python](https://img.shields.io/badge/Python-3.11%2B-blue.svg)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-green.svg)](https://fastapi.tiangolo.com)
-[![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.2%2B-orange.svg)](https://scikit-learn.org)
+[![Google Gemini](https://img.shields.io/badge/AI%20Reasoning-Google%20Gemini%202.0%20%2F%20Claude-8E75B2.svg)](https://deepmind.google/technologies/gemini/)
 [![Tests](https://img.shields.io/badge/Tests-13%2F13%20Passed%20(100%25)-brightgreen.svg)](#)
 [![SLA](https://img.shields.io/badge/HotPath%20p99-8.17ms%20(%3C15ms)-success.svg)](#)
 [![PR-AUC](https://img.shields.io/badge/Held--Out%20PR--AUC-1.000-blueviolet.svg)](#)
+[![Compliance](https://img.shields.io/badge/Regulatory-FIU--IND%20SAR%20Compliant-gold.svg)](#)
 [![Stability](https://img.shields.io/badge/PSI%20Drift-0.0092%20(STABLE)-teal.svg)](#)
 
 ---
@@ -157,13 +158,21 @@ All metrics are measured on a **strict time-separated held-out evaluation datase
 
 ---
 
-## 💳 7. Native Razorpay Integration Adapter
+## 💳 7. Native Razorpay Integration & Regulatory Compliance
 
-RiskIQ includes a native **Razorpay Webhook & Standard Event Ingestion Adapter** (`/api/razorpay/webhook`), enabling drop-in integration with Razorpay's payment infrastructure:
-
+### 7.1 Native Razorpay Webhook Adapter (`/api/razorpay/webhook`)
+RiskIQ includes a native **Razorpay Webhook & Standard Event Ingestion Adapter**, enabling drop-in integration with Razorpay's payment gateway:
 * **HMAC-SHA256 Signature Verification:** Validates incoming `x-razorpay-signature` headers against the shared webhook secret.
 * **Automatic Currency Unit Mapping:** Seamlessly converts Razorpay integer sub-units (paise) to standard decimal currency.
 * **Metadata & Note Extraction:** Maps standard Razorpay entities (`payment.authorized`, `order.paid`) and custom notes directly into Sentinel's hot-path feature store.
+
+### 7.2 FIU-IND Suspicious Activity Report (SAR) Regulatory Compliance
+RiskIQ provides automated, audit-proof regulatory filing automation:
+* **Unique Regulatory Case Identifiers:** Formatted case reference codes (`SAR-RZP-2026-XXXX`).
+* **Subject Entity Profiles:** Multi-factor entity mapping across UPI VPAs, SIM Hardware Binding verification, Geo-velocity discrepancies, and device clusters.
+* **Non-Linear TreeSHAP Attributions:** Mathematical grounding of model risk factors.
+* **Generative Narrative:** Powered by **Google Gemini 2.0 / 1.5 Flash** (with fallback to Claude 3.5 Sonnet and deterministic templates).
+* **One-Click Compliance Export:** Instant `🖨️ Print / Save as PDF` (with specialized `@media print` layout), `📋 Copy Brief`, and `📥 JSON Machine Export`.
 
 ---
 
@@ -174,7 +183,7 @@ RiskIQ includes a native **Razorpay Webhook & Standard Event Ingestion Adapter**
 * Git
 * Redis (Optional: RiskIQ includes automatic thread-safe in-memory fallback)
 
-### Installation & Run
+### Local Run (One-Click)
 
 ```bash
 # 1. Clone the repository
@@ -205,16 +214,39 @@ python -m pytest -v
 
 # 8. Start the FastAPI Service & Live Command Center (One-Click Auto-Browser Launch)
 python run.py
-
-# Alternatively, run via direct uvicorn command:
-# python -m uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 Open **[http://localhost:8000](http://localhost:8000)** in your browser to launch the **Live Interactive RiskIQ Command Center**. Press `Ctrl+C` in your terminal to stop the server cleanly at any time.
 
 ---
 
-## 📡 9. Complete API Specification
+## 🌐 9. Cloud & Production Deployment Guide
+
+### Option A: 1-Click Deployment on Render / Railway *(Recommended for Live Demo)*
+1. Fork or push this repository to your GitHub account.
+2. In [Render](https://render.com) or [Railway](https://railway.app), create a new **Web Service** and select `aice18/razorpayriskIQ`.
+3. Set the Environment Variable `PORT=8000` and `GEMINI_API_KEY=your_key` (Optional).
+4. The service will automatically build via Docker and deploy a live public HTTPS URL in ~2 minutes!
+
+### Option B: Docker Compose Multi-Container Deployment
+```bash
+# Launch FastAPI + Redis in multi-container isolated network
+docker compose up --build
+```
+
+### Option C: Google Cloud Run (Serverless)
+```bash
+gcloud run deploy razorpay-riskiq \
+  --source . \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --set-env-vars GEMINI_API_KEY=your_gemini_api_key
+```
+
+---
+
+## 📡 10. Complete API Specification
 
 | Endpoint | Method | Latency SLA | Description |
 | :--- | :---: | :---: | :--- |
@@ -233,7 +265,7 @@ Open **[http://localhost:8000](http://localhost:8000)** in your browser to launc
 
 ---
 
-## 🔒 10. Security & Defense-Only Statement
+## 🔒 11. Security & Defense-Only Statement
 
 This repository is engineered **strictly as a defensive payment security platform**. It contains zero attack generation utilities, penetration testing exploits, or evasion tools. All demonstration datasets are **100% synthetically generated** with zero real-world Personally Identifiable Information (PII) or banking credentials.
 
