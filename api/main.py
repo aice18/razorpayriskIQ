@@ -54,7 +54,21 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Configure CORS
+import asyncio
+
+class SuppressCancellationMiddleware:
+    """Catches and silences asyncio.CancelledError on SSE connections during server reload/shutdown."""
+    def __init__(self, app):
+        self.app = app
+
+    async def __call__(self, scope, receive, send):
+        try:
+            await self.app(scope, receive, send)
+        except (asyncio.CancelledError, GeneratorExit):
+            pass
+
+# Configure CORS & Cancellation Handlers
+app.add_middleware(SuppressCancellationMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -71,11 +85,17 @@ if os.path.exists("dashboard"):
 
 @app.on_event("startup")
 def startup_banner():
+    try:
+        import sys
+        if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
     print("\n" + "="*60)
-    print("🚀 Razorpay RiskIQ (Sentinel) is now online!")
-    print("   👉 Live Command Center: http://localhost:8000")
-    print("   👉 Interactive Swagger: http://localhost:8000/docs")
-    print("   👉 Service Health:      http://localhost:8000/health")
+    print("[RiskIQ] Razorpay RiskIQ (Sentinel) is now online!")
+    print("   -> Live Command Center: http://localhost:8000")
+    print("   -> Interactive Swagger: http://localhost:8000/docs")
+    print("   -> Service Health:      http://localhost:8000/health")
     print("="*60 + "\n")
 
 @app.on_event("shutdown")
