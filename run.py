@@ -9,11 +9,16 @@ import webbrowser
 import uvicorn
 
 def main():
+    try:
+        if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+            sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
     print("\n" + "=" * 65)
-    print("🚀 Starting Razorpay RiskIQ (Sentinel)...")
-    print("   👉 Dashboard URL: http://localhost:8000")
-    print("   👉 API Docs:      http://localhost:8000/docs")
-    print("   👉 Health Check:  http://localhost:8000/health")
+    print("[RiskIQ] Starting Razorpay RiskIQ (Sentinel)...")
+    print("   -> Dashboard URL: http://localhost:8000")
+    print("   -> API Docs:      http://localhost:8000/docs")
+    print("   -> Health Check:  http://localhost:8000/health")
     print("=" * 65 + "\n")
 
     # Automatically open browser after brief delay
