@@ -13,20 +13,33 @@ from api.routes import router as api_router
 from config.settings import settings
 
 # Optional Prometheus Metrics Definitions
+import importlib
+import importlib.util
+
+PROMETHEUS_AVAILABLE = False
+CONTENT_TYPE_LATEST = "text/plain"
+TRANSACTION_COUNTER = None
+LATENCY_HISTOGRAM = None
+
 try:
-    from prometheus_client import Counter, Histogram, generate_latest, CONTENT_TYPE_LATEST
-    PROMETHEUS_AVAILABLE = True
-    TRANSACTION_COUNTER = Counter(
-        "riskiq_transactions_total",
-        "Total payment transactions processed by RiskIQ",
-        ["action", "status"]
-    )
-    LATENCY_HISTOGRAM = Histogram(
-        "riskiq_decision_latency_seconds",
-        "End-to-end transaction scoring and agent decision latency in seconds",
-        buckets=[0.001, 0.005, 0.010, 0.025, 0.050, 0.100, 0.250, 0.500, 1.000]
-    )
-except ImportError:
+    if importlib.util.find_spec("prometheus_client") is not None:
+        pc = importlib.import_module("prometheus_client")
+        Counter = pc.Counter
+        Histogram = pc.Histogram
+        CONTENT_TYPE_LATEST = pc.CONTENT_TYPE_LATEST
+        PROMETHEUS_AVAILABLE = True
+
+        TRANSACTION_COUNTER = Counter(
+            "riskiq_transactions_total",
+            "Total payment transactions processed by RiskIQ",
+            ["action", "status"]
+        )
+        LATENCY_HISTOGRAM = Histogram(
+            "riskiq_decision_latency_seconds",
+            "End-to-end transaction scoring and agent decision latency in seconds",
+            buckets=[0.001, 0.005, 0.010, 0.025, 0.050, 0.100, 0.250, 0.500, 1.000]
+        )
+except Exception:
     PROMETHEUS_AVAILABLE = False
     CONTENT_TYPE_LATEST = "text/plain"
 
@@ -89,7 +102,11 @@ def readiness_check():
 def prometheus_metrics():
     """Prometheus metrics exposition format endpoint."""
     if PROMETHEUS_AVAILABLE:
-        return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
+        try:
+            pc = importlib.import_module("prometheus_client")
+            return Response(content=pc.generate_latest(), media_type=CONTENT_TYPE_LATEST)
+        except Exception:
+            pass
     return Response(
         content="# RiskIQ Prometheus metrics fallback\nriskiq_status{status=\"online\"} 1\n",
         media_type="text/plain"
