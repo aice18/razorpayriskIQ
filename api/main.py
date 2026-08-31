@@ -136,21 +136,22 @@ def prometheus_metrics():
         media_type="text/plain"
     )
 
+@app.get("/")
 @app.get("/landing")
 @app.get("/product")
-def product_landing():
-    """Serves the Razorpay RiskIQ product detail and landing page."""
+def root_landing():
+    """Serves the Razorpay RiskIQ product landing page on initial load."""
     if os.path.exists("dashboard/landing.html"):
         return FileResponse("dashboard/landing.html")
     return FileResponse("dashboard/index.html")
 
-@app.get("/")
-def root():
-    """Serves the live interactive dashboard UI."""
+@app.get("/dashboard")
+def dashboard_app():
+    """Serves the live interactive Razorpay RiskIQ Command Center dashboard."""
     if os.path.exists("dashboard/index.html"):
         return FileResponse("dashboard/index.html")
     return {
-        "service": "Razorpay RiskIQ (Sentinel)",
+        "service": "Razorpay RiskIQ",
         "status": "online",
         "env": settings.ENV,
         "docs": "/docs",

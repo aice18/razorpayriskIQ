@@ -4,31 +4,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Razorpay RiskIQ Sentinel: Autonomous Payment Risk Engine</title>
+  <title>Razorpay RiskIQ: Autonomous Payment Risk Intelligence Platform</title>
   <meta name="description"
-    content="Enterprise autonomous payment risk intelligence and syndicated abuse-ring detection platform powered by Graph-Augmented Machine Learning." />
+    content="Enterprise autonomous payment risk intelligence and syndicated abuse-ring detection platform powered by Graph-Augmented Machine Learning and ReAct AI." />
 
   <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
     rel="stylesheet">
 
   <style>
     /* ==========================================================================
-       ENGINEERED DESIGN SYSTEM: CRISP RAZORPAY BLUE & STRUCTURED NEUTRALS
+       ENTERPRISE RAZORPAY RISKIQ DESIGN SYSTEM
        Strictly adhering to clean enterprise standards:
        - No emojis
        - No fake macOS dots
        - No bento grids
        - No harsh gradients or radial orbs
        - Clean, crisp borders (no bubbly soft pills)
+       - Interactive live HTML5 Canvas entity network graph
        - Real functional interactive demos with skeleton loading states
        ========================================================================== */
     :root {
       --rzp-blue: #0C6FF9;
-      --rzp-blue-hover: #0056D6;
+      --rzp-blue-hover: #0052CC;
+      --rzp-blue-light: #EFF6FF;
+      --rzp-blue-border: #BFDBFE;
       --rzp-navy: #0F172A;
       --rzp-slate: #334155;
       --rzp-muted: #64748B;
@@ -89,7 +92,7 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1240px;
       margin: 0 auto;
       padding: 0 1.5rem;
     }
@@ -100,7 +103,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      padding: 0.65rem 1.25rem;
+      padding: 0.7rem 1.4rem;
       border-radius: var(--radius-md);
       font-size: 0.88rem;
       font-weight: 600;
@@ -134,7 +137,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      padding: 0.25rem 0.6rem;
+      padding: 0.3rem 0.7rem;
       background-color: var(--rzp-surface-alt);
       border: 1px solid var(--rzp-border);
       border-radius: var(--radius-sm);
@@ -165,37 +168,37 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 68px;
     }
 
     .brand-logo {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.65rem;
       font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1.15rem;
+      font-weight: 800;
+      font-size: 1.2rem;
       color: var(--rzp-navy);
       letter-spacing: -0.02em;
     }
 
     .brand-mark {
-      width: 28px;
-      height: 28px;
+      width: 32px;
+      height: 32px;
       background-color: var(--rzp-blue);
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #FFFFFF;
-      font-weight: 800;
-      font-size: 0.9rem;
+      font-weight: 900;
+      font-size: 1rem;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 1.75rem;
+      gap: 2rem;
       list-style: none;
     }
 
@@ -211,14 +214,14 @@
 
     /* Hero Section */
     .hero-section {
-      padding: 4rem 0 3.5rem;
+      padding: 4.5rem 0 4rem;
       background-color: var(--rzp-surface);
       border-bottom: 1px solid var(--rzp-border);
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 3rem;
       align-items: center;
     }
@@ -231,10 +234,10 @@
 
     .hero-title {
       font-family: var(--font-display);
-      font-size: 2.75rem;
+      font-size: 2.85rem;
       font-weight: 800;
       line-height: 1.15;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.035em;
       color: var(--rzp-navy);
     }
 
@@ -243,7 +246,7 @@
     }
 
     .hero-description {
-      font-size: 1.05rem;
+      font-size: 1.08rem;
       color: var(--rzp-muted);
       line-height: 1.6;
     }
@@ -260,7 +263,7 @@
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
       margin-top: 2rem;
-      padding-top: 1.5rem;
+      padding-top: 1.75rem;
       border-top: 1px solid var(--rzp-border);
     }
 
@@ -271,7 +274,7 @@
 
     .metric-value {
       font-family: var(--font-mono);
-      font-size: 1.35rem;
+      font-size: 1.4rem;
       font-weight: 700;
       color: var(--rzp-navy);
     }
@@ -284,15 +287,17 @@
       letter-spacing: 0.04em;
     }
 
-    /* Live Telemetry Card */
-    .telemetry-card {
+    /* Graphic: Live Interactive Network Canvas */
+    .network-graphic-panel {
       background-color: var(--rzp-surface);
       border: 1px solid var(--rzp-border);
       border-radius: var(--radius-lg);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
-    .card-header-bar {
+    .canvas-header {
       background-color: var(--rzp-navy);
       padding: 0.75rem 1rem;
       display: flex;
@@ -303,26 +308,31 @@
       font-size: 0.78rem;
     }
 
-    .card-body-content {
-      padding: 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+    .canvas-container {
+      position: relative;
+      height: 260px;
+      background-color: #060A14;
+      overflow: hidden;
     }
 
-    .info-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0.75rem;
+    #topology-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .canvas-telemetry-bar {
+      padding: 0.75rem 1rem;
       background-color: var(--rzp-surface-alt);
-      border: 1px solid var(--rzp-border);
-      border-radius: var(--radius-sm);
-      font-size: 0.82rem;
+      border-top: 1px solid var(--rzp-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8rem;
     }
 
     .decision-tag {
-      padding: 0.2rem 0.5rem;
+      padding: 0.25rem 0.55rem;
       border-radius: var(--radius-sm);
       font-family: var(--font-mono);
       font-size: 0.75rem;
@@ -342,15 +352,9 @@
       border: 1px solid var(--status-allow);
     }
 
-    .decision-tag.stepup {
-      background-color: var(--status-stepup-bg);
-      color: var(--status-stepup);
-      border: 1px solid var(--status-stepup);
-    }
-
     /* Sections */
     .section-block {
-      padding: 4.5rem 0;
+      padding: 5rem 0;
     }
 
     .section-block-alt {
@@ -360,8 +364,8 @@
     }
 
     .section-heading-wrap {
-      max-width: 720px;
-      margin: 0 auto 3rem;
+      max-width: 760px;
+      margin: 0 auto 3.5rem;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -371,16 +375,60 @@
 
     .section-heading {
       font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 2.15rem;
+      font-weight: 800;
       color: var(--rzp-navy);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.025em;
     }
 
     .section-subtext {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: var(--rzp-muted);
       line-height: 1.6;
+    }
+
+    /* Pipeline Flow Diagram */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .pipeline-stage-card {
+      background-color: var(--rzp-surface);
+      border: 1px solid var(--rzp-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+    }
+
+    .pipeline-stage-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--rzp-blue);
+      background-color: var(--rzp-blue-light);
+      border: 1px solid var(--rzp-blue-border);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .pipeline-stage-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--rzp-navy);
+    }
+
+    .pipeline-stage-desc {
+      font-size: 0.88rem;
+      color: var(--rzp-muted);
+      line-height: 1.55;
     }
 
     /* Architecture Tabs (Decoupled Triple Rail) */
@@ -399,7 +447,7 @@
 
     .arch-tab-btn {
       flex: 1;
-      padding: 1rem 1.25rem;
+      padding: 1.1rem 1.4rem;
       text-align: left;
       border-right: 1px solid var(--rzp-border);
       background: transparent;
@@ -415,13 +463,13 @@
 
     .arch-tab-btn.active {
       background-color: var(--rzp-surface);
-      box-shadow: inset 0 -2px 0 var(--rzp-blue);
+      box-shadow: inset 0 -3px 0 var(--rzp-blue);
     }
 
     .arch-tab-title {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       color: var(--rzp-navy);
     }
 
@@ -433,9 +481,9 @@
 
     .arch-panel-content {
       display: none;
-      padding: 2rem;
+      padding: 2.25rem;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 2.25rem;
     }
 
     .arch-panel-content.active {
@@ -446,21 +494,21 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      margin-top: 1rem;
+      gap: 0.85rem;
+      margin-top: 1.25rem;
     }
 
     .spec-item {
       display: flex;
       align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.9rem;
+      gap: 0.75rem;
+      font-size: 0.92rem;
       color: var(--rzp-slate);
     }
 
     .spec-bullet {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--rzp-blue);
       padding-top: 0.15rem;
@@ -469,11 +517,11 @@
     .code-display {
       background-color: var(--rzp-navy);
       border-radius: var(--radius-md);
-      padding: 1.25rem;
+      padding: 1.4rem;
       color: #E2E8F0;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      line-height: 1.6;
+      font-size: 0.82rem;
+      line-height: 1.65;
       overflow-x: auto;
     }
 
@@ -488,12 +536,12 @@
     }
 
     .sandbox-form {
-      padding: 2rem;
+      padding: 2.25rem;
       background-color: var(--rzp-surface-alt);
       border-right: 1px solid var(--rzp-border);
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.4rem;
     }
 
     .form-grid-2 {
@@ -505,17 +553,17 @@
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 0.35rem;
+      gap: 0.4rem;
     }
 
     .form-group label {
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
       color: var(--rzp-slate);
     }
 
     .form-group input, .form-group select {
-      padding: 0.55rem 0.75rem;
+      padding: 0.6rem 0.8rem;
       background-color: var(--rzp-surface);
       border: 1px solid var(--rzp-border);
       border-radius: var(--radius-sm);
@@ -538,7 +586,7 @@
     }
 
     .preset-chip {
-      padding: 0.5rem 0.75rem;
+      padding: 0.55rem 0.8rem;
       background-color: var(--rzp-surface);
       border: 1px solid var(--rzp-border);
       border-radius: var(--radius-sm);
@@ -556,10 +604,10 @@
     }
 
     .sandbox-output {
-      padding: 2rem;
+      padding: 2.25rem;
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.4rem;
       position: relative;
     }
 
@@ -568,10 +616,10 @@
       position: absolute;
       inset: 0;
       background-color: var(--rzp-surface);
-      padding: 2rem;
+      padding: 2.25rem;
       display: none;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.25rem;
       z-index: 10;
     }
 
@@ -580,7 +628,7 @@
     }
 
     .skeleton-line {
-      height: 18px;
+      height: 20px;
       border-radius: var(--radius-sm);
       background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
       background-size: 200% 100%;
@@ -596,7 +644,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 1.25rem;
+      padding: 1.1rem 1.4rem;
       background-color: var(--rzp-surface-alt);
       border: 1px solid var(--rzp-border);
       border-radius: var(--radius-sm);
@@ -604,7 +652,7 @@
 
     .score-digits {
       font-family: var(--font-mono);
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       color: var(--rzp-navy);
     }
@@ -612,11 +660,11 @@
     .shap-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
     }
 
     .shap-table th, .shap-table td {
-      padding: 0.5rem 0.6rem;
+      padding: 0.55rem 0.65rem;
       text-align: left;
       border-bottom: 1px solid var(--rzp-border);
     }
@@ -646,7 +694,7 @@
     .roi-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 2.5rem;
       background-color: var(--rzp-surface);
       border: 1px solid var(--rzp-border);
       border-radius: var(--radius-lg);
@@ -663,7 +711,7 @@
     .slider-header {
       display: flex;
       justify-content: space-between;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 600;
       color: var(--rzp-slate);
     }
@@ -694,7 +742,7 @@
       background-color: var(--rzp-surface-alt);
       border: 1px solid var(--rzp-border);
       border-radius: var(--radius-md);
-      padding: 2rem;
+      padding: 2.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -702,7 +750,7 @@
 
     .roi-big-stat {
       font-family: var(--font-mono);
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       font-weight: 800;
       color: var(--status-allow);
       letter-spacing: -0.02em;
@@ -720,14 +768,14 @@
       width: 100%;
       border-collapse: collapse;
       text-align: left;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
     }
 
     .data-table th {
       background-color: var(--rzp-surface-alt);
-      padding: 0.9rem 1.25rem;
+      padding: 1rem 1.4rem;
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--rzp-muted);
       text-transform: uppercase;
@@ -735,7 +783,7 @@
     }
 
     .data-table td {
-      padding: 0.9rem 1.25rem;
+      padding: 1rem 1.4rem;
       border-bottom: 1px solid var(--rzp-border);
     }
 
@@ -755,16 +803,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.75rem 1.25rem;
+      padding: 0.85rem 1.4rem;
       background-color: #080D1A;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .lang-btn {
-      padding: 0.35rem 0.75rem;
+      padding: 0.4rem 0.85rem;
       border-radius: var(--radius-sm);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: #94A3B8;
       background: transparent;
@@ -782,32 +830,32 @@
     }
 
     .api-code-block {
-      padding: 1.5rem;
+      padding: 1.75rem;
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      line-height: 1.6;
+      font-size: 0.82rem;
+      line-height: 1.65;
       color: #E2E8F0;
       overflow-x: auto;
     }
 
     .api-response-block {
-      padding: 1.5rem;
+      padding: 1.75rem;
       background-color: #060A14;
       border-left: 1px solid rgba(255, 255, 255, 0.1);
       font-family: var(--font-mono);
-      font-size: 0.8rem;
-      line-height: 1.6;
+      font-size: 0.82rem;
+      line-height: 1.65;
       color: #34D399;
       overflow-x: auto;
     }
 
     /* FAQ Section */
     .faq-list {
-      max-width: 800px;
+      max-width: 840px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
 
     .faq-card {
@@ -818,9 +866,9 @@
     }
 
     .faq-query {
-      padding: 1.1rem 1.25rem;
+      padding: 1.2rem 1.4rem;
       font-family: var(--font-display);
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--rzp-navy);
       display: flex;
@@ -831,10 +879,10 @@
 
     .faq-content {
       display: none;
-      padding: 0 1.25rem 1.1rem;
-      font-size: 0.9rem;
+      padding: 0 1.4rem 1.2rem;
+      font-size: 0.92rem;
       color: var(--rzp-muted);
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
     .faq-card.open .faq-content {
@@ -845,15 +893,15 @@
     .footer {
       background-color: var(--rzp-surface);
       border-top: 1px solid var(--rzp-border);
-      padding: 3.5rem 0 2rem;
-      font-size: 0.85rem;
+      padding: 4rem 0 2rem;
+      font-size: 0.88rem;
     }
 
     .footer-grid {
       display: grid;
       grid-template-columns: 2fr repeat(3, 1fr);
-      gap: 2rem;
-      margin-bottom: 2.5rem;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
     }
 
     .footer-heading {
@@ -863,14 +911,14 @@
       font-size: 0.85rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
     }
 
     .footer-menu {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 0.6rem;
     }
 
     .footer-menu a {
@@ -882,13 +930,13 @@
     }
 
     .footer-legal-bar {
-      padding-top: 1.5rem;
+      padding-top: 1.75rem;
       border-top: 1px solid var(--rzp-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: var(--rzp-muted);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
 
     /* Modals for TOS and Privacy */
@@ -942,7 +990,7 @@
     }
 
     @media (max-width: 900px) {
-      .hero-grid, .arch-panel-content, .sandbox-panel, .roi-grid, .api-code-split {
+      .hero-grid, .arch-panel-content, .sandbox-panel, .roi-grid, .api-code-split, .pipeline-grid {
         grid-template-columns: 1fr;
       }
       .metrics-bar {
@@ -963,13 +1011,14 @@
   <!-- Top Navigation -->
   <nav class="navbar">
     <div class="container navbar-inner">
-      <a href="#" class="brand-logo">
+      <a href="/" class="brand-logo">
         <div class="brand-mark">R</div>
-        <span>Razorpay RiskIQ Sentinel</span>
+        <span>Razorpay RiskIQ</span>
       </a>
 
       <ul class="nav-links">
         <li><a href="#overview">Overview</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
         <li><a href="#architecture">Architecture</a></li>
         <li><a href="#sandbox">Sandbox</a></li>
         <li><a href="#benchmarks">Benchmarks</a></li>
@@ -982,24 +1031,24 @@
           <span class="status-indicator"></span>
           <span>Engine Online</span>
         </span>
-        <a href="/" class="btn btn-primary">Launch Command Center</a>
+        <a href="/dashboard" class="btn btn-primary">Launch Live Command Center</a>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Live Interactive Topology Canvas Graphic -->
   <header class="hero-section" id="overview">
     <div class="container hero-grid">
       <div class="hero-header">
-        <div class="badge-tag">Platform Specification v2.0</div>
+        <div class="badge-tag">Autonomous Payment Risk Platform</div>
         <h1 class="hero-title">
           Autonomous Payment Risk and <span>Syndicated Abuse Ring</span> Detection
         </h1>
         <p class="hero-description">
-          Engineered for high-volume payment routing. Decouples strict sub-10ms checkout scoring from deep asynchronous graph topology and autonomous agentic investigation.
+          Engineered for high-volume payment processing. Decouples strict sub-10ms checkout scoring from deep asynchronous graph topology and autonomous agentic investigation.
         </p>
         <div class="hero-actions">
-          <a href="/" class="btn btn-primary">Open Live Command Center</a>
+          <a href="/dashboard" class="btn btn-primary">Launch Live Command Center</a>
           <a href="#sandbox" class="btn btn-secondary">Interactive Engine Sandbox</a>
         </div>
 
@@ -1023,43 +1072,75 @@
         </div>
       </div>
 
-      <!-- Live Telemetry Panel -->
-      <div class="telemetry-card">
-        <div class="card-header-bar">
-          <span>EVENT_HOTPATH_MONITOR</span>
-          <span>LATENCY: 7.42ms</span>
+      <!-- Live Interactive Network Topology Canvas Graphic -->
+      <div class="network-graphic-panel">
+        <div class="canvas-header">
+          <span>GRAPH_TOPOLOGY_SIMULATOR</span>
+          <span>LIVE NODES: 24 | DAMPENED</span>
         </div>
-        <div class="card-body-content">
-          <div class="info-row">
-            <div>
-              <div style="font-weight: 700; color: var(--rzp-navy); font-family: var(--font-mono);">txn_syndicate_9281a</div>
-              <div style="font-size: 0.75rem; color: var(--rzp-muted);">UPI / Crypto (Amount: ₹85,000.00)</div>
-            </div>
-            <span class="decision-tag block">Block &amp; Isolate</span>
+        <div class="canvas-container">
+          <canvas id="topology-canvas"></canvas>
+        </div>
+        <div class="canvas-telemetry-bar">
+          <div>
+            <span style="color: var(--rzp-muted);">Entity Ring Density:</span>
+            <strong style="font-family: var(--font-mono); color: var(--rzp-navy);">0.942 (Isolated)</strong>
           </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-            <div class="info-row">
-              <span style="color: var(--rzp-muted); font-size: 0.75rem;">Graph Degree:</span>
-              <span style="font-weight: 700; font-family: var(--font-mono);">8 Cards Linked</span>
-            </div>
-            <div class="info-row">
-              <span style="color: var(--rzp-muted); font-size: 0.75rem;">Calibrated Score:</span>
-              <span style="font-weight: 700; font-family: var(--font-mono); color: var(--status-block);">0.984</span>
-            </div>
-          </div>
-
-          <div style="background-color: var(--rzp-navy); padding: 1rem; border-radius: var(--radius-sm); color: #E2E8F0; font-family: var(--font-mono); font-size: 0.78rem;">
-            <div style="color: #38BDF8; font-weight: 700; margin-bottom: 0.4rem;">Autonomous Investigation Synthesis:</div>
-            "Detected coordinated velocity burst spanning 8 cards and 4 devices across gaming merchant categories. Topology isolation policy enforced."
-          </div>
+          <span class="decision-tag block">Block &amp; Isolate</span>
         </div>
       </div>
     </div>
   </header>
 
+  <!-- 4-Stage Ingestion Pipeline Flow Graphic -->
+  <section class="section-block section-block-alt" id="pipeline">
+    <div class="container">
+      <div class="section-heading-wrap">
+        <div class="badge-tag">Execution Pipeline</div>
+        <h2 class="section-heading">High-Throughput Payment Evaluation Flow</h2>
+        <p class="section-subtext">
+          How incoming checkout events are fingerprinted, scored, investigated, and governed in under 10 milliseconds.
+        </p>
+      </div>
+
+      <div class="pipeline-grid">
+        <div class="pipeline-stage-card">
+          <span class="pipeline-stage-num">STAGE 01</span>
+          <h3 class="pipeline-stage-title">Idempotency &amp; Deduplication</h3>
+          <p class="pipeline-stage-desc">
+            SHA-256 fingerprinting resolves network webhook retries in sub-0.1ms, eliminating redundant processing loops and false velocity explosions.
+          </p>
+        </div>
+
+        <div class="pipeline-stage-card">
+          <span class="pipeline-stage-num">STAGE 02</span>
+          <h3 class="pipeline-stage-title">Sliding Window Redis Features</h3>
+          <p class="pipeline-stage-desc">
+            Atomic Redis sorted sets track 1m, 5m, and 1h velocities while extracting degree centralities with inverse log hub dampening W = 1 / log2(2 + k).
+          </p>
+        </div>
+
+        <div class="pipeline-stage-card">
+          <span class="pipeline-stage-num">STAGE 03</span>
+          <h3 class="pipeline-stage-title">Isotonic Calibrated Scoring</h3>
+          <p class="pipeline-stage-desc">
+            HistGradientBoosting classifier coupled with category-specific isotonic calibrators maps features to true calibrated risk probabilities with zero latency overhead.
+          </p>
+        </div>
+
+        <div class="pipeline-stage-card">
+          <span class="pipeline-stage-num">STAGE 04</span>
+          <h3 class="pipeline-stage-title">ReAct Agent &amp; Shadow Gate</h3>
+          <p class="pipeline-stage-desc">
+            Suspicious transactions trigger asynchronous multi-tool evidence collection while analyst overrides feed the 3.0x weighted active learning loop.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Triple Rail Architecture Explorer -->
-  <section class="section-block section-block-alt" id="architecture">
+  <section class="section-block" id="architecture">
     <div class="container">
       <div class="section-heading-wrap">
         <div class="badge-tag">Technical Architecture</div>
@@ -1088,10 +1169,10 @@
         <!-- Rail 1 Pane -->
         <div class="arch-panel-content active" id="pane-0">
           <div>
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
+            <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
               Microsecond Ingestion and Isotonic Scoring
             </h3>
-            <p style="font-size: 0.9rem; color: var(--rzp-muted); line-height: 1.6;">
+            <p style="font-size: 0.92rem; color: var(--rzp-muted); line-height: 1.6;">
               Incoming checkout requests pass through an SHA-256 idempotency cache resolving duplicates in under 0.1ms. Atomic Redis sorted sets compute sliding 1m, 5m, and 1h velocities while extracting degree centralities with inverse log hub dampening.
             </p>
             <ul class="spec-list">
@@ -1125,10 +1206,10 @@ return DecisionResponse(decision=decision, latency_ms=7.82)
         <!-- Rail 2 Pane -->
         <div class="arch-panel-content" id="pane-1">
           <div>
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
+            <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
               Multi-Tool Autonomous ReAct Investigator
             </h3>
-            <p style="font-size: 0.9rem; color: var(--rzp-muted); line-height: 1.6;">
+            <p style="font-size: 0.92rem; color: var(--rzp-muted); line-height: 1.6;">
               Suspicious events are buffered into a bounded asynchronous worker queue. The ReAct agent dynamically coordinates 5 specialized tools to evaluate velocity spikes, 2-hop graph topology, device travel anomalies, and UPI SIM bindings.
             </p>
             <ul class="spec-list">
@@ -1165,10 +1246,10 @@ while True:
         <!-- Rail 3 Pane -->
         <div class="arch-panel-content" id="pane-2">
           <div>
-            <h3 style="font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
+            <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--rzp-navy); margin-bottom: 0.5rem;">
               Active Learning and Shadow Mode Governance
             </h3>
-            <p style="font-size: 0.9rem; color: var(--rzp-muted); line-height: 1.6;">
+            <p style="font-size: 0.92rem; color: var(--rzp-muted); line-height: 1.6;">
               When risk analysts override decisions in the dashboard, feature snapshots enter an active learning buffer with 3.0x sample weighting. Challenger models are scored in dark-launch shadow mode before automated champion promotion.
             </p>
             <ul class="spec-list">
@@ -1201,7 +1282,7 @@ if challenger_prauc >= 0.95 and challenger_brier < champion_brier:
   </section>
 
   <!-- Interactive Sandbox Demo -->
-  <section class="section-block" id="sandbox">
+  <section class="section-block section-block-alt" id="sandbox">
     <div class="container">
       <div class="section-heading-wrap">
         <div class="badge-tag">Interactive Verification</div>
@@ -1319,7 +1400,7 @@ if challenger_prauc >= 0.95 and challenger_brier < champion_brier:
   </section>
 
   <!-- Empirical Benchmarks -->
-  <section class="section-block section-block-alt" id="benchmarks">
+  <section class="section-block" id="benchmarks">
     <div class="container">
       <div class="section-heading-wrap">
         <div class="badge-tag">Telemetry and Validation</div>
@@ -1334,7 +1415,7 @@ if challenger_prauc >= 0.95 and challenger_brier < champion_brier:
           <thead>
             <tr>
               <th>Evaluation Parameter</th>
-              <th>RiskIQ Sentinel Benchmark</th>
+              <th>RiskIQ Benchmark</th>
               <th>Standard Rule Engine</th>
               <th>Validation Method</th>
             </tr>
@@ -1377,7 +1458,7 @@ if challenger_prauc >= 0.95 and challenger_brier < champion_brier:
   </section>
 
   <!-- ROI Calculator -->
-  <section class="section-block">
+  <section class="section-block section-block-alt">
     <div class="container">
       <div class="section-heading-wrap">
         <div class="badge-tag">Financial Modeling</div>
@@ -1435,7 +1516,7 @@ if challenger_prauc >= 0.95 and challenger_brier < champion_brier:
   </section>
 
   <!-- Developer API Playground -->
-  <section class="section-block section-block-alt" id="api">
+  <section class="section-block" id="api">
     <div class="container">
       <div class="section-heading-wrap">
         <div class="badge-tag">Integration Architecture</div>
@@ -1492,7 +1573,7 @@ curl -X POST http://localhost:8000/api/score \
   </section>
 
   <!-- FAQ Section -->
-  <section class="section-block" id="faq">
+  <section class="section-block section-block-alt" id="faq">
     <div class="container">
       <div class="section-heading-wrap">
         <div class="badge-tag">Platform FAQ</div>
@@ -1554,7 +1635,7 @@ curl -X POST http://localhost:8000/api/score \
           <div class="footer-heading">Architecture</div>
           <ul class="footer-menu">
             <li><a href="#architecture">Triple Rail Engine</a></li>
-            <li><a href="#architecture">Graph Topology</a></li>
+            <li><a href="#pipeline">Ingestion Flow</a></li>
             <li><a href="#benchmarks">Benchmark SLA</a></li>
           </ul>
         </div>
@@ -1571,7 +1652,7 @@ curl -X POST http://localhost:8000/api/score \
         <div>
           <div class="footer-heading">Application</div>
           <ul class="footer-menu">
-            <li><a href="/">Live Command Center</a></li>
+            <li><a href="/dashboard">Live Command Center</a></li>
             <li><a href="#sandbox">Scoring Sandbox</a></li>
           </ul>
         </div>
@@ -1579,7 +1660,7 @@ curl -X POST http://localhost:8000/api/score \
 
       <div class="footer-legal-bar">
         <div>
-          &copy; 2026 Razorpay RiskIQ Sentinel. All rights reserved.
+          &copy; 2026 Razorpay RiskIQ. All rights reserved.
         </div>
         <div style="display: flex; gap: 1.5rem;">
           <button style="color: var(--rzp-muted); font-size: 0.8rem;" onclick="openLegalModal('tos')">Terms of Service</button>
@@ -1597,7 +1678,7 @@ curl -X POST http://localhost:8000/api/score \
         <button onclick="closeLegalModal('tos')" style="font-family: var(--font-mono); font-size: 1.1rem;">&times;</button>
       </div>
       <div class="legal-dialog-body">
-        <p><strong>1. Scope of Service</strong><br/>Razorpay RiskIQ Sentinel provides real-time transaction scoring, graph-augmented risk classification, and automated case synthesis for authorized merchant accounts.</p>
+        <p><strong>1. Scope of Service</strong><br/>Razorpay RiskIQ provides real-time transaction scoring, graph-augmented risk classification, and automated case synthesis for authorized merchant accounts.</p>
         <br/>
         <p><strong>2. SLA Guarantees</strong><br/>Synchronous hot-path scoring is architected with a p99 threshold of 15ms. In the event of system degradation, deterministic fallback policies are automatically enforced.</p>
         <br/>
@@ -1630,6 +1711,79 @@ curl -X POST http://localhost:8000/api/score \
   </div>
 
   <script>
+    // Live Topology Canvas Graphic Simulation
+    const canvas = document.getElementById('topology-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const nodes = [];
+    const nodeCount = 18;
+    const colors = ['#0C6FF9', '#0284C7', '#38BDF8', '#DC2626', '#059669'];
+
+    for (let i = 0; i < nodeCount; i++) {
+      nodes.push({
+        x: Math.random() * (canvas.width || 400),
+        y: Math.random() * (canvas.height || 260),
+        vx: (Math.random() - 0.5) * 0.8,
+        vy: (Math.random() - 0.5) * 0.8,
+        radius: i === 0 ? 8 : (i < 4 ? 6 : 4),
+        color: i === 0 ? '#DC2626' : colors[i % colors.length],
+        label: i === 0 ? 'SYNDICATE_HUB' : (i < 4 ? 'DEVICE' : 'CARD')
+      });
+    }
+
+    function renderTopology() {
+      if (!ctx || !canvas) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Edges
+      ctx.lineWidth = 1;
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const dx = nodes[i].x - nodes[j].x;
+          const dy = nodes[i].y - nodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 110) {
+            const alpha = 1 - (dist / 110);
+            ctx.strokeStyle = i === 0 ? `rgba(220, 38, 38, ${alpha * 0.8})` : `rgba(12, 111, 249, ${alpha * 0.4})`;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw Nodes
+      nodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
+
+        if (node.x < 15 || node.x > canvas.width - 15) node.vx *= -1;
+        if (node.y < 15 || node.y > canvas.height - 15) node.vy *= -1;
+
+        ctx.fillStyle = node.color;
+        ctx.beginPath();
+        ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.strokeStyle = '#FFFFFF';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+
+      requestAnimationFrame(renderTopology);
+    }
+    requestAnimationFrame(renderTopology);
+
     // Tab switching for Architecture section
     function selectTab(index) {
       document.querySelectorAll('.arch-tab-btn').forEach((btn, i) => {
