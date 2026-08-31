@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Razorpay RiskIQ — Autonomous Payment Risk & Agentic Intelligence Platform</title>
-  
+
   <!-- Modern Typography Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
   <!-- Vis.js for Network Topology Graph -->
   <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
@@ -28,7 +31,7 @@
       --border-color: rgba(255, 255, 255, 0.08);
       --border-subtle: rgba(255, 255, 255, 0.04);
       --border-focus: #3B82F6;
-      
+
       --text-main: #F8FAFC;
       --text-secondary: #94A3B8;
       --text-muted: #64748B;
@@ -40,7 +43,7 @@
       --accent-purple: #8B5CF6;
       --accent-indigo: #6366F1;
       --accent-amber: #F59E0B;
-      
+
       --status-allow: #10B981;
       --status-allow-bg: rgba(16, 185, 129, 0.12);
       --status-allow-border: rgba(16, 185, 129, 0.3);
@@ -59,7 +62,7 @@
 
       --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
       --card-shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
-      
+
       --chart-bar-bg: #2A344D;
       --chart-bar-fill: #3B82F6;
       --chart-bar-alt: #8B5CF6;
@@ -140,10 +143,23 @@
     }
 
     /* Custom Scrollbars */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 99px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
 
     /* ==========================================================================
        SIDEBAR NAVIGATION (MATCHING SCREENSHOT)
@@ -367,7 +383,9 @@
       min-width: 0;
       height: 100vh;
       overflow-y: auto;
-    }    /* ==========================================================================
+    }
+
+    /* ==========================================================================
        TOP APP HEADER (2-ROW DUAL TIER LAYOUT)
        ========================================================================== */
     header {
@@ -437,6 +455,7 @@
       overflow-x: auto;
       scrollbar-width: none;
     }
+
     .header-sub-row::-webkit-scrollbar {
       display: none;
     }
@@ -462,7 +481,7 @@
       align-items: center;
       gap: 6px;
       white-space: nowrap;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
       transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
     }
 
@@ -485,12 +504,23 @@
       box-shadow: 0 0 8px var(--status-allow);
       animation: pulse 2s infinite;
       flex-shrink: 0;
-    } }
+    }
 
     @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-      100% { opacity: 1; transform: scale(1); }
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     /* ==========================================================================
@@ -503,12 +533,25 @@
       width: 100%;
     }
 
-    .tab-pane { display: none; }
-    .tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* ==========================================================================
@@ -583,8 +626,15 @@
       color: var(--text-muted);
     }
 
-    .trend-up { color: var(--status-allow); font-weight: 700; }
-    .trend-down { color: var(--status-block); font-weight: 700; }
+    .trend-up {
+      color: var(--status-allow);
+      font-weight: 700;
+    }
+
+    .trend-down {
+      color: var(--status-block);
+      font-weight: 700;
+    }
 
     /* Donut Chart KPI Card */
     .donut-card {
@@ -889,8 +939,15 @@
     }
 
     @keyframes slideDownRadar {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .radar-left {
@@ -920,9 +977,20 @@
     }
 
     @keyframes radarPulseAnim {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+      0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+      }
+
+      70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+      }
+
+      100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+      }
     }
 
     /* Filter Pills & Stream Controls */
@@ -1016,7 +1084,9 @@
       outline: none;
     }
 
-    .search-input:focus { border-color: var(--border-focus); }
+    .search-input:focus {
+      border-color: var(--border-focus);
+    }
 
     .stream-table-wrap {
       max-height: 580px;
@@ -1078,10 +1148,29 @@
       text-transform: uppercase;
     }
 
-    .pill-allow { background: var(--status-allow-bg); color: var(--status-allow); border: 1px solid var(--status-allow-border); }
-    .pill-stepup { background: var(--status-stepup-bg); color: var(--status-stepup); border: 1px solid var(--status-stepup-border); }
-    .pill-review { background: var(--status-review-bg); color: var(--status-review); border: 1px solid var(--status-review-border); }
-    .pill-block { background: var(--status-block-bg); color: var(--status-block); border: 1px solid var(--status-block-border); }
+    .pill-allow {
+      background: var(--status-allow-bg);
+      color: var(--status-allow);
+      border: 1px solid var(--status-allow-border);
+    }
+
+    .pill-stepup {
+      background: var(--status-stepup-bg);
+      color: var(--status-stepup);
+      border: 1px solid var(--status-stepup-border);
+    }
+
+    .pill-review {
+      background: var(--status-review-bg);
+      color: var(--status-review);
+      border: 1px solid var(--status-review-border);
+    }
+
+    .pill-block {
+      background: var(--status-block-bg);
+      color: var(--status-block);
+      border: 1px solid var(--status-block-border);
+    }
 
     /* Case Dossier Panel */
     .dossier-metrics-grid {
@@ -1098,8 +1187,20 @@
       padding: 8px 12px;
     }
 
-    .mini-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
-    .mini-val { font-size: 1.05rem; font-weight: 700; font-family: var(--font-mono); color: var(--text-main); margin-top: 2px; }
+    .mini-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .mini-val {
+      font-size: 1.05rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-main);
+      margin-top: 2px;
+    }
 
     /* TreeSHAP Bars */
     .shap-box {
@@ -1129,7 +1230,12 @@
       font-size: 0.76rem;
     }
 
-    .shap-feat { width: 160px; color: var(--text-secondary); font-weight: 500; }
+    .shap-feat {
+      width: 160px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
     .shap-bar-bg {
       flex: 1;
       height: 7px;
@@ -1195,9 +1301,20 @@
       margin-bottom: 8px;
     }
 
-    .trace-tool { color: var(--accent-cyan); font-weight: 700; }
-    .trace-thought { color: var(--text-muted); margin-top: 2px; }
-    .trace-obs { color: var(--text-main); margin-top: 2px; }
+    .trace-tool {
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    .trace-thought {
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .trace-obs {
+      color: var(--text-main);
+      margin-top: 2px;
+    }
 
     /* Override Box */
     .override-form {
@@ -1208,8 +1325,19 @@
       margin-top: 1rem;
     }
 
-    .form-row { margin-bottom: 8px; }
-    .form-row label { display: block; font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 3px; }
+    .form-row {
+      margin-bottom: 8px;
+    }
+
+    .form-row label {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
     .form-control {
       width: 100%;
       background: var(--bg-surface);
@@ -1313,9 +1441,17 @@
 
     /* Responsiveness */
     @media (max-width: 1400px) {
-      .kpi-grid { grid-template-columns: repeat(2, 1fr) 1fr 1fr; }
-      .analytics-row { grid-template-columns: 1fr; }
-      .stream-dossier-grid { grid-template-columns: 1fr; }
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr) 1fr 1fr;
+      }
+
+      .analytics-row {
+        grid-template-columns: 1fr;
+      }
+
+      .stream-dossier-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ==========================================================================
@@ -1334,12 +1470,15 @@
       padding: 1.5rem;
       animation: fadeIn 0.2s ease;
     }
+
     [data-theme="light"] .sar-modal-overlay {
       background: rgba(15, 23, 42, 0.65);
     }
+
     .sar-modal-overlay.active {
       display: flex;
     }
+
     .sar-modal-container {
       background: var(--bg-surface);
       border: 1px solid var(--border-color);
@@ -1353,6 +1492,7 @@
       flex-direction: column;
       position: relative;
     }
+
     .sar-report-header {
       background: var(--bg-surface-elevated);
       border-bottom: 2px solid var(--brand-primary);
@@ -1364,6 +1504,7 @@
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
     }
+
     .sar-header-meta {
       display: flex;
       align-items: center;
@@ -1374,22 +1515,26 @@
       margin-top: 6px;
       flex-wrap: wrap;
     }
+
     .sar-report-body {
       padding: 1.75rem 2rem 2.5rem 2rem;
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
+
     .sar-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.2rem;
     }
+
     .sar-grid-4 {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 1rem;
     }
+
     .sar-section-title {
       font-size: 0.82rem;
       font-weight: 800;
@@ -1403,12 +1548,14 @@
       border-bottom: 1px solid var(--border-color);
       padding-bottom: 5px;
     }
+
     .sar-info-card {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 1rem 1.25rem;
     }
+
     .sar-kv-row {
       display: flex;
       justify-content: space-between;
@@ -1417,15 +1564,18 @@
       border-bottom: 1px dashed var(--border-subtle);
       font-size: 0.78rem;
     }
+
     .sar-kv-label {
       color: var(--text-muted);
       font-weight: 500;
     }
+
     .sar-kv-val {
       font-family: var(--font-mono);
       color: var(--text-main);
       font-weight: 700;
     }
+
     .sar-modal-actions {
       display: flex;
       align-items: center;
@@ -1433,6 +1583,7 @@
       flex-wrap: nowrap;
       flex-shrink: 0;
     }
+
     .btn-sar {
       display: inline-flex;
       align-items: center;
@@ -1448,31 +1599,37 @@
       white-space: nowrap;
       transition: all 0.2s ease;
     }
+
     .btn-sar:hover {
       background: var(--brand-primary);
       color: #FFF;
       border-color: var(--brand-primary);
     }
+
     .btn-sar-primary {
       background: var(--brand-primary);
       color: #FFF;
       border-color: var(--brand-primary);
-      box-shadow: 0 2px 10px rgba(37,99,235,0.3);
+      box-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
     }
 
     @media print {
       body * {
         visibility: hidden !important;
       }
-      .sar-modal-overlay, .sar-modal-overlay * {
+
+      .sar-modal-overlay,
+      .sar-modal-overlay * {
         visibility: visible !important;
       }
+
       .sar-modal-overlay {
         position: absolute !important;
         inset: 0 !important;
         background: #FFF !important;
         padding: 0 !important;
       }
+
       .sar-modal-container {
         border: none !important;
         box-shadow: none !important;
@@ -1481,12 +1638,15 @@
         color: #000 !important;
         background: #FFF !important;
       }
-      .sar-modal-actions, .sar-close-btn {
+
+      .sar-modal-actions,
+      .sar-close-btn {
         display: none !important;
       }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ==========================================================================
@@ -1498,7 +1658,9 @@
       <div class="brand-header">
         <div class="brand-icon">⚡</div>
         <div class="brand-info">
-          <div class="brand-title">RiskIQ <span style="font-size:0.65rem; background:rgba(59,130,246,0.15); color:var(--brand-primary); padding:2px 6px; border-radius:6px;">PROD</span></div>
+          <div class="brand-title">RiskIQ <span
+              style="font-size:0.65rem; background:rgba(59,130,246,0.15); color:var(--brand-primary); padding:2px 6px; border-radius:6px;">PROD</span>
+          </div>
           <div class="brand-subtitle">Autonomous Sentinel AI</div>
         </div>
       </div>
@@ -1518,7 +1680,7 @@
         <button class="nav-item" onclick="switchNav('tab-metrics', this)">
           <span class="nav-icon">📈</span> Model & Drift SLA
         </button>
-        
+
         <div class="nav-label" style="margin-top:1rem;">Governance</div>
         <button class="nav-item" onclick="switchNav('tab-active-learning', this)">
           <span class="nav-icon">🔁</span> Active Learning
@@ -1541,7 +1703,7 @@
       <div class="user-profile">
         <div class="user-avatar">AY</div>
         <div class="user-details">
-          <div class="user-name">Ayush Sharma</div>
+          <div class="user-name">Ayush Choudhary</div>
           <div class="user-role">Lead AI Risk Ops</div>
         </div>
       </div>
@@ -1552,7 +1714,7 @@
        MAIN VIEW CONTAINER
        ========================================================================== -->
   <div class="main-wrapper">
-    
+
     <!-- Top Header (Dual-Row Architecture) -->
     <header>
       <!-- Row 1: Title, Clock & Controls -->
@@ -1576,11 +1738,17 @@
       <!-- Row 2: Real-time Telemetry Status Bar -->
       <div class="header-sub-row">
         <div class="telemetry-chip-group">
-          <div class="tel-chip"><div class="tel-dot"></div> <span id="tel-sse" style="color:var(--status-allow); font-weight:600;">SSE: LIVE CONNECTED</span></div>
-          <div class="tel-chip"><span class="tel-label">P95 SLA:</span> <strong style="color:var(--status-allow);" id="tel-sla">8.17 ms</strong></div>
-          <div class="tel-chip"><span class="tel-label">LLM Cost:</span> <span id="tel-llm-cost" style="color:var(--accent-cyan); font-weight:700;">$0.0008 / dec</span></div>
+          <div class="tel-chip">
+            <div class="tel-dot"></div> <span id="tel-sse" style="color:var(--status-allow); font-weight:600;">SSE: LIVE
+              CONNECTED</span>
+          </div>
+          <div class="tel-chip"><span class="tel-label">P95 SLA:</span> <strong style="color:var(--status-allow);"
+              id="tel-sla">8.17 ms</strong></div>
+          <div class="tel-chip"><span class="tel-label">LLM Cost:</span> <span id="tel-llm-cost"
+              style="color:var(--accent-cyan); font-weight:700;">$0.0008 / dec</span></div>
           <div class="tel-chip"><span class="tel-label">Queue:</span> <span id="tel-queue">0 / 10,000</span></div>
-          <div class="tel-chip"><span class="tel-label">DLQ:</span> <span id="tel-dlq" style="color:var(--status-allow); font-weight:700;">0</span></div>
+          <div class="tel-chip"><span class="tel-label">DLQ:</span> <span id="tel-dlq"
+              style="color:var(--status-allow); font-weight:700;">0</span></div>
         </div>
       </div>
     </header>
@@ -1601,14 +1769,16 @@
             <span id="radar-alert-msg" style="font-size:0.82rem; color:var(--text-main); font-weight:600;"></span>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
-            <button id="radar-inspect-btn" class="btn-action" style="padding:4px 10px; font-size:0.72rem; background:var(--status-block);">Inspect Dossier</button>
-            <button onclick="dismissRadarAlert()" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:1.1rem; line-height:1;">✕</button>
+            <button id="radar-inspect-btn" class="btn-action"
+              style="padding:4px 10px; font-size:0.72rem; background:var(--status-block);">Inspect Dossier</button>
+            <button onclick="dismissRadarAlert()"
+              style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:1.1rem; line-height:1;">✕</button>
           </div>
         </div>
 
         <!-- Top KPI Cards Grid -->
         <div class="kpi-grid">
-          
+
           <!-- KPI 1: Ingested Orders -->
           <div class="card kpi-card">
             <div class="kpi-header">
@@ -1662,15 +1832,24 @@
             <div class="donut-info">
               <div class="kpi-title">Decisions Split</div>
               <div class="donut-legend">
-                <div class="legend-row"><div class="legend-dot" style="background:var(--status-allow);"></div> Allow (98.2%)</div>
-                <div class="legend-row"><div class="legend-dot" style="background:var(--status-stepup);"></div> Step-Up (0.9%)</div>
-                <div class="legend-row"><div class="legend-dot" style="background:var(--status-block);"></div> Block (0.9%)</div>
+                <div class="legend-row">
+                  <div class="legend-dot" style="background:var(--status-allow);"></div> Allow (98.2%)
+                </div>
+                <div class="legend-row">
+                  <div class="legend-dot" style="background:var(--status-stepup);"></div> Step-Up (0.9%)
+                </div>
+                <div class="legend-row">
+                  <div class="legend-dot" style="background:var(--status-block);"></div> Block (0.9%)
+                </div>
               </div>
             </div>
             <svg class="donut-chart-svg" viewBox="0 0 36 36">
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--chart-bar-bg)" stroke-width="4.5"/>
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--status-allow)" stroke-width="4.5" stroke-dasharray="98, 100"/>
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--status-block)" stroke-width="4.5" stroke-dasharray="3, 100" stroke-dashoffset="-97"/>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                stroke="var(--chart-bar-bg)" stroke-width="4.5" />
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                stroke="var(--status-allow)" stroke-width="4.5" stroke-dasharray="98, 100" />
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                stroke="var(--status-block)" stroke-width="4.5" stroke-dasharray="3, 100" stroke-dashoffset="-97" />
             </svg>
           </div>
 
@@ -1679,15 +1858,24 @@
             <div class="donut-info">
               <div class="kpi-title">Payment Channels</div>
               <div class="donut-legend">
-                <div class="legend-row"><div class="legend-dot" style="background:var(--accent-purple);"></div> UPI Intent (68%)</div>
-                <div class="legend-row"><div class="legend-dot" style="background:var(--brand-primary);"></div> Cards (24%)</div>
-                <div class="legend-row"><div class="legend-dot" style="background:var(--accent-cyan);"></div> Netbanking (8%)</div>
+                <div class="legend-row">
+                  <div class="legend-dot" style="background:var(--accent-purple);"></div> UPI Intent (68%)
+                </div>
+                <div class="legend-row">
+                  <div class="legend-dot" style="background:var(--brand-primary);"></div> Cards (24%)
+                </div>
+                <div class="legend-row">
+                  <div class="legend-dot" style="background:var(--accent-cyan);"></div> Netbanking (8%)
+                </div>
               </div>
             </div>
             <svg class="donut-chart-svg" viewBox="0 0 36 36">
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--chart-bar-bg)" stroke-width="4.5"/>
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--accent-purple)" stroke-width="4.5" stroke-dasharray="68, 100"/>
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--brand-primary)" stroke-width="4.5" stroke-dasharray="24, 100" stroke-dashoffset="-68"/>
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                stroke="var(--chart-bar-bg)" stroke-width="4.5" />
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                stroke="var(--accent-purple)" stroke-width="4.5" stroke-dasharray="68, 100" />
+              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                stroke="var(--brand-primary)" stroke-width="4.5" stroke-dasharray="24, 100" stroke-dashoffset="-68" />
             </svg>
           </div>
 
@@ -1695,19 +1883,21 @@
 
         <!-- Middle Row: Analytical Charts (Matching Reference Design) -->
         <div class="analytics-row">
-          
+
           <!-- Total Score Distribution Histogram -->
           <div class="card">
             <div class="card-header-bar">
               <div class="card-heading">
                 <span>📊 Score Distribution & Risk Buckets</span>
-                <span class="badge" style="background:var(--status-allow-bg); color:var(--status-allow); font-size:0.72rem;">Calibrated 0.0 – 1.0</span>
+                <span class="badge"
+                  style="background:var(--status-allow-bg); color:var(--status-allow); font-size:0.72rem;">Calibrated
+                  0.0 – 1.0</span>
               </div>
               <div class="dropdown-chip">
                 <span>Window: Last 1 Hour</span> <span>▾</span>
               </div>
             </div>
-            
+
             <div class="chart-summary-stat">
               <div>
                 <div class="chart-big-num">24,960</div>
@@ -1722,22 +1912,42 @@
 
             <!-- CSS Bar Chart (Matching Reference Layout) -->
             <div class="bar-chart-container">
-              <div class="bar-col" title="0.0 - 0.1 Score (Clean Traffic)"><div class="bar-fill allow" style="height:92%;"></div><span class="bar-label">0.0-0.1</span></div>
-              <div class="bar-col" title="0.1 - 0.2 Score (Low Risk)"><div class="bar-fill allow" style="height:76%;"></div><span class="bar-label">0.1-0.2</span></div>
-              <div class="bar-col" title="0.2 - 0.3 Score (Low-Medium Risk)"><div class="bar-fill allow" style="height:34%;"></div><span class="bar-label">0.2-0.3</span></div>
-              <div class="bar-col" title="0.3 - 0.4 Score (Step-Up Risk Threshold)"><div class="bar-fill stepup" style="height:16%;"></div><span class="bar-label">0.3-0.4</span></div>
-              <div class="bar-col" title="0.4 - 0.5 Score (Step-Up Auth)"><div class="bar-fill stepup" style="height:8%;"></div><span class="bar-label">0.4-0.5</span></div>
-              <div class="bar-col" title="0.5 - 0.6 Score (Manual Review)"><div class="bar-fill review" style="height:12%;"></div><span class="bar-label">0.5-0.6</span></div>
-              <div class="bar-col" title="0.6 - 0.7 Score (High Review Alert)"><div class="bar-fill review" style="height:18%;"></div><span class="bar-label">0.6-0.7</span></div>
-              <div class="bar-col" title="0.7 - 0.8 Score (Hard Block Threshold)"><div class="bar-fill block" style="height:22%;"></div><span class="bar-label">0.7-0.8</span></div>
-              <div class="bar-col" title="0.8 - 0.9 Score (Critical Block)"><div class="bar-fill block" style="height:30%;"></div><span class="bar-label">0.8-0.9</span></div>
-              <div class="bar-col" title="0.9 - 1.0 Score (Botnet / ATO Intercept)"><div class="bar-fill block" style="height:42%;"></div><span class="bar-label">0.9-1.0</span></div>
+              <div class="bar-col" title="0.0 - 0.1 Score (Clean Traffic)">
+                <div class="bar-fill allow" style="height:92%;"></div><span class="bar-label">0.0-0.1</span>
+              </div>
+              <div class="bar-col" title="0.1 - 0.2 Score (Low Risk)">
+                <div class="bar-fill allow" style="height:76%;"></div><span class="bar-label">0.1-0.2</span>
+              </div>
+              <div class="bar-col" title="0.2 - 0.3 Score (Low-Medium Risk)">
+                <div class="bar-fill allow" style="height:34%;"></div><span class="bar-label">0.2-0.3</span>
+              </div>
+              <div class="bar-col" title="0.3 - 0.4 Score (Step-Up Risk Threshold)">
+                <div class="bar-fill stepup" style="height:16%;"></div><span class="bar-label">0.3-0.4</span>
+              </div>
+              <div class="bar-col" title="0.4 - 0.5 Score (Step-Up Auth)">
+                <div class="bar-fill stepup" style="height:8%;"></div><span class="bar-label">0.4-0.5</span>
+              </div>
+              <div class="bar-col" title="0.5 - 0.6 Score (Manual Review)">
+                <div class="bar-fill review" style="height:12%;"></div><span class="bar-label">0.5-0.6</span>
+              </div>
+              <div class="bar-col" title="0.6 - 0.7 Score (High Review Alert)">
+                <div class="bar-fill review" style="height:18%;"></div><span class="bar-label">0.6-0.7</span>
+              </div>
+              <div class="bar-col" title="0.7 - 0.8 Score (Hard Block Threshold)">
+                <div class="bar-fill block" style="height:22%;"></div><span class="bar-label">0.7-0.8</span>
+              </div>
+              <div class="bar-col" title="0.8 - 0.9 Score (Critical Block)">
+                <div class="bar-fill block" style="height:30%;"></div><span class="bar-label">0.8-0.9</span>
+              </div>
+              <div class="bar-col" title="0.9 - 1.0 Score (Botnet / ATO Intercept)">
+                <div class="bar-fill block" style="height:42%;"></div><span class="bar-label">0.9-1.0</span>
+              </div>
             </div>
           </div>
 
           <!-- Channel Distribution & Risk Sparkline -->
           <div class="card" style="display:flex; flex-direction:column; justify-content:space-between;">
-            
+
             <div class="card-header-bar">
               <div class="card-heading">
                 <span>🛡️ Payment Integrity & Multi-Currency</span>
@@ -1757,13 +1967,16 @@
               <div class="finance-card">
                 <div>
                   <div class="kpi-title">Abuse Prevented</div>
-                  <div class="finance-amt" id="val-abuse-prevented" style="color:var(--status-block);">₹12,45,800.00</div>
+                  <div class="finance-amt" id="val-abuse-prevented" style="color:var(--status-block);">₹12,45,800.00
+                  </div>
                   <div style="font-size:0.70rem; color:var(--text-muted); margin-top:2px;">Intercepted chargebacks</div>
                 </div>
                 <div class="progress-circle-wrap">
                   <svg viewBox="0 0 36 36">
-                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--chart-bar-bg)" stroke-width="4"/>
-                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--status-block)" stroke-width="4" stroke-dasharray="100, 100"/>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="var(--chart-bar-bg)" stroke-width="4" />
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="var(--status-block)" stroke-width="4" stroke-dasharray="100, 100" />
                   </svg>
                   <span class="progress-text">100%</span>
                 </div>
@@ -1777,8 +1990,10 @@
                 </div>
                 <div class="progress-circle-wrap">
                   <svg viewBox="0 0 36 36">
-                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--chart-bar-bg)" stroke-width="4"/>
-                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="var(--status-allow)" stroke-width="4" stroke-dasharray="98, 100"/>
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="var(--chart-bar-bg)" stroke-width="4" />
+                    <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                      stroke="var(--status-allow)" stroke-width="4" stroke-dasharray="98, 100" />
                   </svg>
                   <span class="progress-text">98%</span>
                 </div>
@@ -1794,12 +2009,14 @@
               <svg class="sparkline-svg" viewBox="0 0 400 75">
                 <defs>
                   <linearGradient id="purpleGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.4"/>
-                    <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.0"/>
+                    <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.4" />
+                    <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0.0" />
                   </linearGradient>
                 </defs>
-                <path d="M 0,65 Q 40,55 80,60 T 160,30 T 240,50 T 320,15 T 400,45 L 400,75 L 0,75 Z" fill="url(#purpleGrad)"/>
-                <path d="M 0,65 Q 40,55 80,60 T 160,30 T 240,50 T 320,15 T 400,45" fill="none" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
+                <path d="M 0,65 Q 40,55 80,60 T 160,30 T 240,50 T 320,15 T 400,45 L 400,75 L 0,75 Z"
+                  fill="url(#purpleGrad)" />
+                <path d="M 0,65 Q 40,55 80,60 T 160,30 T 240,50 T 320,15 T 400,45" fill="none" stroke="#8B5CF6"
+                  stroke-width="3" stroke-linecap="round" />
               </svg>
             </div>
           </div>
@@ -1813,10 +2030,15 @@
           <div class="sim-btn-group">
             <button class="btn-sim" onclick="injectSimulatorEvent('NORMAL')">🟢 + Normal UPI (INR)</button>
             <button class="btn-sim" onclick="injectSimulatorEvent('CARD_TESTING_BOT')">🔴 + Card Bot (USD)</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('ACCOUNT_TAKEOVER_ATO')">🚨 + ATO Gaming (SGD)</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('ACCOUNT_TAKEOVER_ATO')">🚨 + ATO Gaming
+              (SGD)</button>
             <button class="btn-sim" onclick="injectSimulatorEvent('SYNTHETIC_RING')">🕸️ + Syndicate Ring</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('VELOCITY_BURST')" style="background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.4); color:var(--accent-amber);">⚡ + 5x Velocity Burst</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('GEO_IMPOSSIBLE')" style="background:rgba(6,182,212,0.15); border-color:rgba(6,182,212,0.4); color:var(--accent-cyan);">🌐 + Geo-Jump (EUR)</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('VELOCITY_BURST')"
+              style="background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.4); color:var(--accent-amber);">⚡
+              + 5x Velocity Burst</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('GEO_IMPOSSIBLE')"
+              style="background:rgba(6,182,212,0.15); border-color:rgba(6,182,212,0.4); color:var(--accent-cyan);">🌐 +
+              Geo-Jump (EUR)</button>
             <button class="btn-sim" onclick="injectSimulatorEvent('AMBIGUOUS')">🟡 + Ambiguous Surge</button>
             <button class="btn-sim btn-sim-replay" onclick="injectIdempotentReplay()">🔁 Replay (&lt;0.1ms)</button>
           </div>
@@ -1824,7 +2046,7 @@
 
         <!-- Lower Section: Stream Table & Case Inspector -->
         <div class="stream-dossier-grid">
-          
+
           <!-- Stream Table (Matching Customer Order Table from Reference) -->
           <div class="card">
             <div class="card-header-bar">
@@ -1833,13 +2055,17 @@
                 <span style="font-size:0.70rem; color:var(--text-muted);" id="stream-count-badge">50 Events</span>
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
-                <button id="btn-freeze-stream" class="stream-freeze-btn" onclick="toggleStreamFreeze()">⏸️ Freeze Feed</button>
-                <button onclick="fetchFeed()" class="btn-action" style="padding:4px 10px; font-size:0.72rem;">Refresh</button>
+                <button id="btn-freeze-stream" class="stream-freeze-btn" onclick="toggleStreamFreeze()">⏸️ Freeze
+                  Feed</button>
+                <button onclick="fetchFeed()" class="btn-action"
+                  style="padding:4px 10px; font-size:0.72rem;">Refresh</button>
               </div>
             </div>
 
             <div class="table-search-bar">
-              <input type="text" class="search-input" id="search-box" placeholder="Search by Txn ID, Customer, Currency (USD, EUR...), or Rail..." onkeyup="filterFeedTable()"/>
+              <input type="text" class="search-input" id="search-box"
+                placeholder="Search by Txn ID, Customer, Currency (USD, EUR...), or Rail..."
+                onkeyup="filterFeedTable()" />
             </div>
 
             <!-- Quick Filter Pills & Currency Selector -->
@@ -1852,9 +2078,10 @@
                 <button class="filter-pill" onclick="setFeedFilter('ALLOW', this)">🟢 Allow</button>
                 <button class="filter-pill" onclick="setFeedFilter('HIGH_RISK', this)">🔥 Risk &gt; 80%</button>
               </div>
-              
+
               <div style="display:flex; align-items:center; gap:6px;">
-                <select id="table-currency-filter" class="filter-pill" onchange="setTableCurrencyFilter(this.value)" style="outline:none; cursor:pointer; padding:3px 8px; border-radius:8px;">
+                <select id="table-currency-filter" class="filter-pill" onchange="setTableCurrencyFilter(this.value)"
+                  style="outline:none; cursor:pointer; padding:3px 8px; border-radius:8px;">
                   <option value="ALL">🌐 All Currencies</option>
                   <option value="INR">🇮🇳 INR (₹)</option>
                   <option value="USD">🇺🇸 USD ($)</option>
@@ -1864,7 +2091,8 @@
                   <option value="AED">🇦🇪 AED (د.إ)</option>
                   <option value="MYR">🇲🇾 MYR (RM)</option>
                 </select>
-                <span id="filtered-count-indicator" style="font-size:0.70rem; color:var(--text-muted);">Showing All</span>
+                <span id="filtered-count-indicator" style="font-size:0.70rem; color:var(--text-muted);">Showing
+                  All</span>
               </div>
             </div>
 
@@ -1881,7 +2109,10 @@
                   </tr>
                 </thead>
                 <tbody id="stream-table-body">
-                  <tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">Connecting to live stream...</td></tr>
+                  <tr>
+                    <td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">Connecting to live
+                      stream...</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1893,13 +2124,17 @@
               <div class="card-heading" id="case-header-id">🔍 Case Dossier Inspector</div>
               <div style="display:flex; align-items:center; gap:8px;">
                 <div id="case-header-pill"></div>
-                <button class="btn-action" onclick="exportSARDossier()" title="Export Suspicious Activity Report (SAR) Compliance Dossier" style="padding:4px 10px; font-size:0.72rem; background:var(--bg-surface-elevated); border:1px solid var(--border-color); color:var(--text-main);">📄 Export SAR Dossier</button>
+                <button class="btn-action" onclick="exportSARDossier()"
+                  title="Export Suspicious Activity Report (SAR) Compliance Dossier"
+                  style="padding:4px 10px; font-size:0.72rem; background:var(--bg-surface-elevated); border:1px solid var(--border-color); color:var(--text-main);">📄
+                  Export SAR Dossier</button>
               </div>
             </div>
 
             <div id="dossier-content-area">
               <div style="text-align:center; padding:5rem; color:var(--text-muted);">
-                Select any transaction from the live table to inspect its calibrated score, TreeSHAP attributions, ReAct traces, and graph topology.
+                Select any transaction from the live table to inspect its calibrated score, TreeSHAP attributions, ReAct
+                traces, and graph topology.
               </div>
             </div>
           </div>
@@ -1915,9 +2150,10 @@
         <div class="card">
           <div class="card-header-bar">
             <div class="card-heading">🕸️ Bounded 2-Hop Entity Graph (Log-Degree Dampened Hubs)</div>
-            <div style="font-size:0.82rem; color:var(--text-muted);" id="graph-case-info">Select a case to inspect its relationship topology</div>
+            <div style="font-size:0.82rem; color:var(--text-muted);" id="graph-case-info">Select a case to inspect its
+              relationship topology</div>
           </div>
-          
+
           <div id="vis-network-container"></div>
 
           <div class="graph-legend-bar">
@@ -1940,7 +2176,8 @@
             <button onclick="triggerRetraining()" class="btn-action">Retrain Challenger Now</button>
           </div>
           <p style="font-size:0.86rem; color:var(--text-secondary); margin-bottom:1.2rem; line-height:1.6;">
-            Dark-launch architecture running challenger ML models concurrently alongside live champion models. Human-in-the-loop analyst overrides are buffered with 3.0× weights for active learning.
+            Dark-launch architecture running challenger ML models concurrently alongside live champion models.
+            Human-in-the-loop analyst overrides are buffered with 3.0× weights for active learning.
           </p>
           <div id="shadow-stats-box" class="code-report-block">Loading shadow metrics...</div>
         </div>
@@ -1950,21 +2187,37 @@
            TAB 4: PRODUCTION HELD-OUT EVALUATION & DRIFT BENCHMARK
            ========================================================================== -->
       <div id="tab-metrics" class="tab-pane">
-        
+
         <div class="benchmark-grid">
-          <div class="benchmark-card"><div class="bench-number" id="eval-prauc">1.000</div><div class="bench-lbl">PR-AUC (Held-out)</div></div>
-          <div class="benchmark-card"><div class="bench-number" id="eval-roc">1.000</div><div class="bench-lbl">ROC-AUC</div></div>
-          <div class="benchmark-card"><div class="bench-number" id="eval-rec">100.0%</div><div class="bench-lbl">Fraud Recall</div></div>
-          <div class="benchmark-card"><div class="bench-number" id="eval-lat">8.17 ms</div><div class="bench-lbl">Hot-Path p99 SLA</div></div>
+          <div class="benchmark-card">
+            <div class="bench-number" id="eval-prauc">1.000</div>
+            <div class="bench-lbl">PR-AUC (Held-out)</div>
+          </div>
+          <div class="benchmark-card">
+            <div class="bench-number" id="eval-roc">1.000</div>
+            <div class="bench-lbl">ROC-AUC</div>
+          </div>
+          <div class="benchmark-card">
+            <div class="bench-number" id="eval-rec">100.0%</div>
+            <div class="bench-lbl">Fraud Recall</div>
+          </div>
+          <div class="benchmark-card">
+            <div class="bench-number" id="eval-lat">8.17 ms</div>
+            <div class="bench-lbl">Hot-Path p99 SLA</div>
+          </div>
         </div>
 
         <div class="eval-split-grid">
           <div class="card">
-            <div class="card-header-bar"><div class="card-heading">📊 Production Evaluation Report</div></div>
+            <div class="card-header-bar">
+              <div class="card-heading">📊 Production Evaluation Report</div>
+            </div>
             <div id="eval-report-box" class="code-report-block">Loading evaluation report...</div>
           </div>
           <div class="card">
-            <div class="card-header-bar"><div class="card-heading">🧠 Permutation Feature Importances</div></div>
+            <div class="card-header-bar">
+              <div class="card-heading">🧠 Permutation Feature Importances</div>
+            </div>
             <div id="model-meta-box" class="code-report-block">Loading model features...</div>
           </div>
         </div>
@@ -1996,294 +2249,305 @@
         </div>
       </div>
 
-  <!-- ==========================================================================
+      <!-- ==========================================================================
        OFFICIAL SUSPICIOUS ACTIVITY REPORT (SAR) REGULATORY MODAL
        ========================================================================== -->
-  <div id="sar-modal-overlay" class="sar-modal-overlay" onclick="if(event.target===this) closeSARModal()">
-    <div class="sar-modal-container">
-      
-      <!-- Modal Header -->
-      <div class="sar-report-header">
-        <div style="min-width:0;">
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
-            <span style="font-size:1.4rem;">🏛️</span>
-            <div>
-              <div style="font-size:0.72rem; font-weight:800; color:var(--brand-primary); letter-spacing:0.8px; text-transform:uppercase;">Financial Intelligence Unit (FIU-IND) // Compliance Division</div>
-              <div style="font-size:1.15rem; font-weight:800; color:var(--text-main); font-family:var(--font-display); letter-spacing:-0.3px;">Suspicious Transaction Report & Abuse-Ring Dossier</div>
+      <div id="sar-modal-overlay" class="sar-modal-overlay" onclick="if(event.target===this) closeSARModal()">
+        <div class="sar-modal-container">
+
+          <!-- Modal Header -->
+          <div class="sar-report-header">
+            <div style="min-width:0;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+                <span style="font-size:1.4rem;">🏛️</span>
+                <div>
+                  <div
+                    style="font-size:0.72rem; font-weight:800; color:var(--brand-primary); letter-spacing:0.8px; text-transform:uppercase;">
+                    Financial Intelligence Unit (FIU-IND) // Compliance Division</div>
+                  <div
+                    style="font-size:1.15rem; font-weight:800; color:var(--text-main); font-family:var(--font-display); letter-spacing:-0.3px;">
+                    Suspicious Transaction Report & Abuse-Ring Dossier</div>
+                </div>
+              </div>
+              <div class="sar-header-meta">
+                <span>REF: <strong id="sar-ref-code"
+                    style="color:var(--brand-primary); font-weight:700;">SAR-RZP-2026-XXXX</strong></span>
+                <span>•</span>
+                <span>FILING: <span id="sar-timestamp-text" style="color:var(--text-main);">2026-08-31 UTC</span></span>
+                <span>•</span>
+                <span
+                  style="background:var(--status-block-bg); color:var(--status-block); border:1px solid var(--status-block-border); padding:2px 8px; border-radius:4px; font-weight:700; font-size:0.7rem;">CONFIDENTIAL
+                  // TIER-1</span>
+              </div>
+            </div>
+
+            <div class="sar-modal-actions">
+              <button class="btn-sar btn-sar-primary" onclick="printSARReport()" title="Print / Save PDF Report">🖨️
+                Print / PDF</button>
+              <button class="btn-sar" onclick="copySARSummary()" title="Copy Formatted Text Brief">📋 Copy
+                Brief</button>
+              <button class="btn-sar" onclick="downloadSARJson()" title="Download Full JSON Machine Data">📥
+                JSON</button>
+              <button class="btn-sar sar-close-btn" onclick="closeSARModal()" style="font-size:1rem; padding:6px 12px;"
+                title="Close Window">✕</button>
             </div>
           </div>
-          <div class="sar-header-meta">
-            <span>REF: <strong id="sar-ref-code" style="color:var(--brand-primary); font-weight:700;">SAR-RZP-2026-XXXX</strong></span>
-            <span>•</span>
-            <span>FILING: <span id="sar-timestamp-text" style="color:var(--text-main);">2026-08-31 UTC</span></span>
-            <span>•</span>
-            <span style="background:var(--status-block-bg); color:var(--status-block); border:1px solid var(--status-block-border); padding:2px 8px; border-radius:4px; font-weight:700; font-size:0.7rem;">CONFIDENTIAL // TIER-1</span>
+
+          <!-- Modal Body Report -->
+          <div class="sar-report-body" id="sar-report-content">
+            <!-- Dynamically rendered SAR content -->
           </div>
-        </div>
 
-        <div class="sar-modal-actions">
-          <button class="btn-sar btn-sar-primary" onclick="printSARReport()" title="Print / Save PDF Report">🖨️ Print / PDF</button>
-          <button class="btn-sar" onclick="copySARSummary()" title="Copy Formatted Text Brief">📋 Copy Brief</button>
-          <button class="btn-sar" onclick="downloadSARJson()" title="Download Full JSON Machine Data">📥 JSON</button>
-          <button class="btn-sar sar-close-btn" onclick="closeSARModal()" style="font-size:1rem; padding:6px 12px;" title="Close Window">✕</button>
         </div>
       </div>
 
-      <!-- Modal Body Report -->
-      <div class="sar-report-body" id="sar-report-content">
-        <!-- Dynamically rendered SAR content -->
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ==========================================================================
+      <!-- ==========================================================================
        JAVASCRIPT APPLICATION LOGIC & REAL-TIME EVENT HOOKS
        ========================================================================== -->
-  <script>
-    const API_BASE = window.location.origin + "/api";
-    let selectedTxnId = null;
-    let networkGraph = null;
-    let lastInjectedPayload = null;
-    let allFeedItems = [];
-    let currentFilter = 'ALL';
-    let selectedTableCurrency = 'ALL';
-    let activeGlobalCurrency = 'INR';
-    let isStreamFrozen = false;
-    let activeCaseData = null;
+      <script>
+        const API_BASE = window.location.origin + "/api";
+        let selectedTxnId = null;
+        let networkGraph = null;
+        let lastInjectedPayload = null;
+        let allFeedItems = [];
+        let currentFilter = 'ALL';
+        let selectedTableCurrency = 'ALL';
+        let activeGlobalCurrency = 'INR';
+        let isStreamFrozen = false;
+        let activeCaseData = null;
 
-    // Currency Formatting & Conversion Matrix (Razorpay Global Payments)
-    const CURRENCY_SYMBOLS = {
-      INR: '₹',
-      USD: '$',
-      EUR: '€',
-      GBP: '£',
-      SGD: 'S$',
-      AED: 'AED ',
-      MYR: 'RM '
-    };
+        // Currency Formatting & Conversion Matrix (Razorpay Global Payments)
+        const CURRENCY_SYMBOLS = {
+          INR: '₹',
+          USD: '$',
+          EUR: '€',
+          GBP: '£',
+          SGD: 'S$',
+          AED: 'AED ',
+          MYR: 'RM '
+        };
 
-    const CURRENCY_RATES_FROM_INR = {
-      INR: 1.0,
-      USD: 0.012,
-      EUR: 0.011,
-      GBP: 0.0094,
-      SGD: 0.016,
-      AED: 0.044,
-      MYR: 0.056
-    };
+        const CURRENCY_RATES_FROM_INR = {
+          INR: 1.0,
+          USD: 0.012,
+          EUR: 0.011,
+          GBP: 0.0094,
+          SGD: 0.016,
+          AED: 0.044,
+          MYR: 0.056
+        };
 
-    function formatMoney(amount, currencyCode) {
-      const code = (currencyCode || 'INR').toUpperCase();
-      const sym = CURRENCY_SYMBOLS[code] || (code + ' ');
-      const locale = code === 'INR' ? 'en-IN' : 'en-US';
-      return sym + Number(amount).toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    }
+        function formatMoney(amount, currencyCode) {
+          const code = (currencyCode || 'INR').toUpperCase();
+          const sym = CURRENCY_SYMBOLS[code] || (code + ' ');
+          const locale = code === 'INR' ? 'en-IN' : 'en-US';
+          return sym + Number(amount).toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
 
-    function setTableCurrencyFilter(curr) {
-      selectedTableCurrency = curr;
-      filterFeedTable();
-    }
+        function setTableCurrencyFilter(curr) {
+          selectedTableCurrency = curr;
+          filterFeedTable();
+        }
 
-    function changeGlobalCurrency(curr) {
-      activeGlobalCurrency = curr;
-      const rate = CURRENCY_RATES_FROM_INR[curr] || 1.0;
-      const baseAbuseINR = 1245800;
-      const baseFundsINR = 184250;
-      
-      const elAbuse = document.getElementById('val-abuse-prevented');
-      const elFunds = document.getElementById('val-funds-protected');
-      
-      if (elAbuse) elAbuse.innerText = formatMoney(baseAbuseINR * rate, curr);
-      if (elFunds) elFunds.innerText = formatMoney(baseFundsINR * rate, curr);
-    }
+        function changeGlobalCurrency(curr) {
+          activeGlobalCurrency = curr;
+          const rate = CURRENCY_RATES_FROM_INR[curr] || 1.0;
+          const baseAbuseINR = 1245800;
+          const baseFundsINR = 184250;
 
-    // UTC Live Clock
-    function updateClock() {
-      const now = new Date();
-      document.getElementById('clock-utc').innerText = now.toUTCString().slice(17, 25) + ' UTC';
-    }
-    setInterval(updateClock, 1000);
-    updateClock();
+          const elAbuse = document.getElementById('val-abuse-prevented');
+          const elFunds = document.getElementById('val-funds-protected');
 
-    // Theme Switcher Logic (Light & Dark Tones)
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
-    }
+          if (elAbuse) elAbuse.innerText = formatMoney(baseAbuseINR * rate, curr);
+          if (elFunds) elFunds.innerText = formatMoney(baseFundsINR * rate, curr);
+        }
 
-    function setTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('riskiq_theme', theme);
-      
-      const btnLight = document.getElementById('btn-theme-light');
-      const btnDark = document.getElementById('btn-theme-dark');
-      if (theme === 'light') {
-        btnLight.classList.add('active');
-        btnDark.classList.remove('active');
-      } else {
-        btnDark.classList.add('active');
-        btnLight.classList.remove('active');
-      }
+        // UTC Live Clock
+        function updateClock() {
+          const now = new Date();
+          document.getElementById('clock-utc').innerText = now.toUTCString().slice(17, 25) + ' UTC';
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
 
-      // Re-render network graph with matching theme colors if active
-      if (selectedTxnId && networkGraph) {
-        fetchGraph(selectedTxnId);
-      }
-    }
+        // Theme Switcher Logic (Light & Dark Tones)
+        function toggleTheme() {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          setTheme(newTheme);
+        }
 
-    // Load saved theme preference
-    const savedTheme = localStorage.getItem('riskiq_theme') || 'dark';
-    setTheme(savedTheme);
+        function setTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+          localStorage.setItem('riskiq_theme', theme);
 
-    // Tab Navigation Switcher
-    function switchNav(tabId, btn) {
-      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-      
-      const target = document.getElementById(tabId);
-      if (target) target.classList.add('active');
-      if (btn) btn.classList.add('active');
+          const btnLight = document.getElementById('btn-theme-light');
+          const btnDark = document.getElementById('btn-theme-dark');
+          if (theme === 'light') {
+            btnLight.classList.add('active');
+            btnDark.classList.remove('active');
+          } else {
+            btnDark.classList.add('active');
+            btnLight.classList.remove('active');
+          }
 
-      const titles = {
-        'tab-analytics': 'Risk Analytics & Live Ingestion Stream',
-        'tab-graph': 'Entity Graph Topology Explorer',
-        'tab-shadow': 'Shadow Mode Challenger Comparator',
-        'tab-metrics': 'Production Held-Out Evaluation & Drift Benchmarks',
-        'tab-active-learning': 'Active Learning Closed-Loop Retraining',
-        'tab-degradation': 'Graceful Degradation & Escalation Audit'
-      };
-      document.getElementById('page-title-text').innerText = titles[tabId] || 'RiskIQ Sentinel Platform';
+          // Re-render network graph with matching theme colors if active
+          if (selectedTxnId && networkGraph) {
+            fetchGraph(selectedTxnId);
+          }
+        }
 
-      if (tabId === 'tab-metrics') { fetchMetrics(); fetchModelMeta(); }
-      else if (tabId === 'tab-shadow') { fetchShadowMetrics(); }
-      else if (tabId === 'tab-active-learning') { fetchActiveLearningStats(); }
-      else if (tabId === 'tab-degradation') { fetchDegradationCase(); }
-      else if (tabId === 'tab-graph' && selectedTxnId) { fetchGraph(selectedTxnId); }
-    }
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('riskiq_theme') || 'dark';
+        setTheme(savedTheme);
 
-    // Radar Alert Notification Controls
-    function showRadarAlert(data) {
-      const banner = document.getElementById('radar-alert-banner');
-      const msgEl = document.getElementById('radar-alert-msg');
-      const btnEl = document.getElementById('radar-inspect-btn');
-      if (!banner || !msgEl || !btnEl) return;
+        // Tab Navigation Switcher
+        function switchNav(tabId, btn) {
+          document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+          document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 
-      const amtFormatted = formatMoney(data.amount, data.currency);
-      msgEl.innerText = `${data.transaction_id} — ${data.action} (Risk: ${(data.score * 100).toFixed(0)}%) | Amount: ${amtFormatted}`;
-      btnEl.onclick = () => {
-        selectCase(data.transaction_id);
-        dismissRadarAlert();
-      };
-      banner.style.display = 'flex';
-    }
+          const target = document.getElementById(tabId);
+          if (target) target.classList.add('active');
+          if (btn) btn.classList.add('active');
 
-    function dismissRadarAlert() {
-      const banner = document.getElementById('radar-alert-banner');
-      if (banner) banner.style.display = 'none';
-    }
+          const titles = {
+            'tab-analytics': 'Risk Analytics & Live Ingestion Stream',
+            'tab-graph': 'Entity Graph Topology Explorer',
+            'tab-shadow': 'Shadow Mode Challenger Comparator',
+            'tab-metrics': 'Production Held-Out Evaluation & Drift Benchmarks',
+            'tab-active-learning': 'Active Learning Closed-Loop Retraining',
+            'tab-degradation': 'Graceful Degradation & Escalation Audit'
+          };
+          document.getElementById('page-title-text').innerText = titles[tabId] || 'RiskIQ Sentinel Platform';
 
-    // Stream Freeze / Resume Toggle
-    function toggleStreamFreeze() {
-      isStreamFrozen = !isStreamFrozen;
-      const btn = document.getElementById('btn-freeze-stream');
-      if (isStreamFrozen) {
-        btn.innerText = '▶️ Resume Feed';
-        btn.classList.add('frozen');
-      } else {
-        btn.innerText = '⏸️ Freeze Feed';
-        btn.classList.remove('frozen');
-        fetchFeed();
-      }
-    }
+          if (tabId === 'tab-metrics') { fetchMetrics(); fetchModelMeta(); }
+          else if (tabId === 'tab-shadow') { fetchShadowMetrics(); }
+          else if (tabId === 'tab-active-learning') { fetchActiveLearningStats(); }
+          else if (tabId === 'tab-degradation') { fetchDegradationCase(); }
+          else if (tabId === 'tab-graph' && selectedTxnId) { fetchGraph(selectedTxnId); }
+        }
 
-    // Filter Category Pills Logic
-    function setFeedFilter(filterType, btnEl) {
-      currentFilter = filterType;
-      document.querySelectorAll('.filter-pill').forEach(el => el.classList.remove('active'));
-      if (btnEl) btnEl.classList.add('active');
-      filterFeedTable();
-    }
+        // Radar Alert Notification Controls
+        function showRadarAlert(data) {
+          const banner = document.getElementById('radar-alert-banner');
+          const msgEl = document.getElementById('radar-alert-msg');
+          const btnEl = document.getElementById('radar-inspect-btn');
+          if (!banner || !msgEl || !btnEl) return;
 
-    // Connect to Server-Sent Events (SSE) Stream
-    function initSSE() {
-      if (!!window.EventSource) {
-        const source = new EventSource(`${API_BASE}/stream/events`);
-        source.onmessage = function(event) {
+          const amtFormatted = formatMoney(data.amount, data.currency);
+          msgEl.innerText = `${data.transaction_id} — ${data.action} (Risk: ${(data.score * 100).toFixed(0)}%) | Amount: ${amtFormatted}`;
+          btnEl.onclick = () => {
+            selectCase(data.transaction_id);
+            dismissRadarAlert();
+          };
+          banner.style.display = 'flex';
+        }
+
+        function dismissRadarAlert() {
+          const banner = document.getElementById('radar-alert-banner');
+          if (banner) banner.style.display = 'none';
+        }
+
+        // Stream Freeze / Resume Toggle
+        function toggleStreamFreeze() {
+          isStreamFrozen = !isStreamFrozen;
+          const btn = document.getElementById('btn-freeze-stream');
+          if (isStreamFrozen) {
+            btn.innerText = '▶️ Resume Feed';
+            btn.classList.add('frozen');
+          } else {
+            btn.innerText = '⏸️ Freeze Feed';
+            btn.classList.remove('frozen');
+            fetchFeed();
+          }
+        }
+
+        // Filter Category Pills Logic
+        function setFeedFilter(filterType, btnEl) {
+          currentFilter = filterType;
+          document.querySelectorAll('.filter-pill').forEach(el => el.classList.remove('active'));
+          if (btnEl) btnEl.classList.add('active');
+          filterFeedTable();
+        }
+
+        // Connect to Server-Sent Events (SSE) Stream
+        function initSSE() {
+          if (!!window.EventSource) {
+            const source = new EventSource(`${API_BASE}/stream/events`);
+            source.onmessage = function (event) {
+              try {
+                const data = JSON.parse(event.data);
+                if (!isStreamFrozen) {
+                  fetchFeed();
+                }
+                if (data.action === 'BLOCK' || data.score >= 0.70) {
+                  showRadarAlert(data);
+                }
+              } catch (e) { }
+            };
+            source.onerror = function () {
+              const sseEl = document.getElementById('tel-sse');
+              if (sseEl) {
+                sseEl.innerText = "SSE: RECONNECTING";
+                sseEl.style.color = "var(--status-review)";
+              }
+            };
+            source.onopen = function () {
+              const sseEl = document.getElementById('tel-sse');
+              if (sseEl) {
+                sseEl.innerText = "SSE: LIVE CONNECTED";
+                sseEl.style.color = "var(--status-allow)";
+              }
+            };
+          }
+        }
+
+        // Fetch Live Telemetry Status
+        async function fetchTelemetry() {
           try {
-            const data = JSON.parse(event.data);
-            if (!isStreamFrozen) {
-              fetchFeed();
-            }
-            if (data.action === 'BLOCK' || data.score >= 0.70) {
-              showRadarAlert(data);
-            }
-          } catch(e) {}
-        };
-        source.onerror = function() {
-          const sseEl = document.getElementById('tel-sse');
-          if (sseEl) {
-            sseEl.innerText = "SSE: RECONNECTING";
-            sseEl.style.color = "var(--status-review)";
+            const pRes = await fetch(`${API_BASE}/pipeline/metrics`);
+            const pData = await pRes.json();
+            document.getElementById('tel-queue').innerText = `${pData.queue_size} / 10,000`;
+            document.getElementById('tel-dlq').innerText = pData.dlq_size;
+
+            const aRes = await fetch(`${API_BASE}/active-learning/stats`);
+            const aData = await aRes.json();
+          } catch (err) {
+            console.error("Telemetry error:", err);
           }
-        };
-        source.onopen = function() {
-          const sseEl = document.getElementById('tel-sse');
-          if (sseEl) {
-            sseEl.innerText = "SSE: LIVE CONNECTED";
-            sseEl.style.color = "var(--status-allow)";
+        }
+
+        // Fetch Feed Items
+        async function fetchFeed() {
+          try {
+            const res = await fetch(`${API_BASE}/feed?limit=50`);
+            const data = await res.json();
+            allFeedItems = data.items || [];
+            filterFeedTable();
+            fetchTelemetry();
+          } catch (err) {
+            console.error("Feed fetch error:", err);
           }
-        };
-      }
-    }
+        }
 
-    // Fetch Live Telemetry Status
-    async function fetchTelemetry() {
-      try {
-        const pRes = await fetch(`${API_BASE}/pipeline/metrics`);
-        const pData = await pRes.json();
-        document.getElementById('tel-queue').innerText = `${pData.queue_size} / 10,000`;
-        document.getElementById('tel-dlq').innerText = pData.dlq_size;
+        // Render Stream Table with Active Query & Category & Currency Filters
+        function renderFeedTable(items) {
+          const tbody = document.getElementById('stream-table-body');
+          if (!items || items.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">No matching transactions found.</td></tr>`;
+            return;
+          }
 
-        const aRes = await fetch(`${API_BASE}/active-learning/stats`);
-        const aData = await aRes.json();
-      } catch (err) {
-        console.error("Telemetry error:", err);
-      }
-    }
+          document.getElementById('stream-count-badge').innerText = `${allFeedItems.length} Events`;
 
-    // Fetch Feed Items
-    async function fetchFeed() {
-      try {
-        const res = await fetch(`${API_BASE}/feed?limit=50`);
-        const data = await res.json();
-        allFeedItems = data.items || [];
-        filterFeedTable();
-        fetchTelemetry();
-      } catch (err) {
-        console.error("Feed fetch error:", err);
-      }
-    }
+          tbody.innerHTML = items.map(item => {
+            const isSel = item.transaction_id === selectedTxnId ? 'selected' : '';
+            const act = item.action;
+            const pillCls = act === 'BLOCK' ? 'pill-block' : (act === 'REVIEW' ? 'pill-review' : (act === 'STEP-UP AUTH' ? 'pill-stepup' : 'pill-allow'));
+            const scoreColor = item.score >= 0.6 ? 'var(--status-block)' : (item.score >= 0.25 ? 'var(--status-review)' : 'var(--status-allow)');
+            const amtFormatted = formatMoney(item.amount, item.currency);
 
-    // Render Stream Table with Active Query & Category & Currency Filters
-    function renderFeedTable(items) {
-      const tbody = document.getElementById('stream-table-body');
-      if (!items || items.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">No matching transactions found.</td></tr>`;
-        return;
-      }
-
-      document.getElementById('stream-count-badge').innerText = `${allFeedItems.length} Events`;
-
-      tbody.innerHTML = items.map(item => {
-        const isSel = item.transaction_id === selectedTxnId ? 'selected' : '';
-        const act = item.action;
-        const pillCls = act === 'BLOCK' ? 'pill-block' : (act === 'REVIEW' ? 'pill-review' : (act === 'STEP-UP AUTH' ? 'pill-stepup' : 'pill-allow'));
-        const scoreColor = item.score >= 0.6 ? 'var(--status-block)' : (item.score >= 0.25 ? 'var(--status-review)' : 'var(--status-allow)');
-        const amtFormatted = formatMoney(item.amount, item.currency);
-
-        return `
+            return `
           <tr class="${isSel}" onclick="selectCase('${item.transaction_id}')">
             <td><strong style="font-family:var(--font-mono);">${item.transaction_id}</strong></td>
             <td><span style="color:var(--text-secondary);">${item.customer_id}</span></td>
@@ -2293,93 +2557,93 @@
             <td><span class="status-pill ${pillCls}">${item.action}</span></td>
           </tr>
         `;
-      }).join('');
+          }).join('');
 
-      if (!selectedTxnId && items.length > 0) {
-        selectCase(items[0].transaction_id);
-      }
-    }
-
-    function filterFeedTable() {
-      const query = (document.getElementById('search-box').value || '').toLowerCase();
-      
-      const filtered = allFeedItems.filter(item => {
-        const itemCurr = (item.currency || 'INR').toUpperCase();
-        
-        // 1. Currency Filter
-        if (selectedTableCurrency !== 'ALL' && itemCurr !== selectedTableCurrency) {
-          return false;
+          if (!selectedTxnId && items.length > 0) {
+            selectCase(items[0].transaction_id);
+          }
         }
 
-        // 2. Action Category Filter
-        if (currentFilter === 'BLOCK' && item.action !== 'BLOCK') return false;
-        if (currentFilter === 'REVIEW' && item.action !== 'REVIEW') return false;
-        if (currentFilter === 'STEP-UP AUTH' && item.action !== 'STEP-UP AUTH') return false;
-        if (currentFilter === 'ALLOW' && item.action !== 'ALLOW') return false;
-        if (currentFilter === 'HIGH_RISK' && item.score < 0.80) return false;
+        function filterFeedTable() {
+          const query = (document.getElementById('search-box').value || '').toLowerCase();
 
-        // 3. Search Query
-        const matchesQuery = 
-          item.transaction_id.toLowerCase().includes(query) ||
-          item.customer_id.toLowerCase().includes(query) ||
-          String(item.amount).includes(query) ||
-          itemCurr.toLowerCase().includes(query) ||
-          (item.payment_method || '').toLowerCase().includes(query) ||
-          (item.action || '').toLowerCase().includes(query);
+          const filtered = allFeedItems.filter(item => {
+            const itemCurr = (item.currency || 'INR').toUpperCase();
 
-        return matchesQuery;
-      });
+            // 1. Currency Filter
+            if (selectedTableCurrency !== 'ALL' && itemCurr !== selectedTableCurrency) {
+              return false;
+            }
 
-      const countInd = document.getElementById('filtered-count-indicator');
-      if (countInd) {
-        countInd.innerText = `Showing ${filtered.length} of ${allFeedItems.length}`;
-      }
+            // 2. Action Category Filter
+            if (currentFilter === 'BLOCK' && item.action !== 'BLOCK') return false;
+            if (currentFilter === 'REVIEW' && item.action !== 'REVIEW') return false;
+            if (currentFilter === 'STEP-UP AUTH' && item.action !== 'STEP-UP AUTH') return false;
+            if (currentFilter === 'ALLOW' && item.action !== 'ALLOW') return false;
+            if (currentFilter === 'HIGH_RISK' && item.score < 0.80) return false;
 
-      renderFeedTable(filtered);
-    }
+            // 3. Search Query
+            const matchesQuery =
+              item.transaction_id.toLowerCase().includes(query) ||
+              item.customer_id.toLowerCase().includes(query) ||
+              String(item.amount).includes(query) ||
+              itemCurr.toLowerCase().includes(query) ||
+              (item.payment_method || '').toLowerCase().includes(query) ||
+              (item.action || '').toLowerCase().includes(query);
 
-    // Select and inspect a specific case dossier
-    async function selectCase(txnId) {
-      selectedTxnId = txnId;
-      
-      // Update table selection state
-      document.querySelectorAll('#stream-table-body tr').forEach(row => row.classList.remove('selected'));
-      const activeRow = Array.from(document.querySelectorAll('#stream-table-body tr')).find(r => r.innerText.includes(txnId));
-      if (activeRow) activeRow.classList.add('selected');
+            return matchesQuery;
+          });
 
-      try {
-        const res = await fetch(`${API_BASE}/case/${txnId}`);
-        const caseData = await res.json();
-        activeCaseData = caseData;
-        renderCaseDetail(caseData);
-        fetchGraph(txnId);
-      } catch (err) {
-        console.error("Error loading case:", err);
-      }
-    }
+          const countInd = document.getElementById('filtered-count-indicator');
+          if (countInd) {
+            countInd.innerText = `Showing ${filtered.length} of ${allFeedItems.length}`;
+          }
 
-    // Open Visual Suspicious Activity Report (SAR) Compliance Dossier
-    function exportSARDossier() {
-      if (!activeCaseData) {
-        alert("Please select a transaction case first to view its SAR compliance dossier.");
-        return;
-      }
+          renderFeedTable(filtered);
+        }
 
-      const c = activeCaseData;
-      const refCode = `SAR-RZP-2026-${c.transaction_id.replace('txn_', '').replace('pay_', '')}`;
-      document.getElementById('sar-ref-code').innerText = refCode;
-      document.getElementById('sar-timestamp-text').innerText = new Date(c.timestamp || Date.now()).toUTCString();
+        // Select and inspect a specific case dossier
+        async function selectCase(txnId) {
+          selectedTxnId = txnId;
 
-      const act = c.override ? c.override.new_action : c.decision.action;
-      const actColor = act === 'BLOCK' ? 'var(--status-block)' : (act === 'REVIEW' ? 'var(--status-review)' : (act === 'STEP-UP AUTH' ? 'var(--status-stepup)' : 'var(--status-allow)'));
-      const isRing = c.evidence && c.evidence.ring_membership && c.evidence.ring_membership.ring_detected;
-      const ringSize = isRing ? c.evidence.ring_membership.component_size : 1;
-      const devDegree = isRing ? (c.evidence.ring_membership.device_degree || 1) : (c.features ? c.features.entity_degree_device || 1 : 1);
-      const attributions = (c.evidence && c.evidence.attributions) || [];
-      const anomalies = (c.evidence && c.evidence.anomalies) || [];
-      const narrative = c.narrative || {};
+          // Update table selection state
+          document.querySelectorAll('#stream-table-body tr').forEach(row => row.classList.remove('selected'));
+          const activeRow = Array.from(document.querySelectorAll('#stream-table-body tr')).find(r => r.innerText.includes(txnId));
+          if (activeRow) activeRow.classList.add('selected');
 
-      const contentHtml = `
+          try {
+            const res = await fetch(`${API_BASE}/case/${txnId}`);
+            const caseData = await res.json();
+            activeCaseData = caseData;
+            renderCaseDetail(caseData);
+            fetchGraph(txnId);
+          } catch (err) {
+            console.error("Error loading case:", err);
+          }
+        }
+
+        // Open Visual Suspicious Activity Report (SAR) Compliance Dossier
+        function exportSARDossier() {
+          if (!activeCaseData) {
+            alert("Please select a transaction case first to view its SAR compliance dossier.");
+            return;
+          }
+
+          const c = activeCaseData;
+          const refCode = `SAR-RZP-2026-${c.transaction_id.replace('txn_', '').replace('pay_', '')}`;
+          document.getElementById('sar-ref-code').innerText = refCode;
+          document.getElementById('sar-timestamp-text').innerText = new Date(c.timestamp || Date.now()).toUTCString();
+
+          const act = c.override ? c.override.new_action : c.decision.action;
+          const actColor = act === 'BLOCK' ? 'var(--status-block)' : (act === 'REVIEW' ? 'var(--status-review)' : (act === 'STEP-UP AUTH' ? 'var(--status-stepup)' : 'var(--status-allow)'));
+          const isRing = c.evidence && c.evidence.ring_membership && c.evidence.ring_membership.ring_detected;
+          const ringSize = isRing ? c.evidence.ring_membership.component_size : 1;
+          const devDegree = isRing ? (c.evidence.ring_membership.device_degree || 1) : (c.features ? c.features.entity_degree_device || 1 : 1);
+          const attributions = (c.evidence && c.evidence.attributions) || [];
+          const anomalies = (c.evidence && c.evidence.anomalies) || [];
+          const narrative = c.narrative || {};
+
+          const contentHtml = `
         <!-- Section 1: Official Case Header Banner -->
         <div class="sar-info-card" style="border-left: 4px solid ${actColor};">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
@@ -2484,22 +2748,22 @@
         </div>
       `;
 
-      document.getElementById('sar-report-content').innerHTML = contentHtml;
-      document.getElementById('sar-modal-overlay').classList.add('active');
-    }
+          document.getElementById('sar-report-content').innerHTML = contentHtml;
+          document.getElementById('sar-modal-overlay').classList.add('active');
+        }
 
-    function closeSARModal() {
-      document.getElementById('sar-modal-overlay').classList.remove('active');
-    }
+        function closeSARModal() {
+          document.getElementById('sar-modal-overlay').classList.remove('active');
+        }
 
-    function printSARReport() {
-      window.print();
-    }
+        function printSARReport() {
+          window.print();
+        }
 
-    function copySARSummary() {
-      if (!activeCaseData) return;
-      const c = activeCaseData;
-      const summary = `
+        function copySARSummary() {
+          if (!activeCaseData) return;
+          const c = activeCaseData;
+          const summary = `
 [CONFIDENTIAL // FIU-IND REGULATORY SAR REPORT]
 Reference: SAR-RZP-2026-${c.transaction_id}
 Date: ${new Date(c.timestamp || Date.now()).toUTCString()}
@@ -2514,38 +2778,38 @@ Rule Fired: ${c.decision ? c.decision.rule_fired : 'N/A'}
 Syndicate Abuse Ring: ${c.evidence && c.evidence.ring_membership && c.evidence.ring_membership.ring_detected ? 'YES (Suspect Ring Member)' : 'NO'}
 Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'}
 `.trim();
-      navigator.clipboard.writeText(summary).then(() => {
-        alert("✅ Formal SAR Case Brief copied to clipboard!");
-      }).catch(() => {
-        alert("SAR Brief:\n\n" + summary);
-      });
-    }
+          navigator.clipboard.writeText(summary).then(() => {
+            alert("✅ Formal SAR Case Brief copied to clipboard!");
+          }).catch(() => {
+            alert("SAR Brief:\n\n" + summary);
+          });
+        }
 
-    function downloadSARJson() {
-      if (!activeCaseData) return;
-      const c = activeCaseData;
-      const blob = new Blob([JSON.stringify(c, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `SAR_Compliance_Dossier_${c.transaction_id}.json`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
+        function downloadSARJson() {
+          if (!activeCaseData) return;
+          const c = activeCaseData;
+          const blob = new Blob([JSON.stringify(c, null, 2)], { type: "application/json" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `SAR_Compliance_Dossier_${c.transaction_id}.json`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
 
-    // Render Full Case Dossier UI
-    function renderCaseDetail(c) {
-      document.getElementById('case-header-id').innerHTML = `<span>Case: ${c.transaction_id}</span>`;
-      
-      const act = c.override ? c.override.new_action : c.decision.action;
-      const pillCls = act === 'BLOCK' ? 'pill-block' : (act === 'REVIEW' ? 'pill-review' : (act === 'STEP-UP AUTH' ? 'pill-stepup' : 'pill-allow'));
-      document.getElementById('case-header-pill').innerHTML = `<span class="status-pill ${pillCls}">${c.override ? act + ' (OVERRIDDEN)' : act}</span>`;
+        // Render Full Case Dossier UI
+        function renderCaseDetail(c) {
+          document.getElementById('case-header-id').innerHTML = `<span>Case: ${c.transaction_id}</span>`;
 
-      // TreeSHAP Feature Attributions
-      const attributions = c.evidence.attributions || [];
-      const shapHtml = attributions.length > 0 ? `
+          const act = c.override ? c.override.new_action : c.decision.action;
+          const pillCls = act === 'BLOCK' ? 'pill-block' : (act === 'REVIEW' ? 'pill-review' : (act === 'STEP-UP AUTH' ? 'pill-stepup' : 'pill-allow'));
+          document.getElementById('case-header-pill').innerHTML = `<span class="status-pill ${pillCls}">${c.override ? act + ' (OVERRIDDEN)' : act}</span>`;
+
+          // TreeSHAP Feature Attributions
+          const attributions = c.evidence.attributions || [];
+          const shapHtml = attributions.length > 0 ? `
         <div class="shap-box">
           <div class="shap-header">
             <span>Dynamic Tree-Path Feature Attributions (TreeSHAP)</span>
@@ -2563,9 +2827,9 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
         </div>
       ` : '';
 
-      // ReAct Agent Traces
-      const toolTraces = c.evidence.tool_traces || [];
-      const traceHtml = toolTraces.length > 0 ? `
+          // ReAct Agent Traces
+          const toolTraces = c.evidence.tool_traces || [];
+          const traceHtml = toolTraces.length > 0 ? `
         <div class="agent-trace-box">
           <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
             <strong style="color:var(--accent-cyan);">Autonomous ReAct Investigation Trace</strong>
@@ -2581,8 +2845,8 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
         </div>
       ` : '';
 
-      // Analyst Override Form
-      const overrideHtml = c.override ? `
+          // Analyst Override Form
+          const overrideHtml = c.override ? `
         <div style="background:var(--status-review-bg); border:1px solid var(--status-review-border); border-radius:10px; padding:10px 14px; font-size:0.80rem; margin-top:1rem;">
           <strong style="color:var(--status-review);">Analyst Override Recorded:</strong> ${c.override.previous_action} ➔ <strong>${c.override.new_action}</strong><br>
           <em style="color:var(--text-secondary);">Reason: "${c.override.reason}"</em>
@@ -2607,14 +2871,14 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
         </div>
       `;
 
-      const scoreColor = c.score >= 0.6 ? 'var(--status-block)' : (c.score >= 0.25 ? 'var(--status-review)' : 'var(--status-allow)');
-      const amtFormatted = formatMoney(c.amount, c.currency);
+          const scoreColor = c.score >= 0.6 ? 'var(--status-block)' : (c.score >= 0.25 ? 'var(--status-review)' : 'var(--status-allow)');
+          const amtFormatted = formatMoney(c.amount, c.currency);
 
-      document.getElementById('dossier-content-area').innerHTML = `
+          document.getElementById('dossier-content-area').innerHTML = `
         <div class="dossier-metrics-grid">
           <div class="mini-metric"><div class="mini-label">Calibrated Score</div><div class="mini-val" style="color:${scoreColor};">${(c.score * 100).toFixed(1)}%</div></div>
           <div class="mini-metric"><div class="mini-label">Amount (${c.currency || 'INR'})</div><div class="mini-val">${amtFormatted}</div></div>
-          <div class="mini-metric"><div class="mini-label">Syndicate Ring</div><div class="mini-val">${c.evidence.ring_membership && c.evidence.ring_membership.ring_detected ? 'YES ('+c.evidence.ring_membership.component_size+' nodes)' : 'NO'}</div></div>
+          <div class="mini-metric"><div class="mini-label">Syndicate Ring</div><div class="mini-val">${c.evidence.ring_membership && c.evidence.ring_membership.ring_detected ? 'YES (' + c.evidence.ring_membership.component_size + ' nodes)' : 'NO'}</div></div>
           <div class="mini-metric"><div class="mini-label">Payment Rail</div><div class="mini-val" style="font-size:0.85rem;">${c.payment_method || 'CARD_CREDIT'}</div></div>
         </div>
 
@@ -2633,260 +2897,260 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
 
         ${overrideHtml}
       `;
-    }
-
-    // Submit Analyst Override
-    async function submitOverride(txnId) {
-      const action = document.getElementById('override-action').value;
-      const reason = document.getElementById('override-reason').value;
-
-      if (!reason || reason.trim().length < 4) {
-        alert("Please state a concise rationale for overriding.");
-        return;
-      }
-
-      try {
-        const res = await fetch(`${API_BASE}/case/${txnId}/override`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({ new_action: action, reason: reason })
-        });
-        if (res.ok) {
-          alert("Override recorded and buffered into Active Learning Challenger loop.");
-          selectCase(txnId);
-          fetchTelemetry();
         }
-      } catch (err) {
-        alert("Error submitting override: " + err);
-      }
-    }
 
-    // Simulator Injections with Multi-Currency Realism
-    async function injectSimulatorEvent(pattern) {
-      if (pattern === 'VELOCITY_BURST') {
-        const sharedCard = "card_burst_" + Math.floor(Math.random()*9000 + 1000);
-        for (let i = 0; i < 5; i++) {
-          const payload = {
-            amount: 49.99 + (i * 5),
-            currency: "USD",
-            customer_id: `cust_burst_${i + 1}`,
-            merchant_id: `merch_gaming_0${(i % 3) + 1}`,
-            merchant_category: "GAMING_CRYPTO",
-            payment_method: "CARD_CREDIT",
-            device_id: `dev_burst_${i + 1}`,
-            ip_address_hash: "ip_burst_cluster",
-            card_fingerprint: sharedCard,
-            geo_country: "US",
-            customer_home_country: "US"
+        // Submit Analyst Override
+        async function submitOverride(txnId) {
+          const action = document.getElementById('override-action').value;
+          const reason = document.getElementById('override-reason').value;
+
+          if (!reason || reason.trim().length < 4) {
+            alert("Please state a concise rationale for overriding.");
+            return;
+          }
+
+          try {
+            const res = await fetch(`${API_BASE}/case/${txnId}/override`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ new_action: action, reason: reason })
+            });
+            if (res.ok) {
+              alert("Override recorded and buffered into Active Learning Challenger loop.");
+              selectCase(txnId);
+              fetchTelemetry();
+            }
+          } catch (err) {
+            alert("Error submitting override: " + err);
+          }
+        }
+
+        // Simulator Injections with Multi-Currency Realism
+        async function injectSimulatorEvent(pattern) {
+          if (pattern === 'VELOCITY_BURST') {
+            const sharedCard = "card_burst_" + Math.floor(Math.random() * 9000 + 1000);
+            for (let i = 0; i < 5; i++) {
+              const payload = {
+                amount: 49.99 + (i * 5),
+                currency: "USD",
+                customer_id: `cust_burst_${i + 1}`,
+                merchant_id: `merch_gaming_0${(i % 3) + 1}`,
+                merchant_category: "GAMING_CRYPTO",
+                payment_method: "CARD_CREDIT",
+                device_id: `dev_burst_${i + 1}`,
+                ip_address_hash: "ip_burst_cluster",
+                card_fingerprint: sharedCard,
+                geo_country: "US",
+                customer_home_country: "US"
+              };
+              fetch(`${API_BASE}/ingest`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+              });
+            }
+            setTimeout(async () => {
+              await fetchFeed();
+            }, 300);
+            return;
+          }
+
+          const sampleEvents = {
+            NORMAL: {
+              amount: 1450.0,
+              currency: "INR",
+              customer_id: "cust_live_" + Math.floor(Math.random() * 900 + 100),
+              merchant_id: "merch_ecom_04",
+              merchant_category: "ECOMMERCE_RETAIL",
+              payment_method: "UPI_INTENT",
+              upi_vpa: "user@okhdfcbank",
+              device_id: "dev_live_norm",
+              ip_address_hash: "ip_live_norm",
+              card_fingerprint: "card_live_norm",
+              geo_country: "IN",
+              customer_home_country: "IN"
+            },
+            CARD_TESTING_BOT: {
+              amount: 2.50,
+              currency: "USD",
+              customer_id: "cust_bot_" + Math.floor(Math.random() * 900 + 100),
+              merchant_id: "merch_gaming_01",
+              merchant_category: "GAMING_CRYPTO",
+              payment_method: "CARD_CREDIT",
+              device_id: "dev_bot_shared",
+              ip_address_hash: "ip_bot_shared",
+              card_fingerprint: "card_test_" + Math.floor(Math.random() * 9000 + 1000),
+              geo_country: "US",
+              customer_home_country: "US"
+            },
+            ACCOUNT_TAKEOVER_ATO: {
+              amount: 1450.0,
+              currency: "SGD",
+              customer_id: "cust_live_target",
+              merchant_id: "merch_crypto_02",
+              merchant_category: "GAMING_CRYPTO",
+              payment_method: "CARD_CREDIT",
+              device_id: "dev_foreign_ato",
+              ip_address_hash: "ip_foreign_ato",
+              card_fingerprint: "card_live_norm",
+              geo_country: "SG",
+              customer_home_country: "IN"
+            },
+            SYNTHETIC_RING: {
+              amount: 32000.0,
+              currency: "INR",
+              customer_id: "cust_ring_" + Math.floor(Math.random() * 900 + 100),
+              merchant_id: "merch_luxury_03",
+              merchant_category: "LUXURY_JEWELRY",
+              payment_method: "UPI_VPA",
+              upi_vpa: "ring_burner@disposable_pay",
+              vpa_handle_risk: 0.85,
+              device_sim_bound: false,
+              device_id: "dev_ring_shared_syndicate",
+              ip_address_hash: "ip_ring_shared_syndicate",
+              card_fingerprint: "card_ring_shared_syndicate",
+              geo_country: "IN",
+              customer_home_country: "IN"
+            },
+            GEO_IMPOSSIBLE: {
+              amount: 620.0,
+              currency: "EUR",
+              customer_id: "cust_live_norm",
+              merchant_id: "merch_crypto_lagos",
+              merchant_category: "GAMING_CRYPTO",
+              payment_method: "CARD_CREDIT",
+              device_id: "dev_foreign_lagos",
+              ip_address_hash: "ip_foreign_lagos",
+              card_fingerprint: "card_live_norm",
+              geo_country: "NG",
+              customer_home_country: "IN"
+            },
+            AMBIGUOUS: {
+              amount: 4800.0,
+              currency: "INR",
+              customer_id: "cust_family_01",
+              merchant_id: "merch_ecom_05",
+              merchant_category: "ECOMMERCE_RETAIL",
+              payment_method: "UPI_INTENT",
+              upi_vpa: "family@okhdfcbank",
+              device_id: "dev_family_tablet",
+              ip_address_hash: "ip_home_shared",
+              card_fingerprint: "card_family_01",
+              geo_country: "IN",
+              customer_home_country: "IN"
+            }
           };
-          fetch(`${API_BASE}/ingest`, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(payload)
-          });
+
+          const payload = sampleEvents[pattern];
+          lastInjectedPayload = payload;
+
+          try {
+            const res = await fetch(`${API_BASE}/ingest`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            await fetchFeed();
+            if (data.transaction_id) {
+              selectCase(data.transaction_id);
+            }
+          } catch (err) {
+            alert("Injection error: " + err);
+          }
         }
-        setTimeout(async () => {
-          await fetchFeed();
-        }, 300);
-        return;
-      }
 
-      const sampleEvents = {
-        NORMAL: {
-          amount: 1450.0,
-          currency: "INR",
-          customer_id: "cust_live_" + Math.floor(Math.random()*900 + 100),
-          merchant_id: "merch_ecom_04",
-          merchant_category: "ECOMMERCE_RETAIL",
-          payment_method: "UPI_INTENT",
-          upi_vpa: "user@okhdfcbank",
-          device_id: "dev_live_norm",
-          ip_address_hash: "ip_live_norm",
-          card_fingerprint: "card_live_norm",
-          geo_country: "IN",
-          customer_home_country: "IN"
-        },
-        CARD_TESTING_BOT: {
-          amount: 2.50,
-          currency: "USD",
-          customer_id: "cust_bot_" + Math.floor(Math.random()*900 + 100),
-          merchant_id: "merch_gaming_01",
-          merchant_category: "GAMING_CRYPTO",
-          payment_method: "CARD_CREDIT",
-          device_id: "dev_bot_shared",
-          ip_address_hash: "ip_bot_shared",
-          card_fingerprint: "card_test_" + Math.floor(Math.random()*9000 + 1000),
-          geo_country: "US",
-          customer_home_country: "US"
-        },
-        ACCOUNT_TAKEOVER_ATO: {
-          amount: 1450.0,
-          currency: "SGD",
-          customer_id: "cust_live_target",
-          merchant_id: "merch_crypto_02",
-          merchant_category: "GAMING_CRYPTO",
-          payment_method: "CARD_CREDIT",
-          device_id: "dev_foreign_ato",
-          ip_address_hash: "ip_foreign_ato",
-          card_fingerprint: "card_live_norm",
-          geo_country: "SG",
-          customer_home_country: "IN"
-        },
-        SYNTHETIC_RING: {
-          amount: 32000.0,
-          currency: "INR",
-          customer_id: "cust_ring_" + Math.floor(Math.random()*900 + 100),
-          merchant_id: "merch_luxury_03",
-          merchant_category: "LUXURY_JEWELRY",
-          payment_method: "UPI_VPA",
-          upi_vpa: "ring_burner@disposable_pay",
-          vpa_handle_risk: 0.85,
-          device_sim_bound: false,
-          device_id: "dev_ring_shared_syndicate",
-          ip_address_hash: "ip_ring_shared_syndicate",
-          card_fingerprint: "card_ring_shared_syndicate",
-          geo_country: "IN",
-          customer_home_country: "IN"
-        },
-        GEO_IMPOSSIBLE: {
-          amount: 620.0,
-          currency: "EUR",
-          customer_id: "cust_live_norm",
-          merchant_id: "merch_crypto_lagos",
-          merchant_category: "GAMING_CRYPTO",
-          payment_method: "CARD_CREDIT",
-          device_id: "dev_foreign_lagos",
-          ip_address_hash: "ip_foreign_lagos",
-          card_fingerprint: "card_live_norm",
-          geo_country: "NG",
-          customer_home_country: "IN"
-        },
-        AMBIGUOUS: {
-          amount: 4800.0,
-          currency: "INR",
-          customer_id: "cust_family_01",
-          merchant_id: "merch_ecom_05",
-          merchant_category: "ECOMMERCE_RETAIL",
-          payment_method: "UPI_INTENT",
-          upi_vpa: "family@okhdfcbank",
-          device_id: "dev_family_tablet",
-          ip_address_hash: "ip_home_shared",
-          card_fingerprint: "card_family_01",
-          geo_country: "IN",
-          customer_home_country: "IN"
+        async function injectIdempotentReplay() {
+          if (!lastInjectedPayload) {
+            alert("Inject a normal event first to test idempotent replay.");
+            return;
+          }
+
+          try {
+            const res = await fetch(`${API_BASE}/ingest`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(lastInjectedPayload)
+            });
+            const data = await res.json();
+            if (data.is_idempotent_replay) {
+              alert(`⚡ IDEMPOTENT REPLAY DETECTED (< 0.1ms)!\nReturned cached decision '${data.action}' for transaction '${data.transaction_id}' without duplicate velocity increments.`);
+            } else {
+              alert("Ingested transaction: " + data.transaction_id);
+            }
+          } catch (err) {
+            alert("Replay error: " + err);
+          }
         }
-      };
 
-      const payload = sampleEvents[pattern];
-      lastInjectedPayload = payload;
-
-      try {
-        const res = await fetch(`${API_BASE}/ingest`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(payload)
-        });
-        const data = await res.json();
-        await fetchFeed();
-        if (data.transaction_id) {
-          selectCase(data.transaction_id);
+        // Vis.js Graph Fetch & Render
+        async function fetchGraph(txnId) {
+          try {
+            const res = await fetch(`${API_BASE}/graph/${txnId}`);
+            const data = await res.json();
+            renderVisGraph(data.subgraph);
+            const infoEl = document.getElementById('graph-case-info');
+            if (infoEl) infoEl.innerText = `Case ${txnId} (Center Customer: ${data.center_customer_id})`;
+          } catch (err) {
+            console.error("Graph error:", err);
+          }
         }
-      } catch (err) {
-        alert("Injection error: " + err);
-      }
-    }
 
-    async function injectIdempotentReplay() {
-      if (!lastInjectedPayload) {
-        alert("Inject a normal event first to test idempotent replay.");
-        return;
-      }
+        function renderVisGraph(subgraph) {
+          const container = document.getElementById('vis-network-container');
+          if (!container || !subgraph || !subgraph.nodes) return;
 
-      try {
-        const res = await fetch(`${API_BASE}/ingest`, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(lastInjectedPayload)
-        });
-        const data = await res.json();
-        if (data.is_idempotent_replay) {
-          alert(`⚡ IDEMPOTENT REPLAY DETECTED (< 0.1ms)!\nReturned cached decision '${data.action}' for transaction '${data.transaction_id}' without duplicate velocity increments.`);
-        } else {
-          alert("Ingested transaction: " + data.transaction_id);
+          const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+          const textColor = isLight ? '#0F172A' : '#F8FAFC';
+          const edgeColor = isLight ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.18)';
+
+          const nodes = new vis.DataSet(subgraph.nodes.map(n => {
+            let color = '#3B82F6';
+            if (n.type === 'device') color = '#F59E0B';
+            if (n.type === 'ip') color = '#8B5CF6';
+            if (n.type === 'card') color = '#10B981';
+            if (n.type === 'merchant') color = '#EC4899';
+
+            return {
+              id: n.id,
+              label: n.label,
+              title: n.title,
+              color: { background: color, border: isLight ? '#0F172A' : '#FFFFFF', highlight: { background: '#FFFFFF', border: color } },
+              shape: n.type === 'customer' ? 'circle' : (n.type === 'device' ? 'box' : 'dot'),
+              font: { color: textColor, face: 'Outfit', size: 12, strokeWidth: 0 }
+            };
+          }));
+
+          const edges = new vis.DataSet(subgraph.edges.map(e => ({
+            from: e.source,
+            to: e.target,
+            label: e.relation,
+            font: { color: '#94A3B8', size: 10, align: 'middle' },
+            color: { color: edgeColor, highlight: '#3B82F6' },
+            arrows: { to: { enabled: false } }
+          })));
+
+          const data = { nodes: nodes, edges: edges };
+          const options = {
+            physics: {
+              stabilization: false,
+              barnesHut: { gravitationalConstant: -3200, springLength: 100 }
+            },
+            interaction: { hover: true, tooltipDelay: 100 }
+          };
+
+          if (networkGraph) {
+            networkGraph.destroy();
+          }
+          networkGraph = new vis.Network(container, data, options);
         }
-      } catch (err) {
-        alert("Replay error: " + err);
-      }
-    }
 
-    // Vis.js Graph Fetch & Render
-    async function fetchGraph(txnId) {
-      try {
-        const res = await fetch(`${API_BASE}/graph/${txnId}`);
-        const data = await res.json();
-        renderVisGraph(data.subgraph);
-        const infoEl = document.getElementById('graph-case-info');
-        if (infoEl) infoEl.innerText = `Case ${txnId} (Center Customer: ${data.center_customer_id})`;
-      } catch (err) {
-        console.error("Graph error:", err);
-      }
-    }
-
-    function renderVisGraph(subgraph) {
-      const container = document.getElementById('vis-network-container');
-      if (!container || !subgraph || !subgraph.nodes) return;
-
-      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-      const textColor = isLight ? '#0F172A' : '#F8FAFC';
-      const edgeColor = isLight ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.18)';
-
-      const nodes = new vis.DataSet(subgraph.nodes.map(n => {
-        let color = '#3B82F6';
-        if (n.type === 'device') color = '#F59E0B';
-        if (n.type === 'ip') color = '#8B5CF6';
-        if (n.type === 'card') color = '#10B981';
-        if (n.type === 'merchant') color = '#EC4899';
-
-        return {
-          id: n.id,
-          label: n.label,
-          title: n.title,
-          color: { background: color, border: isLight ? '#0F172A' : '#FFFFFF', highlight: { background: '#FFFFFF', border: color } },
-          shape: n.type === 'customer' ? 'circle' : (n.type === 'device' ? 'box' : 'dot'),
-          font: { color: textColor, face: 'Outfit', size: 12, strokeWidth: 0 }
-        };
-      }));
-
-      const edges = new vis.DataSet(subgraph.edges.map(e => ({
-        from: e.source,
-        to: e.target,
-        label: e.relation,
-        font: { color: '#94A3B8', size: 10, align: 'middle' },
-        color: { color: edgeColor, highlight: '#3B82F6' },
-        arrows: { to: { enabled: false } }
-      })));
-
-      const data = { nodes: nodes, edges: edges };
-      const options = {
-        physics: {
-          stabilization: false,
-          barnesHut: { gravitationalConstant: -3200, springLength: 100 }
-        },
-        interaction: { hover: true, tooltipDelay: 100 }
-      };
-
-      if (networkGraph) {
-        networkGraph.destroy();
-      }
-      networkGraph = new vis.Network(container, data, options);
-    }
-
-    // Shadow Mode Challenger Fetcher
-    async function fetchShadowMetrics() {
-      try {
-        const res = await fetch(`${API_BASE}/pipeline/metrics`);
-        const p = await res.json();
-        document.getElementById('shadow-stats-box').innerHTML = `
+        // Shadow Mode Challenger Fetcher
+        async function fetchShadowMetrics() {
+          try {
+            const res = await fetch(`${API_BASE}/pipeline/metrics`);
+            const p = await res.json();
+            document.getElementById('shadow-stats-box').innerHTML = `
           <p><strong>Shadow Evaluations Run:</strong> ${p.shadow_evaluations_count}</p>
           <p><strong>Champion vs Challenger Concordance:</strong> ${(p.shadow_concordance_rate * 100).toFixed(1)}%</p>
           <p><strong>Average Async Worker Latency:</strong> ${p.avg_processing_latency_ms} ms</p>
@@ -2894,43 +3158,43 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
           <hr style="border-color:var(--border-color); margin:10px 0;">
           <p style="color:var(--accent-cyan);">Zero live customer impact during continuous dark-launch testing.</p>
         `;
-      } catch (err) {
-        console.error("Shadow error:", err);
-      }
-    }
-
-    // Trigger Active Learning Retraining
-    async function triggerRetraining() {
-      try {
-        const res = await fetch(`${API_BASE}/active-learning/retrain`, { method: 'POST' });
-        const data = await res.json();
-        if (data.status === 'success') {
-          alert(`🎉 Active Learning Retraining Complete!\nPromoted to Champion: ${data.promoted_to_champion}\nChallenger PR-AUC: ${data.challenger_validation_pr_auc}\nBrier Calibration Score: ${data.challenger_brier_score}`);
-          fetchShadowMetrics();
-          fetchTelemetry();
-        } else {
-          alert(data.message || "Retraining status: " + JSON.stringify(data));
+          } catch (err) {
+            console.error("Shadow error:", err);
+          }
         }
-      } catch (err) {
-        alert("Retraining error: " + err);
-      }
-    }
 
-    // Evaluation Metrics & Drift
-    async function fetchMetrics() {
-      try {
-        const res = await fetch(`${API_BASE}/metrics/eval`);
-        const m = await res.json();
-        const p = m.performance_metrics;
-        const l = m.latency_and_throughput;
-        const d = m.drift_and_stability || {};
+        // Trigger Active Learning Retraining
+        async function triggerRetraining() {
+          try {
+            const res = await fetch(`${API_BASE}/active-learning/retrain`, { method: 'POST' });
+            const data = await res.json();
+            if (data.status === 'success') {
+              alert(`🎉 Active Learning Retraining Complete!\nPromoted to Champion: ${data.promoted_to_champion}\nChallenger PR-AUC: ${data.challenger_validation_pr_auc}\nBrier Calibration Score: ${data.challenger_brier_score}`);
+              fetchShadowMetrics();
+              fetchTelemetry();
+            } else {
+              alert(data.message || "Retraining status: " + JSON.stringify(data));
+            }
+          } catch (err) {
+            alert("Retraining error: " + err);
+          }
+        }
 
-        document.getElementById('eval-prauc').innerText = p.pr_auc.toFixed(3);
-        document.getElementById('eval-roc').innerText = p.roc_auc.toFixed(3);
-        document.getElementById('eval-rec').innerText = (p.recall * 100).toFixed(1) + '%';
-        document.getElementById('eval-lat').innerText = l.hotpath_p99_latency_ms + ' ms';
+        // Evaluation Metrics & Drift
+        async function fetchMetrics() {
+          try {
+            const res = await fetch(`${API_BASE}/metrics/eval`);
+            const m = await res.json();
+            const p = m.performance_metrics;
+            const l = m.latency_and_throughput;
+            const d = m.drift_and_stability || {};
 
-        document.getElementById('eval-report-box').innerHTML = `
+            document.getElementById('eval-prauc').innerText = p.pr_auc.toFixed(3);
+            document.getElementById('eval-roc').innerText = p.roc_auc.toFixed(3);
+            document.getElementById('eval-rec').innerText = (p.recall * 100).toFixed(1) + '%';
+            document.getElementById('eval-lat').innerText = l.hotpath_p99_latency_ms + ' ms';
+
+            document.getElementById('eval-report-box').innerHTML = `
           <p><strong>PR-AUC:</strong> ${p.pr_auc.toFixed(4)}</p>
           <p><strong>ROC-AUC:</strong> ${p.roc_auc.toFixed(4)}</p>
           <p><strong>Precision:</strong> ${(p.precision * 100).toFixed(2)}%</p>
@@ -2945,18 +3209,18 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
           <p><strong>Hot-Path p95:</strong> ${l.hotpath_p95_latency_ms} ms</p>
           <p><strong>Hot-Path p99:</strong> ${l.hotpath_p99_latency_ms} ms (SLA &lt; 15ms: PASS)</p>
         `;
-      } catch (err) {
-        console.error("Metrics error:", err);
-      }
-    }
+          } catch (err) {
+            console.error("Metrics error:", err);
+          }
+        }
 
-    async function fetchModelMeta() {
-      try {
-        const res = await fetch(`${API_BASE}/metrics/model`);
-        const meta = await res.json();
-        if (meta.model_type) {
-          const importances = meta.feature_importances || {};
-          document.getElementById('model-meta-box').innerHTML = `
+        async function fetchModelMeta() {
+          try {
+            const res = await fetch(`${API_BASE}/metrics/model`);
+            const meta = await res.json();
+            if (meta.model_type) {
+              const importances = meta.feature_importances || {};
+              document.getElementById('model-meta-box').innerHTML = `
             <p><strong>Architecture:</strong> ${meta.model_type}</p>
             <p><strong>Calibration:</strong> Multi-Tenant Isotonic Regression per MCC</p>
             <p><strong>5-Fold Stratified ROC-AUC:</strong> ${meta.cv_roc_auc_mean}</p>
@@ -2967,33 +3231,33 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
               <p>• <strong>${feat}:</strong> ${imp}</p>
             `).join('')}
           `;
+            }
+          } catch (err) {
+            console.error("Model meta error:", err);
+          }
         }
-      } catch (err) {
-        console.error("Model meta error:", err);
-      }
-    }
 
-    async function fetchActiveLearningStats() {
-      try {
-        const res = await fetch(`${API_BASE}/active-learning/stats`);
-        const a = await res.json();
-        document.getElementById('al-stats-box').innerHTML = `
+        async function fetchActiveLearningStats() {
+          try {
+            const res = await fetch(`${API_BASE}/active-learning/stats`);
+            const a = await res.json();
+            document.getElementById('al-stats-box').innerHTML = `
           <p><strong>Buffered Human Overrides:</strong> ${a.buffered_training_samples} samples</p>
           <p><strong>Analyst Decision Agreement Rate:</strong> ${(a.analyst_agreement_rate * 100).toFixed(1)}%</p>
           <p><strong>Active Learning Weight Multiplier:</strong> 3.0×</p>
           <hr style="border-color:var(--border-color); margin:10px 0;">
           <p style="color:var(--text-secondary);">When overrides reach the retraining threshold, candidate models are trained and dark-evaluated automatically.</p>
         `;
-      } catch (err) {
-        console.error("AL stats error:", err);
-      }
-    }
+          } catch (err) {
+            console.error("AL stats error:", err);
+          }
+        }
 
-    async function fetchDegradationCase() {
-      try {
-        const res = await fetch(`${API_BASE}/metrics/failure-case`);
-        const d = await res.json();
-        document.getElementById('degradation-box').innerHTML = `
+        async function fetchDegradationCase() {
+          try {
+            const res = await fetch(`${API_BASE}/metrics/failure-case`);
+            const d = await res.json();
+            document.getElementById('degradation-box').innerHTML = `
           <p><strong>Audited Case ID:</strong> ${d.transaction_id}</p>
           <p><strong>Ground Truth:</strong> ${d.ground_truth}</p>
           <p><strong>Predicted Calibrated Score:</strong> ${d.predicted_score}</p>
@@ -3002,14 +3266,15 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
           <p><strong>Escalation Rationale:</strong> ${d.reason_for_escalation}</p>
           <p><strong>AI Narrative:</strong> ${d.narrative}</p>
         `;
-      } catch (err) {
-        console.error("Degradation fetch error:", err);
-      }
-    }
+          } catch (err) {
+            console.error("Degradation fetch error:", err);
+          }
+        }
 
-    // Initialize application on load
-    fetchFeed();
-    initSSE();
-  </script>
+        // Initialize application on load
+        fetchFeed();
+        initSSE();
+      </script>
 </body>
+
 </html>
