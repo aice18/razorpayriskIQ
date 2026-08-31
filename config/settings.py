@@ -25,7 +25,8 @@ class Settings(BaseSettings):
     PORT: int = Field(8000, description="API port binding")
     WORKERS: int = Field(4, description="Uvicorn worker count for production")
     
-    # Security & Anthropic Config
+    # Security & AI Reasoning LLM Config (Google Gemini & Anthropic Claude)
+    GEMINI_API_KEY: str = Field("", description="API key for Google Gemini API (gemini-1.5-flash / gemini-2.0)")
     ANTHROPIC_API_KEY: str = Field("", description="API key for Anthropic Claude API")
     SECRET_KEY: str = Field("razorpay_riskiq_secret_key_prod_2026", description="API secret key")
     RAZORPAY_WEBHOOK_SECRET: str = Field("rzp_webhook_secret_sandbox_2026", description="Razorpay webhook signature secret")
