@@ -48,6 +48,16 @@ MERCHANT_RISK_PROFILES = {
         "block_threshold": 0.75,
         "chargeback_risk": "MEDIUM_HIGH"
     },
+    "CROSSBORDER_SAAS": {
+        "step_up_threshold": 0.35,
+        "block_threshold": 0.72,
+        "chargeback_risk": "MEDIUM_HIGH"
+    },
+    "GLOBAL_EXPORTER": {
+        "step_up_threshold": 0.38,
+        "block_threshold": 0.74,
+        "chargeback_risk": "HIGH"
+    },
     "ECOMMERCE_RETAIL": {
         "step_up_threshold": 0.45,
         "block_threshold": 0.80,
@@ -154,16 +164,24 @@ class RiskScorer:
 
             return round(float(np.clip(calibrated_prob, 0.01, 0.99)), 3)
 
-        # High-precision deterministic fallback
+        # High-precision deterministic fallback & real-time risk adjustments
         v5m = features.get("velocity_5m", 0)
         dev_v5m = features.get("device_velocity_5m", 0)
+        loc_v5m = features.get("locality_velocity_5m", 0)
         z_cust = max(features.get("amount_zscore_vs_customer", 0.0), 0.0)
         deg_dev = features.get("entity_degree_device", 1)
         deg_ip = features.get("entity_degree_ip", 1)
         comp_size = features.get("component_size", 1)
         vpa_risk = features.get("vpa_handle_risk", 0.0)
+        is_quarantined = features.get("is_preemptively_quarantined", False)
+        is_cross_border = features.get("is_cross_border", 0.0)
+        is_non_3ds = features.get("is_non_3ds", 0.0)
+        service_cb_risk = features.get("service_chargeback_risk", 0.0)
 
         score = 0.03
+        if is_quarantined:
+            return 0.98  # Immediate hard quarantine intercept
+
         if features.get("is_ring_suspect") or comp_size >= 6 or deg_dev >= 4:
             score += 0.70
         elif deg_dev >= 2 or deg_ip >= 2:
@@ -173,6 +191,15 @@ class RiskScorer:
             score += 0.40
         elif v5m >= 3:
             score += 0.15
+
+        if loc_v5m >= 3:
+            score += 0.25  # Locality / Subnet burst penalty
+
+        if is_cross_border and is_non_3ds:
+            score += 0.30  # High merchant liability without 3DS
+
+        if service_cb_risk >= 0.4:
+            score += 0.25  # High risk of friendly fraud chargeback
 
         if z_cust >= 5.0:
             score += 0.25
@@ -192,6 +219,38 @@ class RiskScorer:
         Computes dynamic sample-level feature attributions from model importance and feature deviations.
         """
         attributions = []
+
+        if features.get("is_preemptively_quarantined"):
+            attributions.append({
+                "feature": "Preemptive Graph Quarantine",
+                "value": f"Entity linked to quarantined ring: {features.get('quarantine_reason', 'Topology Quarantined')}",
+                "contribution_score": 0.95,
+                "direction": "CRITICAL_RISK"
+            })
+
+        if features.get("is_cross_border") and features.get("is_non_3ds"):
+            attributions.append({
+                "feature": "Cross-Border Non-3DS Liability",
+                "value": "Zero liability shift (Merchant bears 100% fraud chargeback loss)",
+                "contribution_score": 0.38,
+                "direction": "HIGH_RISK"
+            })
+
+        if float(features.get("service_chargeback_risk", 0.0)) >= 0.35:
+            attributions.append({
+                "feature": "Service Chargeback Risk",
+                "value": "High friendly-fraud / extended transit delivery dispute window",
+                "contribution_score": 0.32,
+                "direction": "HIGH_RISK"
+            })
+
+        if float(features.get("locality_velocity_5m", 0.0)) >= 3.0:
+            attributions.append({
+                "feature": "Locality Subnet Spike",
+                "value": f"{int(features.get('locality_velocity_5m'))} txns in 5m from shared cell tower/subnet",
+                "contribution_score": 0.28,
+                "direction": "HIGH_RISK"
+            })
 
         for col in FEATURE_COLUMNS:
             val = float(features.get(col, 0.0) if col in features else (1.0 if features.get(col) else 0.0))

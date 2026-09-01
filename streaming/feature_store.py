@@ -74,6 +74,7 @@ class FeatureStore:
         # In-memory structures (used directly or as fallback)
         self.customer_history: Dict[str, List[Tuple[float, float]]] = {}  # cust -> [(epoch_s, amount)]
         self.device_history: Dict[str, List[float]] = {}  # dev -> [epoch_s]
+        self.locality_history: Dict[str, List[float]] = {}  # locality -> [epoch_s]
         self.seen_devices: set = set()
         self.seen_ips: set = set()
         self.seen_cards: set = set()
@@ -136,7 +137,6 @@ class FeatureStore:
                 self.customer_history[cust] = []
             cust_hist = self.customer_history[cust]
             cust_hist.append((now_epoch, amount))
-            # Evict entries older than 1 hour to prevent memory bloat
             cutoff_1h = now_epoch - 3600.0
             self.customer_history[cust] = [(t, a) for t, a in cust_hist if t >= cutoff_1h]
 
@@ -148,11 +148,20 @@ class FeatureStore:
             cutoff_5m = now_epoch - 300.0
             self.device_history[dev] = [t for t in dev_hist if t >= cutoff_5m]
 
+            # Update locality velocity window
+            locality = str(txn.get("locality") or "IN-BLR-Koramangala")
+            if locality not in self.locality_history:
+                self.locality_history[locality] = []
+            loc_hist = self.locality_history[locality]
+            loc_hist.append(now_epoch)
+            self.locality_history[locality] = [t for t in loc_hist if t >= cutoff_5m]
+
             # Calculate velocities
             v1m = sum(1 for t, _ in self.customer_history[cust] if t >= (now_epoch - 60.0))
             v5m = sum(1 for t, _ in self.customer_history[cust] if t >= (now_epoch - 300.0))
             v1h = len(self.customer_history[cust])
             dev_v5m = len(self.device_history[dev])
+            loc_v5m = len(self.locality_history[locality])
 
             # Update online Welford statistics
             if cust not in self.customer_stats:
@@ -174,10 +183,24 @@ class FeatureStore:
             else:
                 merch_z = 0.0
 
-            # Geo deviation calculation
+            # Geo deviation & Cross-Border calculations
             geo_country = txn.get("geo_country", "IN")
             home_country = txn.get("customer_home_country", "IN")
+            currency = txn.get("currency", "INR")
             geo_deviation = 1.0 if geo_country != home_country else 0.0
+            is_cross_border = 1.0 if (geo_country != "IN" or home_country != "IN" or currency != "INR" or txn.get("is_cross_border")) else 0.0
+
+            # 3DS Friction & Auth Mode
+            auth_mode = txn.get("auth_mode", "3DS_AUTHENTICATED")
+            is_non_3ds = 1.0 if (auth_mode == "NON_3DS_FRICTIONLESS" or "NON_3DS" in str(auth_mode).upper()) else 0.0
+
+            # Service Chargeback & Friendly Fraud predictor feature
+            delivery_days_est = float(txn.get("delivery_days_est", 3.0))
+            service_chargeback_risk = 0.0
+            if is_cross_border and delivery_days_est > 14.0:
+                service_chargeback_risk = min(1.0, 0.45 + (delivery_days_est / 40.0) * 0.5)
+            elif is_non_3ds and is_cross_border:
+                service_chargeback_risk = 0.35
 
             # UPI and SIM binding intelligence
             vpa_handle_risk = float(txn.get("vpa_handle_risk", 0.0))
@@ -189,12 +212,16 @@ class FeatureStore:
                 "velocity_5m": float(v5m),
                 "velocity_1h": float(v1h),
                 "device_velocity_5m": float(dev_v5m),
+                "locality_velocity_5m": float(loc_v5m),
                 "amount_zscore_vs_customer": round(cust_z, 3),
                 "amount_zscore_vs_merchant": round(merch_z, 3),
                 "is_new_device": is_new_device,
                 "is_new_ip": is_new_ip,
                 "is_new_card": is_new_card,
                 "geo_deviation": geo_deviation,
+                "is_cross_border": is_cross_border,
+                "is_non_3ds": is_non_3ds,
+                "service_chargeback_risk": round(service_chargeback_risk, 3),
                 "vpa_handle_risk": vpa_handle_risk,
                 "is_qr_intent": is_qr_intent,
                 "device_sim_bound": device_sim_bound

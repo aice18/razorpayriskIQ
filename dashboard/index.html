@@ -21,28 +21,28 @@
        THEME VARIABLES (LIGHT & DARK DUAL TONES MATCHING DESIGN REFERENCE)
        ========================================================================== */
     :root {
-      /* Dark Theme (Default) */
-      --bg-body: #0C0F17;
-      --bg-sidebar: #121622;
-      --bg-surface: #171C2B;
-      --bg-surface-elevated: #1F263B;
-      --bg-surface-hover: #262F48;
-      --bg-glass: rgba(18, 22, 34, 0.85);
-      --border-color: rgba(255, 255, 255, 0.08);
-      --border-subtle: rgba(255, 255, 255, 0.04);
-      --border-focus: #3B82F6;
+      /* Clean Solid Dark FinTech Theme */
+      --bg-body: #090D16;
+      --bg-sidebar: #0F172A;
+      --bg-surface: #0F172A;
+      --bg-surface-elevated: #1E293B;
+      --bg-surface-hover: #334155;
+      --bg-glass: rgba(15, 23, 42, 0.95);
+      --border-color: #1E293B;
+      --border-subtle: #1E293B;
+      --border-focus: #2563EB;
 
       --text-main: #F8FAFC;
       --text-secondary: #94A3B8;
       --text-muted: #64748B;
       --text-inverse: #0F172A;
 
-      --brand-primary: #3B82F6;
-      --brand-gradient: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #EC4899 100%);
-      --accent-cyan: #06B6D4;
-      --accent-purple: #8B5CF6;
-      --accent-indigo: #6366F1;
-      --accent-amber: #F59E0B;
+      --brand-primary: #2563EB;
+      --brand-gradient: linear-gradient(135deg, #1E40AF 0%, #2563EB 100%);
+      --accent-cyan: #0284C7;
+      --accent-purple: #4F46E5;
+      --accent-indigo: #4338CA;
+      --accent-amber: #D97706;
 
       --status-allow: #10B981;
       --status-allow-bg: rgba(16, 185, 129, 0.12);
@@ -60,12 +60,12 @@
       --status-block-bg: rgba(239, 68, 68, 0.14);
       --status-block-border: rgba(239, 68, 68, 0.3);
 
-      --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
-      --card-shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.25);
+      --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+      --card-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
 
-      --chart-bar-bg: #2A344D;
-      --chart-bar-fill: #3B82F6;
-      --chart-bar-alt: #8B5CF6;
+      --chart-bar-bg: #1E293B;
+      --chart-bar-fill: #2563EB;
+      --chart-bar-alt: #4F46E5;
       --chart-grid: rgba(255, 255, 255, 0.05);
 
       --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
@@ -74,27 +74,27 @@
     }
 
     [data-theme="light"] {
-      /* Light Theme (Clean modern fintech executive aesthetic) */
-      --bg-body: #F4F6FA;
+      /* Clean Solid Light FinTech Theme (High Contrast & Professional) */
+      --bg-body: #F8FAFC;
       --bg-sidebar: #FFFFFF;
       --bg-surface: #FFFFFF;
-      --bg-surface-elevated: #F8FAFC;
-      --bg-surface-hover: #EDF2F7;
-      --bg-glass: rgba(255, 255, 255, 0.90);
+      --bg-surface-elevated: #F1F5F9;
+      --bg-surface-hover: #E2E8F0;
+      --bg-glass: rgba(255, 255, 255, 0.95);
       --border-color: #E2E8F0;
-      --border-subtle: #EDF2F7;
+      --border-subtle: #F1F5F9;
       --border-focus: #2563EB;
 
       --text-main: #0F172A;
       --text-secondary: #475569;
-      --text-muted: #94A3B8;
+      --text-muted: #64748B;
       --text-inverse: #FFFFFF;
 
       --brand-primary: #2563EB;
-      --brand-gradient: linear-gradient(135deg, #2563EB 0%, #7C3AED 50%, #DB2777 100%);
-      --accent-cyan: #0891B2;
-      --accent-purple: #7C3AED;
-      --accent-indigo: #4F46E5;
+      --brand-gradient: linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%);
+      --accent-cyan: #0284C7;
+      --accent-purple: #4F46E5;
+      --accent-indigo: #4338CA;
       --accent-amber: #D97706;
 
       --status-allow: #059669;
@@ -113,13 +113,17 @@
       --status-block-bg: #FEF2F2;
       --status-block-border: #FECACA;
 
-      --card-shadow: 0 8px 24px -4px rgba(148, 163, 184, 0.15), 0 2px 6px -1px rgba(148, 163, 184, 0.08);
-      --card-shadow-sm: 0 2px 8px rgba(148, 163, 184, 0.12);
+      --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+      --card-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 
       --chart-bar-bg: #E2E8F0;
       --chart-bar-fill: #2563EB;
-      --chart-bar-alt: #7C3AED;
-      --chart-grid: rgba(0, 0, 0, 0.06);
+      --chart-bar-alt: #4F46E5;
+      --chart-grid: #F1F5F9;
+
+      --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-body: 'Outfit', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
 
     /* ==========================================================================
@@ -386,20 +390,22 @@
     }
 
     /* ==========================================================================
-       TOP APP HEADER (2-ROW DUAL TIER LAYOUT)
+       TOP APP HEADER (2-ROW HIGH-PRECISION ENTERPRISE FINTECH BAR)
        ========================================================================== */
     header {
       background: var(--bg-glass);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border-color);
-      padding: 1rem 2rem 0.85rem 2rem;
+      padding: 0.85rem 2rem 0.8rem 2rem;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 0.7rem;
       position: sticky;
       top: 0;
       z-index: 40;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06);
+      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
     .header-top-row {
@@ -407,21 +413,45 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      min-height: 38px;
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .header-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       min-width: 0;
     }
 
     .page-title {
       font-family: var(--font-display);
-      font-size: 1.45rem;
+      font-size: 1.35rem;
       font-weight: 800;
       color: var(--text-main);
-      letter-spacing: -0.5px;
+      letter-spacing: -0.025em;
+      white-space: nowrap;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .header-env-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--brand-primary);
+      border: 1px solid rgba(37, 99, 235, 0.25);
       white-space: nowrap;
     }
 
@@ -429,79 +459,165 @@
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
       color: var(--text-secondary);
-      font-size: 0.76rem;
+      font-size: 0.75rem;
       font-family: var(--font-mono);
       padding: 0 12px;
-      height: 32px;
-      border-radius: 999px;
+      height: 30px;
+      border-radius: 6px;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       white-space: nowrap;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    }
+
+    .live-indicator-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--status-allow);
+      box-shadow: 0 0 8px var(--status-allow);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .header-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 13px;
+      height: 32px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      text-decoration: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .header-action-btn:hover {
+      color: var(--brand-primary);
+      border-color: rgba(37, 99, 235, 0.4);
+      background: var(--bg-surface-hover);
+      transform: translateY(-1px);
+    }
+
+    .header-action-btn svg {
+      flex-shrink: 0;
+    }
+
+    /* Light / Dark Theme Segmented Switch */
+    .theme-toggle-wrap {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2px;
+      height: 32px;
+      gap: 2px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .theme-btn {
+      border: none;
+      background: transparent;
+      padding: 0 8px;
+      height: 26px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+
+    .theme-btn.active {
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(37, 99, 235, 0.4);
+    }
+
+    .theme-btn:not(.active):hover {
+      background: var(--bg-surface-hover);
+      color: var(--text-main);
     }
 
     /* Telemetry Sub-Row (Row 2) */
     .header-sub-row {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       width: 100%;
+      gap: 12px;
       overflow-x: auto;
       scrollbar-width: none;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border-subtle);
     }
 
     .header-sub-row::-webkit-scrollbar {
       display: none;
     }
 
-    /* Telemetry Pill Strip */
+    /* Telemetry Chip Strip */
     .telemetry-chip-group {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
 
     .tel-chip {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      padding: 0 14px;
-      height: 32px;
-      border-radius: 999px;
-      font-size: 0.74rem;
+      padding: 0 10px;
+      height: 28px;
+      border-radius: 5px;
+      font-size: 0.72rem;
       font-family: var(--font-mono);
       color: var(--text-secondary);
       display: inline-flex;
       align-items: center;
       gap: 6px;
       white-space: nowrap;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
     }
 
     .tel-chip:hover {
-      border-color: rgba(37, 99, 235, 0.35);
+      border-color: rgba(37, 99, 235, 0.4);
       background: var(--bg-surface-hover);
       transform: translateY(-1px);
     }
 
     .tel-label {
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 0.68rem;
+      letter-spacing: 0.03em;
     }
 
     .tel-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--status-allow);
-      box-shadow: 0 0 8px var(--status-allow);
+      box-shadow: 0 0 6px var(--status-allow);
       animation: pulse 2s infinite;
       flex-shrink: 0;
     }
@@ -1362,31 +1478,224 @@
     }
 
     /* ==========================================================================
-       TAB 2: INTERACTIVE GRAPH EXPLORER (VIS.JS)
+       TAB 2: INTERACTIVE GRAPH EXPLORER (VIS.JS) & HUD CONTROLS
        ========================================================================== */
+    .graph-wrapper {
+      position: relative;
+      width: 100%;
+      height: 720px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: radial-gradient(circle at 50% 50%, #151A28 0%, #0C0F17 100%);
+      box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6), var(--card-shadow);
+    }
+
+    [data-theme="light"] .graph-wrapper {
+      background: radial-gradient(circle at 50% 50%, #F1F5F9 0%, #E2E8F0 100%);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05), var(--card-shadow);
+    }
+
     #vis-network-container {
       width: 100%;
-      height: 680px;
-      background: var(--bg-surface);
+      height: 100%;
+    }
+
+    /* Floating Graph Controls HUD */
+    .graph-hud-bar {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      right: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .graph-hud-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(18, 22, 34, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 6px 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      pointer-events: auto;
+    }
+
+    [data-theme="light"] .graph-hud-group {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .graph-hud-btn {
+      background: var(--bg-surface-elevated);
+      color: var(--text-main);
       border: 1px solid var(--border-color);
-      border-radius: 16px;
-      position: relative;
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+
+    .graph-hud-btn:hover {
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      border-color: var(--brand-primary);
+      transform: translateY(-1px);
+    }
+
+    .graph-hud-btn.active {
+      background: var(--brand-primary);
+      color: #FFFFFF;
+      border-color: var(--brand-primary);
+    }
+
+    /* Floating Graph Stats Badge */
+    .graph-stats-hud {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+    }
+
+    .graph-stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .graph-stat-pill strong {
+      color: var(--text-main);
+    }
+
+    /* Node Inspector Drawer */
+    .graph-inspector-drawer {
+      position: absolute;
+      top: 64px;
+      right: 16px;
+      width: 320px;
+      background: rgba(18, 22, 34, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      z-index: 15;
+      display: none;
+      animation: slideInRight 0.25s ease;
+      color: var(--text-main);
+    }
+
+    [data-theme="light"] .graph-inspector-drawer {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .inspector-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .inspector-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .inspector-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .inspector-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+    }
+
+    .inspector-kv {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      margin-bottom: 8px;
+    }
+
+    .inspector-label {
+      color: var(--text-secondary);
+    }
+
+    .inspector-val {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-main);
     }
 
     .graph-legend-bar {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-top: 12px;
+      gap: 14px;
+      margin-top: 14px;
       font-size: 0.76rem;
       color: var(--text-secondary);
       flex-wrap: wrap;
+      padding: 10px 14px;
+      background: var(--bg-surface-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
     }
 
     .graph-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .graph-badge:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
     }
 
     /* ==========================================================================
@@ -1655,38 +1964,39 @@
   <aside class="sidebar">
     <div class="sidebar-top">
       <!-- Brand Logo -->
-      <div class="brand-header">
-        <div class="brand-icon">⚡</div>
-        <div class="brand-info">
-          <div class="brand-title">Razorpay RiskIQ <span
-              style="font-size:0.65rem; background:rgba(59,130,246,0.15); color:var(--brand-primary); padding:2px 6px; border-radius:6px;">PROD</span>
-          </div>
-          <div class="brand-subtitle">Autonomous Risk Engine</div>
+      <div class="brand-header" style="padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1.25rem;">
+        <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+          <img src="/riskiq_logo.png" alt="Razorpay RiskIQ Logo" style="height: 38px; max-width: 175px; object-fit: contain;" />
+          <span style="font-size:0.65rem; background:rgba(37,99,235,0.12); color:var(--brand-primary); padding:2px 6px; border-radius:6px; font-weight:700;">PROD</span>
         </div>
+        <div class="brand-subtitle" style="font-size:0.70rem; color:var(--text-muted); font-weight:600; letter-spacing:0.5px; margin-top:6px;">Autonomous Risk Engine</div>
       </div>
 
       <!-- Navigation Items -->
       <nav class="nav-menu">
         <div class="nav-label">Core Engine</div>
         <button class="nav-item active" onclick="switchNav('tab-analytics', this)">
-          <span class="nav-icon">📊</span> Analytics & Stream
+          Analytics &amp; Stream
         </button>
         <button class="nav-item" onclick="switchNav('tab-graph', this)">
-          <span class="nav-icon">🕸️</span> Abuse Ring Graph
+          Abuse Ring Graph
+        </button>
+        <button class="nav-item" onclick="switchNav('tab-crossborder-map', this)">
+          Cross-Border World Map
         </button>
         <button class="nav-item" onclick="switchNav('tab-shadow', this)">
-          <span class="nav-icon">🧪</span> Shadow Challenger
+          Shadow Challenger
         </button>
         <button class="nav-item" onclick="switchNav('tab-metrics', this)">
-          <span class="nav-icon">📈</span> Model & Drift SLA
+          Model &amp; Drift SLA
         </button>
 
         <div class="nav-label" style="margin-top:1rem;">Governance</div>
         <button class="nav-item" onclick="switchNav('tab-active-learning', this)">
-          <span class="nav-icon">🔁</span> Active Learning
+          Active Learning
         </button>
         <button class="nav-item" onclick="switchNav('tab-degradation', this)">
-          <span class="nav-icon">🛡️</span> Graceful Fallbacks
+          Graceful Fallbacks
         </button>
       </nav>
     </div>
@@ -1720,20 +2030,25 @@
       <!-- Row 1: Title, Clock & Controls -->
       <div class="header-top-row">
         <div class="header-left">
-          <div class="page-title" id="page-title-text">Risk Analytics & Live Ingestion</div>
+          <div class="header-title-group">
+            <span class="header-env-badge">PROD // SENTINEL</span>
+            <div class="page-title" id="page-title-text">Risk Analytics &amp; Live Ingestion</div>
+          </div>
           <div class="date-badge">
-            <span>🕒</span> <span id="clock-utc">Live UTC Stream</span>
+            <div class="live-indicator-dot"></div>
+            <span id="clock-utc">Live UTC Stream</span>
           </div>
         </div>
 
         <div class="header-actions">
-          <a href="/" class="btn-sar" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; background: rgba(59,130,246,0.12); color: var(--brand-primary); border-color: rgba(59,130,246,0.35); font-weight: 700;">
-            <span>← Landing Page Overview</span>
+          <a href="/" class="header-action-btn" title="Return to Platform Overview">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span>Landing Overview</span>
           </a>
           <!-- Light / Dark Theme Switcher (Dual Tone Toggle) -->
           <div class="theme-toggle-wrap" onclick="toggleTheme()" title="Switch Light/Dark Theme">
-            <button class="theme-btn" id="btn-theme-light" type="button">☀️</button>
-            <button class="theme-btn active" id="btn-theme-dark" type="button">🌙</button>
+            <button class="theme-btn" id="btn-theme-light" type="button">☀️ Light</button>
+            <button class="theme-btn active" id="btn-theme-dark" type="button">🌙 Dark</button>
           </div>
         </div>
       </div>
@@ -1742,16 +2057,30 @@
       <div class="header-sub-row">
         <div class="telemetry-chip-group">
           <div class="tel-chip">
-            <div class="tel-dot"></div> <span id="tel-sse" style="color:var(--status-allow); font-weight:600;">SSE: LIVE
-              CONNECTED</span>
+            <div class="tel-dot"></div>
+            <span id="tel-sse" style="color:var(--status-allow); font-weight:700;">SSE: LIVE CONNECTED</span>
           </div>
-          <div class="tel-chip"><span class="tel-label">P95 SLA:</span> <strong style="color:var(--status-allow);"
-              id="tel-sla">8.17 ms</strong></div>
-          <div class="tel-chip"><span class="tel-label">LLM Cost:</span> <span id="tel-llm-cost"
-              style="color:var(--accent-cyan); font-weight:700;">$0.0008 / dec</span></div>
-          <div class="tel-chip"><span class="tel-label">Queue:</span> <span id="tel-queue">0 / 10,000</span></div>
-          <div class="tel-chip"><span class="tel-label">DLQ:</span> <span id="tel-dlq"
-              style="color:var(--status-allow); font-weight:700;">0</span></div>
+          <div class="tel-chip">
+            <span class="tel-label">P95 SLA:</span>
+            <strong style="color:var(--status-allow);" id="tel-sla">8.17 ms</strong>
+          </div>
+          <div class="tel-chip">
+            <span class="tel-label">LLM Cost:</span>
+            <span id="tel-llm-cost" style="color:var(--accent-cyan); font-weight:700;">$0.0008 / dec</span>
+          </div>
+          <div class="tel-chip">
+            <span class="tel-label">Ingestion Queue:</span>
+            <span id="tel-queue">0 / 10,000</span>
+          </div>
+          <div class="tel-chip">
+            <span class="tel-label">DLQ:</span>
+            <span id="tel-dlq" style="color:var(--status-allow); font-weight:700;">0</span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="tel-chip" style="background:transparent; border:none; padding:0; font-size:0.70rem; color:var(--text-muted);">
+            <span>Topology Engine: <strong style="color:var(--brand-primary);">4,000+ Multi-Tenant Nodes</strong></span>
+          </div>
         </div>
       </div>
     </header>
@@ -1836,23 +2165,23 @@
               <div class="kpi-title">Decisions Split</div>
               <div class="donut-legend">
                 <div class="legend-row">
-                  <div class="legend-dot" style="background:var(--status-allow);"></div> Allow (98.2%)
+                  <div class="legend-dot" style="background:var(--status-allow);"></div> <span id="legend-allow-val">Allow (98.2%)</span>
                 </div>
                 <div class="legend-row">
-                  <div class="legend-dot" style="background:var(--status-stepup);"></div> Step-Up (0.9%)
+                  <div class="legend-dot" style="background:var(--status-stepup);"></div> <span id="legend-stepup-val">Step-Up (0.9%)</span>
                 </div>
                 <div class="legend-row">
-                  <div class="legend-dot" style="background:var(--status-block);"></div> Block (0.9%)
+                  <div class="legend-dot" style="background:var(--status-block);"></div> <span id="legend-block-val">Block (0.9%)</span>
                 </div>
               </div>
             </div>
             <svg class="donut-chart-svg" viewBox="0 0 36 36">
               <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
                 stroke="var(--chart-bar-bg)" stroke-width="4.5" />
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+              <path id="donut-allow-path" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
                 stroke="var(--status-allow)" stroke-width="4.5" stroke-dasharray="98, 100" />
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
-                stroke="var(--status-block)" stroke-width="4.5" stroke-dasharray="3, 100" stroke-dashoffset="-97" />
+              <path id="donut-block-path" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                stroke="var(--status-block)" stroke-width="4.5" stroke-dasharray="2, 100" stroke-dashoffset="-98" />
             </svg>
           </div>
 
@@ -1862,26 +2191,60 @@
               <div class="kpi-title">Payment Channels</div>
               <div class="donut-legend">
                 <div class="legend-row">
-                  <div class="legend-dot" style="background:var(--accent-purple);"></div> UPI Intent (68%)
+                  <div class="legend-dot" style="background:var(--accent-purple);"></div> <span id="legend-upi-val">UPI Rails (68%)</span>
                 </div>
                 <div class="legend-row">
-                  <div class="legend-dot" style="background:var(--brand-primary);"></div> Cards (24%)
+                  <div class="legend-dot" style="background:var(--brand-primary);"></div> <span id="legend-cards-val">Cards (24%)</span>
                 </div>
                 <div class="legend-row">
-                  <div class="legend-dot" style="background:var(--accent-cyan);"></div> Netbanking (8%)
+                  <div class="legend-dot" style="background:var(--accent-cyan);"></div> <span id="legend-netbanking-val">Netbanking (8%)</span>
                 </div>
               </div>
             </div>
             <svg class="donut-chart-svg" viewBox="0 0 36 36">
               <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
                 stroke="var(--chart-bar-bg)" stroke-width="4.5" />
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+              <path id="donut-upi-path" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
                 stroke="var(--accent-purple)" stroke-width="4.5" stroke-dasharray="68, 100" />
-              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+              <path id="donut-card-path" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
                 stroke="var(--brand-primary)" stroke-width="4.5" stroke-dasharray="24, 100" stroke-dashoffset="-68" />
             </svg>
           </div>
 
+        </div>
+
+        <!-- 4,000+ Corpus Topology & Preemptive Graph Sentinel Live Banner -->
+        <div class="card" style="margin-bottom: 1.25rem; background: linear-gradient(135deg, rgba(15,23,42,0.95) 0%, rgba(30,41,59,0.95) 100%); border: 1px solid rgba(59,130,246,0.35); padding: 1.1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(59,130,246,0.2); border: 1px solid rgba(59,130,246,0.4); display: flex; align-items: center; justify-content: center; font-size: 1.3rem;">🌐</div>
+            <div>
+              <div style="font-weight: 700; font-size: 0.95rem; color: #FFFFFF; display: flex; align-items: center; gap: 8px;">
+                <span>Multi-Tenant Corpus &amp; Preemptive Graph Sentinel</span>
+                <span class="badge" style="background: rgba(16,185,129,0.2); color: #10B981; font-size: 0.70rem; font-weight: 700;">Live 4,000+ Dataset</span>
+              </div>
+              <div style="font-size: 0.78rem; color: #94A3B8; margin-top: 2px;">
+                Continuous indexing of past and present transaction topologies. Auto-quarantine isolation triggers in &lt;0.05ms.
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1.75rem; flex-wrap: wrap;">
+            <div>
+              <div style="font-size: 0.70rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Indexed Nodes</div>
+              <div id="stat-corpus-nodes" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: #38BDF8;">4,000+</div>
+            </div>
+            <div>
+              <div style="font-size: 0.70rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Topological Edges</div>
+              <div id="stat-corpus-edges" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: #818CF8;">4,000+</div>
+            </div>
+            <div>
+              <div style="font-size: 0.70rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Quarantined Rings</div>
+              <div id="stat-corpus-quarantined" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: #EF4444;">0 Isolated</div>
+            </div>
+            <div>
+              <div style="font-size: 0.70rem; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Cross-Border Volume</div>
+              <div id="stat-corpus-crossborder" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: #F59E0B;">--</div>
+            </div>
+          </div>
         </div>
 
         <!-- Middle Row: Analytical Charts (Matching Reference Design) -->
@@ -1891,59 +2254,59 @@
           <div class="card">
             <div class="card-header-bar">
               <div class="card-heading">
-                <span>📊 Score Distribution & Risk Buckets</span>
+                <span>📊 Score Distribution &amp; Risk Buckets</span>
                 <span class="badge"
                   style="background:var(--status-allow-bg); color:var(--status-allow); font-size:0.72rem;">Calibrated
                   0.0 – 1.0</span>
               </div>
               <div class="dropdown-chip">
-                <span>Window: Last 1 Hour</span> <span>▾</span>
+                <span>Window: 4,000+ Transactions</span>
               </div>
             </div>
 
             <div class="chart-summary-stat">
               <div>
-                <div class="chart-big-num">24,960</div>
+                <div class="chart-big-num" id="chart-safe-count">3,920</div>
                 <div style="font-size:0.75rem; color:var(--text-muted);">Safe Volume (&lt; 0.25 Score)</div>
               </div>
-              <div style="display:flex; align-items:center; gap:6px; font-size:0.80rem;">
-                <span style="color:var(--status-allow); font-weight:700;">● Clean 98.2%</span>
-                <span style="color:var(--status-review); font-weight:700;">● Step-Up 0.9%</span>
-                <span style="color:var(--status-block); font-weight:700;">● Blocked 0.9%</span>
+              <div style="display:flex; align-items:center; gap:8px; font-size:0.80rem;">
+                <span style="color:var(--status-allow); font-weight:700;" id="stat-clean-pct">● Clean 98.2%</span>
+                <span style="color:var(--status-review); font-weight:700;" id="stat-stepup-pct">● Step-Up 0.9%</span>
+                <span style="color:var(--status-block); font-weight:700;" id="stat-blocked-pct">● Blocked 0.9%</span>
               </div>
             </div>
 
-            <!-- CSS Bar Chart (Matching Reference Layout) -->
+            <!-- CSS Bar Chart (Dynamic Heights from 4,000+ Transactions) -->
             <div class="bar-chart-container">
               <div class="bar-col" title="0.0 - 0.1 Score (Clean Traffic)">
-                <div class="bar-fill allow" style="height:92%;"></div><span class="bar-label">0.0-0.1</span>
+                <div id="bar-fill-0" class="bar-fill allow" style="height:92%;"></div><span class="bar-label">0.0-0.1</span>
               </div>
               <div class="bar-col" title="0.1 - 0.2 Score (Low Risk)">
-                <div class="bar-fill allow" style="height:76%;"></div><span class="bar-label">0.1-0.2</span>
+                <div id="bar-fill-1" class="bar-fill allow" style="height:76%;"></div><span class="bar-label">0.1-0.2</span>
               </div>
               <div class="bar-col" title="0.2 - 0.3 Score (Low-Medium Risk)">
-                <div class="bar-fill allow" style="height:34%;"></div><span class="bar-label">0.2-0.3</span>
+                <div id="bar-fill-2" class="bar-fill allow" style="height:34%;"></div><span class="bar-label">0.2-0.3</span>
               </div>
               <div class="bar-col" title="0.3 - 0.4 Score (Step-Up Risk Threshold)">
-                <div class="bar-fill stepup" style="height:16%;"></div><span class="bar-label">0.3-0.4</span>
+                <div id="bar-fill-3" class="bar-fill stepup" style="height:16%;"></div><span class="bar-label">0.3-0.4</span>
               </div>
               <div class="bar-col" title="0.4 - 0.5 Score (Step-Up Auth)">
-                <div class="bar-fill stepup" style="height:8%;"></div><span class="bar-label">0.4-0.5</span>
+                <div id="bar-fill-4" class="bar-fill stepup" style="height:8%;"></div><span class="bar-label">0.4-0.5</span>
               </div>
               <div class="bar-col" title="0.5 - 0.6 Score (Manual Review)">
-                <div class="bar-fill review" style="height:12%;"></div><span class="bar-label">0.5-0.6</span>
+                <div id="bar-fill-5" class="bar-fill review" style="height:12%;"></div><span class="bar-label">0.5-0.6</span>
               </div>
               <div class="bar-col" title="0.6 - 0.7 Score (High Review Alert)">
-                <div class="bar-fill review" style="height:18%;"></div><span class="bar-label">0.6-0.7</span>
+                <div id="bar-fill-6" class="bar-fill review" style="height:18%;"></div><span class="bar-label">0.6-0.7</span>
               </div>
               <div class="bar-col" title="0.7 - 0.8 Score (Hard Block Threshold)">
-                <div class="bar-fill block" style="height:22%;"></div><span class="bar-label">0.7-0.8</span>
+                <div id="bar-fill-7" class="bar-fill block" style="height:22%;"></div><span class="bar-label">0.7-0.8</span>
               </div>
               <div class="bar-col" title="0.8 - 0.9 Score (Critical Block)">
-                <div class="bar-fill block" style="height:30%;"></div><span class="bar-label">0.8-0.9</span>
+                <div id="bar-fill-8" class="bar-fill block" style="height:30%;"></div><span class="bar-label">0.8-0.9</span>
               </div>
               <div class="bar-col" title="0.9 - 1.0 Score (Botnet / ATO Intercept)">
-                <div class="bar-fill block" style="height:42%;"></div><span class="bar-label">0.9-1.0</span>
+                <div id="bar-fill-9" class="bar-fill block" style="height:42%;"></div><span class="bar-label">0.9-1.0</span>
               </div>
             </div>
           </div>
@@ -2025,25 +2388,76 @@
           </div>
         </div>
 
-        <!-- Attack Simulator Action Bar -->
+        <!-- Merchant Financial ROI & Chargeback Savings Defense Banner -->
+        <div class="card" style="margin-bottom:1.5rem; background:rgba(37,99,235,0.05); border:1px solid rgba(37,99,235,0.2); padding:1rem 1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:10px;">
+            <div>
+              <div style="font-size:0.88rem; font-weight:700; color:var(--brand-primary); display:flex; align-items:center; gap:8px;">
+                <span>Merchant Financial Protection &amp; Dispute ROI Engine</span>
+                <span class="badge" style="background:#059669; color:#FFFFFF; font-size:0.68rem;">14.8x ROI MULTIPLE</span>
+              </div>
+              <div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                Direct chargeback losses averted &amp; Visa RDR pre-dispute fee protection
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:16px;">
+              <div style="text-align:right;">
+                <div style="font-size:0.70rem; color:var(--text-secondary); text-transform:uppercase; font-weight:600;">Dispute Ratio</div>
+                <div style="font-size:0.95rem; font-weight:700; color:#059669;" id="roi-dispute-ratio">0.24% <span style="font-size:0.68rem; color:var(--text-muted); font-weight:400;">(Safe &lt; 0.90%)</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:12px; font-size:0.78rem;">
+            <div style="background:var(--bg-surface); padding:10px 14px; border-radius:8px; border:1px solid var(--border-color);">
+              <div style="color:var(--text-secondary); font-size:0.70rem; text-transform:uppercase; font-weight:600;">Fraud Losses Prevented</div>
+              <div style="font-size:1.15rem; font-weight:800; color:#059669; margin-top:2px;" id="roi-fraud-saved">₹42,80,000</div>
+              <div style="font-size:0.68rem; color:var(--text-muted);">Blocked Non-3DS Fraud GMV</div>
+            </div>
+            <div style="background:var(--bg-surface); padding:10px 14px; border-radius:8px; border:1px solid var(--border-color);">
+              <div style="color:var(--text-secondary); font-size:0.70rem; text-transform:uppercase; font-weight:600;">Visa RDR Deflection Fees Saved</div>
+              <div style="font-size:1.15rem; font-weight:800; color:#2563EB; margin-top:2px;" id="roi-fee-saved">₹57,600</div>
+              <div style="font-size:0.68rem; color:var(--text-muted);">32 Pre-Dispute Penalty Fees Deflected</div>
+            </div>
+            <div style="background:var(--bg-surface); padding:10px 14px; border-radius:8px; border:1px solid var(--border-color);">
+              <div style="color:var(--text-secondary); font-size:0.70rem; text-transform:uppercase; font-weight:600;">Tiered Preemptive Policy</div>
+              <div style="font-size:1.15rem; font-weight:800; color:#0D9488; margin-top:2px;" id="roi-preemptive-status">Hard + Soft Challenge</div>
+              <div style="font-size:0.68rem; color:var(--text-muted);">100% Issuer Liability Shift on Soft Cluster</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Attack Simulator Action Bar with Real-Time Background Traffic Controller -->
         <div class="simulator-toolbar">
-          <div class="sim-tag">
-            <span>⚡ Instant Attack Injection Console:</span>
+          <div class="sim-tag" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <span style="font-weight:700; color:var(--text-main);">Live Traffic Stream &amp; Attack Injection:</span>
+            <div style="background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); padding: 3px 8px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px;">
+              <span class="tel-dot" style="background:#10B981;"></span>
+              <span style="font-size:0.72rem; font-weight:700; color:#10B981;">Streamer:</span>
+              <button id="btn-toggle-bg-stream" onclick="toggleBackgroundTraffic()" class="btn-action" style="padding: 2px 6px; font-size:0.68rem; background:#059669; color:#FFFFFF;">Running</button>
+              <select id="sel-bg-interval" onchange="changeBackgroundInterval(this.value)" class="dropdown-chip" style="padding: 1px 4px; font-size:0.68rem; background:rgba(0,0,0,0.3);">
+                <option value="300" selected>Every 5m</option>
+                <option value="2">Every 2s</option>
+                <option value="4">Every 4s</option>
+                <option value="10">Every 10s</option>
+                <option value="60">Every 1m</option>
+                <option value="600">Every 10m</option>
+              </select>
+            </div>
           </div>
           <div class="sim-btn-group">
-            <button class="btn-sim" onclick="injectSimulatorEvent('NORMAL')">🟢 + Normal UPI (INR)</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('CARD_TESTING_BOT')">🔴 + Card Bot (USD)</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('ACCOUNT_TAKEOVER_ATO')">🚨 + ATO Gaming
-              (SGD)</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('SYNTHETIC_RING')">🕸️ + Syndicate Ring</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('VELOCITY_BURST')"
-              style="background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.4); color:var(--accent-amber);">⚡
-              + 5x Velocity Burst</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('GEO_IMPOSSIBLE')"
-              style="background:rgba(6,182,212,0.15); border-color:rgba(6,182,212,0.4); color:var(--accent-cyan);">🌐 +
-              Geo-Jump (EUR)</button>
-            <button class="btn-sim" onclick="injectSimulatorEvent('AMBIGUOUS')">🟡 + Ambiguous Surge</button>
-            <button class="btn-sim btn-sim-replay" onclick="injectIdempotentReplay()">🔁 Replay (&lt;0.1ms)</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('NORMAL')">Normal UPI (INR)</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('CROSS_BORDER_NON_3DS_FRAUD')"
+              style="background:rgba(239,68,68,0.12); border-color:rgba(239,68,68,0.35); color:#EF4444; font-weight:600;">Cross-Border Non-3DS Fraud</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('SERVICE_CHARGEBACK_FRIENDLY_FRAUD')"
+              style="background:rgba(245,158,11,0.12); border-color:rgba(245,158,11,0.35); color:var(--accent-amber); font-weight:600;">Service Chargeback</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('LOCALITY_SUBURB_BURST')"
+              style="background:rgba(6,182,212,0.12); border-color:rgba(6,182,212,0.35); color:var(--accent-cyan); font-weight:600;">Locality Subnet Burst</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('SYNTHETIC_RING')">Syndicate Ring</button>
+            <button class="btn-sim" onclick="injectSimulatorEvent('ACCOUNT_TAKEOVER_ATO')">Account Takeover</button>
+            <button class="btn-sim" onclick="triggerPreemptiveQuarantineDemo()"
+              style="background:rgba(59,130,246,0.15); border-color:rgba(59,130,246,0.4); color:#3B82F6; font-weight:600;">Preemptive Quarantine</button>
+            <button class="btn-sim btn-sim-replay" onclick="injectIdempotentReplay()">Idempotent Replay</button>
           </div>
         </div>
 
@@ -2054,12 +2468,11 @@
           <div class="card">
             <div class="card-header-bar">
               <div class="card-heading">
-                <span>🛒 Live Hot-Path Stream</span>
+                <span>Live Transaction Stream</span>
                 <span style="font-size:0.70rem; color:var(--text-muted);" id="stream-count-badge">50 Events</span>
               </div>
               <div style="display:flex; align-items:center; gap:8px;">
-                <button id="btn-freeze-stream" class="stream-freeze-btn" onclick="toggleStreamFreeze()">⏸️ Freeze
-                  Feed</button>
+                <button id="btn-freeze-stream" class="stream-freeze-btn" onclick="toggleStreamFreeze()">Freeze Feed</button>
                 <button onclick="fetchFeed()" class="btn-action"
                   style="padding:4px 10px; font-size:0.72rem;">Refresh</button>
               </div>
@@ -2075,27 +2488,26 @@
             <div class="filter-stream-toolbar">
               <div class="filter-pill-group">
                 <button class="filter-pill active" onclick="setFeedFilter('ALL', this)">All</button>
-                <button class="filter-pill" onclick="setFeedFilter('BLOCK', this)">🔴 Blocked</button>
-                <button class="filter-pill" onclick="setFeedFilter('REVIEW', this)">🟡 Review</button>
-                <button class="filter-pill" onclick="setFeedFilter('STEP-UP AUTH', this)">🔵 Step-Up</button>
-                <button class="filter-pill" onclick="setFeedFilter('ALLOW', this)">🟢 Allow</button>
-                <button class="filter-pill" onclick="setFeedFilter('HIGH_RISK', this)">🔥 Risk &gt; 80%</button>
+                <button class="filter-pill" onclick="setFeedFilter('BLOCK', this)">Blocked</button>
+                <button class="filter-pill" onclick="setFeedFilter('REVIEW', this)">Review</button>
+                <button class="filter-pill" onclick="setFeedFilter('STEP-UP AUTH', this)">Step-Up</button>
+                <button class="filter-pill" onclick="setFeedFilter('ALLOW', this)">Allow</button>
+                <button class="filter-pill" onclick="setFeedFilter('HIGH_RISK', this)">High Risk (&gt;80%)</button>
               </div>
 
               <div style="display:flex; align-items:center; gap:6px;">
                 <select id="table-currency-filter" class="filter-pill" onchange="setTableCurrencyFilter(this.value)"
                   style="outline:none; cursor:pointer; padding:3px 8px; border-radius:8px;">
-                  <option value="ALL">🌐 All Currencies</option>
-                  <option value="INR">🇮🇳 INR (₹)</option>
-                  <option value="USD">🇺🇸 USD ($)</option>
-                  <option value="EUR">🇪🇺 EUR (€)</option>
-                  <option value="GBP">🇬🇧 GBP (£)</option>
-                  <option value="SGD">🇸🇬 SGD (S$)</option>
-                  <option value="AED">🇦🇪 AED (د.إ)</option>
-                  <option value="MYR">🇲🇾 MYR (RM)</option>
+                  <option value="ALL">All Currencies</option>
+                  <option value="INR">INR (₹)</option>
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                  <option value="SGD">SGD (S$)</option>
+                  <option value="AED">AED (د.إ)</option>
+                  <option value="MYR">MYR (RM)</option>
                 </select>
-                <span id="filtered-count-indicator" style="font-size:0.70rem; color:var(--text-muted);">Showing
-                  All</span>
+                <span id="filtered-count-indicator" style="font-size:0.70rem; color:var(--text-muted);">Showing All</span>
               </div>
             </div>
 
@@ -2124,12 +2536,12 @@
           <!-- Case Intelligence & AI Dossier -->
           <div class="card" id="case-dossier-card">
             <div class="card-header-bar">
-              <div class="card-heading" id="case-header-id">🔍 Case Dossier Inspector</div>
+              <div class="card-heading" id="case-header-id">Case Dossier Inspector</div>
               <div style="display:flex; align-items:center; gap:8px;">
                 <div id="case-header-pill"></div>
                 <button class="btn-action" onclick="exportSARDossier()"
                   title="Export Suspicious Activity Report (SAR) Compliance Dossier"
-                  style="padding:4px 10px; font-size:0.72rem; background:var(--bg-surface-elevated); border:1px solid var(--border-color); color:var(--text-main);">📄
+                  style="padding:4px 10px; font-size:0.72rem; background:var(--bg-surface-elevated); border:1px solid var(--border-color); color:var(--text-main);">
                   Export SAR Dossier</button>
               </div>
             </div>
@@ -2152,19 +2564,246 @@
       <div id="tab-graph" class="tab-pane">
         <div class="card">
           <div class="card-header-bar">
-            <div class="card-heading">🕸️ Bounded 2-Hop Entity Graph (Log-Degree Dampened Hubs)</div>
-            <div style="font-size:0.82rem; color:var(--text-muted);" id="graph-case-info">Select a case to inspect its
-              relationship topology</div>
+            <div>
+              <div class="card-heading">Entity Relationship &amp; Containment Topology</div>
+              <div style="font-size:0.78rem; color:var(--text-muted); margin-top:2px;" id="graph-case-info">
+                Visualizing entity relationships, payment credentials, and preemptive quarantine clusters
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button onclick="if(selectedTxnId) fetchGraph(selectedTxnId)" class="btn-action" style="padding:4px 10px; font-size:0.72rem;">Refresh Topology</button>
+            </div>
           </div>
 
-          <div id="vis-network-container"></div>
+          <!-- Business Story & Entity Legend Ribbon -->
+          <div id="incident-story-banner" style="background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.25); border-radius: 10px; padding: 12px 16px; margin: 0 1.25rem 1rem 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="min-width: 280px; flex: 1;">
+              <div style="font-size: 0.72rem; font-weight: 700; color: var(--brand-primary); text-transform: uppercase; letter-spacing: 0.5px;">Incident Business Narrative</div>
+              <div id="graph-incident-narrative" style="font-size: 0.85rem; color: var(--text-main); font-weight: 600; margin-top: 2px;">
+                Select an incident from the stream to view its customer, payment credential, location, and merchant relationship story.
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 14px; font-size: 0.74rem; flex-wrap: wrap;">
+              <div style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:50%; background:#2563EB; display:inline-block;"></span> <span style="color:var(--text-main);">Customer</span></div>
+              <div style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:2px; background:#475569; display:inline-block;"></span> <span style="color:var(--text-main);">Device</span></div>
+              <div style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; transform:rotate(45deg); background:#0D9488; display:inline-block;"></span> <span style="color:var(--text-main);">Card / VPA</span></div>
+              <div style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:50%; background:#0284C7; display:inline-block;"></span> <span style="color:var(--text-main);">Location</span></div>
+              <div style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; clip-path:polygon(50% 0%, 0% 100%, 100% 100%); background:#4338CA; display:inline-block;"></span> <span style="color:var(--text-main);">Merchant</span></div>
+              <div style="display:flex; align-items:center; gap:5px;"><span style="width:10px; height:10px; border-radius:50%; background:#DC2626; display:inline-block;"></span> <span style="color:#DC2626; font-weight:600;">Quarantined Containment</span></div>
+            </div>
+          </div>
+
+          <div class="graph-wrapper">
+            <!-- Floating Graph HUD Controls with Multi-Corpus Scope Selector -->
+            <div class="graph-hud-bar">
+              <div class="graph-hud-group">
+                <button class="graph-hud-btn" onclick="graphFitView()" title="Fit View to Screen">Fit View</button>
+                <button class="graph-hud-btn" id="btn-toggle-physics" onclick="graphTogglePhysics()" title="Freeze / Unfreeze Node Physics">Freeze Physics</button>
+                <button class="graph-hud-btn" onclick="graphZoom(1.3)" title="Zoom In">+</button>
+                <button class="graph-hud-btn" onclick="graphZoom(0.7)" title="Zoom Out">−</button>
+                <select id="sel-graph-scope" class="graph-hud-btn" onchange="changeGraphScope(this.value)" style="outline:none; cursor:pointer; background:rgba(59,130,246,0.12); border-color:rgba(59,130,246,0.4); font-weight:600; color:var(--text-main);">
+                  <option value="focused" selected>Selected Incident &amp; Affected Nodes</option>
+                  <option value="full_corpus">Full Multi-Tenant Topology (3,000+)</option>
+                </select>
+                <select id="graph-filter-type" class="graph-hud-btn" onchange="filterGraphByType(this.value)" style="outline:none; cursor:pointer;">
+                  <option value="ALL">Show All Entities</option>
+                  <option value="customer">Customers Only</option>
+                  <option value="device">Devices Only</option>
+                  <option value="card">Cards Only</option>
+                  <option value="ip">IPs Only</option>
+                  <option value="locality">Localities Only</option>
+                  <option value="merchant">Merchants Only</option>
+                </select>
+              </div>
+
+              <div class="graph-hud-group">
+                <div class="graph-stats-hud">
+                  <div class="graph-stat-pill">Nodes: <strong id="hud-node-count">0</strong></div>
+                  <div class="graph-stat-pill">Edges: <strong id="hud-edge-count">0</strong></div>
+                  <div class="graph-stat-pill">Density: <strong id="hud-ring-density" style="color:var(--accent-amber);">0.0</strong></div>
+                  <div class="graph-stat-pill">Quarantined: <strong id="hud-quarantine-count" style="color:#F87171;">0</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vis.js Canvas Container -->
+            <div id="vis-network-container"></div>
+
+            <!-- Interactive Node Inspector Drawer -->
+            <div id="graph-node-drawer" class="graph-inspector-drawer">
+              <div class="inspector-header">
+                <div class="inspector-title" id="drawer-node-title">
+                  <span>📌 Entity Inspector</span>
+                </div>
+                <button class="inspector-close" onclick="closeNodeDrawer()">✕</button>
+              </div>
+              <div id="drawer-node-body">
+                <div class="inspector-kv"><span class="inspector-label">Node ID:</span><span class="inspector-val" id="drawer-node-id">-</span></div>
+                <div class="inspector-kv"><span class="inspector-label">Entity Type:</span><span class="inspector-val" id="drawer-node-type">-</span></div>
+                <div class="inspector-kv"><span class="inspector-label">Degree (Connections):</span><span class="inspector-val" id="drawer-node-degree">-</span></div>
+                <div class="inspector-kv"><span class="inspector-label">Quarantine Role:</span><span class="inspector-val" id="drawer-node-quarantined">-</span></div>
+                <div id="drawer-action-container" style="margin-top:12px;">
+                  <button id="drawer-quarantine-btn" class="btn-action" style="width:100%; background:linear-gradient(135deg, #F97316, #EA580C); font-size:0.74rem;">
+                    🛡️ Quarantine 2-Hop Cluster
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div class="graph-legend-bar">
-            <div class="graph-badge"><span style="color:#60A5FA;">●</span> Customer Node</div>
-            <div class="graph-badge"><span style="color:#F59E0B;">●</span> Device Fingerprint</div>
-            <div class="graph-badge"><span style="color:#A78BFA;">●</span> IP Hash (Hub Dampened)</div>
-            <div class="graph-badge"><span style="color:#34D399;">●</span> Card Token</div>
-            <div class="graph-badge"><span style="color:#F472B6;">●</span> Merchant Node</div>
+            <div class="graph-badge" onclick="filterGraphByType('customer')"><span style="color:#60A5FA;">●</span> 👤 Customer (⭐ Root)</div>
+            <div class="graph-badge" onclick="filterGraphByType('device')"><span style="color:#F59E0B;">■</span> 📱 Device Fingerprint</div>
+            <div class="graph-badge" onclick="filterGraphByType('ip')"><span style="color:#A78BFA;">●</span> 🌐 IP Hash (Hub Dampened)</div>
+            <div class="graph-badge" onclick="filterGraphByType('locality')"><span style="color:#06B6D4;">⬡</span> 📍 Locality / Subnet Hub</div>
+            <div class="graph-badge" onclick="filterGraphByType('card')"><span style="color:#34D399;">◆</span> 💳 Card Token</div>
+            <div class="graph-badge" onclick="filterGraphByType('merchant')"><span style="color:#F472B6;">▲</span> 🏢 Merchant</div>
+            <div class="graph-badge" style="background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.4);"><span style="color:#EF4444; font-weight:800;">🔴</span> Seed Attack Origin</div>
+            <div class="graph-badge" style="background:rgba(249,115,22,0.15); border-color:rgba(249,115,22,0.4);"><span style="color:#F97316; font-weight:800;">🟠</span> Preemptively Contained Node</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================================================
+           TAB: GLOBAL CROSS-BORDER GEO-CORRIDORS & THREAT WORLD MAP
+           ========================================================================== -->
+      <div id="tab-crossborder-map" class="tab-pane">
+        <!-- Top Metrics Ribbon -->
+        <div class="kpi-grid">
+          <div class="card kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-title">Cross-Border Ingested GMV</div>
+              <div class="kpi-icon-wrap">🌐</div>
+            </div>
+            <div class="kpi-value" id="xb-kpi-gmv">₹4.82 Cr</div>
+            <div class="kpi-footer">
+              <span class="trend-up" id="xb-kpi-txns">412 Live Events</span> <span>across 6 Corridors</span>
+            </div>
+          </div>
+
+          <div class="card kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-title">3DS Protected Ratio</div>
+              <div class="kpi-icon-wrap">🛡️</div>
+            </div>
+            <div class="kpi-value" id="xb-kpi-3ds-pct" style="color:var(--status-allow);">78.4%</div>
+            <div class="kpi-footer">
+              <span>100% Issuer Liability Shift Active</span>
+            </div>
+          </div>
+
+          <div class="card kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-title">Non-3DS Intercepted Risk</div>
+              <div class="kpi-icon-wrap">⚡</div>
+            </div>
+            <div class="kpi-value" id="xb-kpi-non3ds-pct" style="color:var(--accent-amber);">21.6%</div>
+            <div class="kpi-footer">
+              <span class="trend-up">0.0% False Decline</span> <span>Dynamic Step-Up</span>
+            </div>
+          </div>
+
+          <div class="card kpi-card">
+            <div class="kpi-header">
+              <div class="kpi-title">Visa RDR Deflected GMV</div>
+              <div class="kpi-icon-wrap">📦</div>
+            </div>
+            <div class="kpi-value" id="xb-kpi-rdr-val" style="color:var(--brand-primary);">₹1.84 Cr</div>
+            <div class="kpi-footer">
+              <span class="trend-up">142 Pre-Disputes</span> <span>ECMP Compliant (0.24%)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive 2D/3D Canvas World Map Card -->
+        <div class="card" style="padding:1.25rem; margin-bottom:1.5rem; position:relative; overflow:hidden;">
+          <div class="card-header-bar" style="margin-bottom:0.75rem;">
+            <div>
+              <div class="card-heading">Global Cross-Border Threat &amp; Acquisition Corridors</div>
+              <div style="font-size:0.72rem; color:var(--text-muted); margin-top:2px;">Real-time corridor telemetry, liability shift ratios, and dispute deflection arcs</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button onclick="fetchCrossBorderCorridors()" class="btn-action" style="padding:4px 10px; font-size:0.72rem;">Refresh Map</button>
+            </div>
+          </div>
+
+          <!-- World Map Canvas & Overlays -->
+          <div style="position:relative; width:100%; height:480px; background:#0B1120; border-radius:10px; overflow:hidden; border:1px solid var(--border-color);">
+            <canvas id="world-map-canvas" style="width:100%; height:100%; display:block; cursor:crosshair;"></canvas>
+            
+            <!-- Floating Map Legend -->
+            <div style="position:absolute; bottom:14px; left:14px; background:rgba(15,23,42,0.92); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:8px 12px; font-size:0.72rem; display:flex; flex-direction:column; gap:4px; z-index:10;">
+              <div style="font-weight:600; color:#F8FAFC; margin-bottom:2px;">Corridor Rail Guardrails:</div>
+              <div style="display:flex; align-items:center; gap:6px; color:#94A3B8;"><span style="color:#059669; font-weight:bold;">●━━━</span> 3DS Protected Corridor (USD/EUR ➔ IN)</div>
+              <div style="display:flex; align-items:center; gap:6px; color:#94A3B8;"><span style="color:#D97706; font-weight:bold;">●━━━</span> Dynamic 3DS Step-Up Corridor (AED/SGD ➔ IN)</div>
+              <div style="display:flex; align-items:center; gap:6px; color:#94A3B8;"><span style="color:#DC2626; font-weight:bold;">●━━━</span> Non-3DS Frictionless Fraud Intercept</div>
+              <div style="display:flex; align-items:center; gap:6px; color:#94A3B8;"><span style="color:#4F46E5; font-weight:bold;">●━━━</span> Visa RDR Pre-Dispute Deflection Arc</div>
+            </div>
+
+            <!-- Floating Active Corridor Detail Popup -->
+            <div id="map-corridor-popup" style="display:none; position:absolute; top:14px; right:14px; width:310px; background:rgba(15,23,42,0.95); backdrop-filter:blur(10px); border:1px solid var(--border-color); border-radius:8px; padding:12px; font-size:0.75rem; box-shadow:0 8px 24px rgba(0,0,0,0.6); z-index:12;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <strong id="popup-corridor-name" style="color:var(--accent-cyan); font-size:0.85rem;">Corridor</strong>
+                <span id="popup-corridor-status" class="badge" style="background:rgba(16,185,129,0.2); color:#34D399;">Active</span>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:8px;">
+                <div>Volume: <strong id="popup-corridor-gmv" style="color:var(--brand-primary); font-family:var(--font-mono);">₹0</strong></div>
+                <div>Transactions: <strong id="popup-corridor-txns">0 txns</strong></div>
+                <div>3DS vs Non-3DS: <strong id="popup-corridor-split" style="color:#38BDF8;">80% / 20%</strong></div>
+                <div>Pre-Dispute Deflections: <strong id="popup-corridor-rdr" style="color:#A78BFA;">0 cases</strong></div>
+              </div>
+              <button id="popup-filter-btn" class="btn-action" style="width:100%; font-size:0.70rem; padding:5px 8px;">Filter Ingest Stream to this Corridor →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cross-Border Business Logic & Guardrails Deep Dive Grid -->
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+          <!-- Card 1: 3DS vs Non-3DS Liability Shift Rule Engine -->
+          <div class="card" style="padding:1.25rem; border-top:3px solid var(--brand-primary);">
+            <div style="font-size:0.92rem; font-weight:700; color:var(--text-main); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+              <span>3DS vs Non-3DS Liability Shift Architecture</span>
+            </div>
+            <p style="font-size:0.78rem; color:var(--text-secondary); line-height:1.5; margin-bottom:10px;">
+              Cross-border merchants face asymmetric financial risks depending on card authorization mode:
+            </p>
+            <div style="background:rgba(5,150,105,0.06); border:1px solid rgba(5,150,105,0.25); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:0.75rem;">
+              <strong style="color:#059669;">3DS Authenticated (Issuer Liability Shift):</strong>
+              <div style="color:var(--text-muted); margin-top:2px;">When OTP / 3DS challenge succeeds, 100% of unauthorized fraud chargeback liability shifts from the merchant to the foreign issuing bank (e.g. Chase, Barclays, Emirates NBD).</div>
+            </div>
+            <div style="background:rgba(220,38,38,0.06); border:1px solid rgba(220,38,38,0.25); border-radius:8px; padding:8px 10px; font-size:0.75rem;">
+              <strong style="color:#DC2626;">Non-3DS Frictionless (100% Merchant Liability):</strong>
+              <div style="color:var(--text-muted); margin-top:2px;">If a fraud chargeback occurs on frictionless non-3DS, the merchant loses 100% of the funds plus a network penalty fine. <strong>Razorpay RiskIQ dynamically challenges foreign non-3DS traffic with high ML risk (>0.40)</strong> to enforce liability shift.</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Visa RDR & Service Chargeback Deflection Engine -->
+          <div class="card" style="padding:1.25rem; border-top:3px solid #4F46E5;">
+            <div style="font-size:0.92rem; font-weight:700; color:var(--text-main); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+              <span>Visa RDR &amp; Pre-Dispute Deflection</span>
+            </div>
+            <p style="font-size:0.78rem; color:var(--text-secondary); line-height:1.5; margin-bottom:10px;">
+              <strong>Razorpay SHIELD covers fraud chargebacks, but NOT service chargebacks</strong> (e.g., friendly fraud, delayed international logistics, recurring subscription disputes).
+            </p>
+            <div style="background:rgba(79,70,229,0.06); border:1px solid rgba(79,70,229,0.25); border-radius:8px; padding:8px 10px; margin-bottom:8px; font-size:0.75rem;">
+              <strong style="color:#4F46E5;">Visa Rapid Dispute Resolution (RDR):</strong>
+              <div style="color:var(--text-muted); margin-top:2px;">Integrates directly with Visa and Ethoca pre-dispute networks to auto-resolve disputes within 2 hours before they are filed as official chargebacks.</div>
+            </div>
+            <div style="background:rgba(2,132,199,0.06); border:1px solid rgba(2,132,199,0.25); border-radius:8px; padding:8px 10px; font-size:0.75rem;">
+              <strong style="color:#0284C7;">Excessive Chargeback Monitoring Program (ECMP):</strong>
+              <div style="color:var(--text-muted); margin-top:2px;">Keeps the merchant's chargeback ratio at <strong>0.24%</strong> (well below Visa/Mastercard's dangerous 0.90% threshold), preventing merchant account freezing or fine tiers.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Cross-Border Corridors Grid -->
+        <div class="card" style="padding:1.25rem;">
+          <div class="card-heading" style="margin-bottom:1rem;">
+            <span>🌐 Live Payment Corridors &amp; Currency Rails</span>
+            <span style="font-size:0.70rem; color:var(--text-muted);">Real-Time Gateway Velocity &amp; Risk Metrics</span>
+          </div>
+          <div id="corridors-cards-container" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
+            <!-- Rendered dynamically by fetchCrossBorderCorridors() -->
           </div>
         </div>
       </div>
@@ -2251,6 +2890,24 @@
           <div id="degradation-box" class="code-report-block">Loading failure case verification...</div>
         </div>
       </div>
+
+      <!-- ==========================================================================
+           FOOTER ATTRIBUTION BAR
+           ========================================================================== -->
+      <footer style="margin-top: 3rem; padding: 1.5rem 0; border-top: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.76rem; color: var(--text-muted);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <img src="/riskiq_logo.png" alt="Razorpay RiskIQ" style="height: 28px; object-fit: contain;" />
+          <span>Razorpay RiskIQ Sentinel Platform &copy; 2026. Autonomous Payment Risk Engine.</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 16px;">
+          <a href="/docs" target="_blank" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">API Documentation</a>
+          <a href="/health" target="_blank" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">Health Probe</a>
+          <a href="/metrics" target="_blank" style="color: var(--text-secondary); text-decoration: none; font-weight: 500;">Prometheus SLA</a>
+          <span style="background: rgba(16,185,129,0.12); color: #10B981; padding: 2px 8px; border-radius: 4px; font-weight: 700; font-size: 0.70rem;">ONLINE &bull; SUB-15MS SLA</span>
+        </div>
+      </footer>
+
+    </div><!-- End content-container -->
 
       <!-- ==========================================================================
        OFFICIAL SUSPICIOUS ACTIVITY REPORT (SAR) REGULATORY MODAL
@@ -2415,7 +3072,8 @@
 
           const titles = {
             'tab-analytics': 'Risk Analytics & Live Ingestion Stream',
-            'tab-graph': 'Entity Graph Topology Explorer',
+            'tab-graph': 'Entity Graph Topology Explorer (Multi-Tenant Corpus)',
+            'tab-crossborder-map': 'Global Cross-Border Threat & Acquisition Corridors (Live World Map)',
             'tab-shadow': 'Shadow Mode Challenger Comparator',
             'tab-metrics': 'Production Held-Out Evaluation & Drift Benchmarks',
             'tab-active-learning': 'Active Learning Closed-Loop Retraining',
@@ -2427,7 +3085,17 @@
           else if (tabId === 'tab-shadow') { fetchShadowMetrics(); }
           else if (tabId === 'tab-active-learning') { fetchActiveLearningStats(); }
           else if (tabId === 'tab-degradation') { fetchDegradationCase(); }
-          else if (tabId === 'tab-graph' && selectedTxnId) { fetchGraph(selectedTxnId); }
+          else if (tabId === 'tab-crossborder-map') { fetchCrossBorderCorridors(); }
+          else if (tabId === 'tab-graph') {
+            if (currentGraphScope === 'full_corpus') {
+              fetchFullCorpusGraph();
+            } else if (selectedTxnId) {
+              fetchGraph(selectedTxnId);
+            }
+            setTimeout(() => {
+              graphFitView();
+            }, 250);
+          }
         }
 
         // Radar Alert Notification Controls
@@ -2456,10 +3124,10 @@
           isStreamFrozen = !isStreamFrozen;
           const btn = document.getElementById('btn-freeze-stream');
           if (isStreamFrozen) {
-            btn.innerText = '▶️ Resume Feed';
+            btn.innerText = 'Resume Feed';
             btn.classList.add('frozen');
           } else {
-            btn.innerText = '⏸️ Freeze Feed';
+            btn.innerText = 'Freeze Feed';
             btn.classList.remove('frozen');
             fetchFeed();
           }
@@ -2505,6 +3173,114 @@
           }
         }
 
+        // Fetch Dashboard Analytics Across 4,000+ Indexed Records
+        async function fetchDashboardAnalytics() {
+          try {
+            const res = await fetch(`${API_BASE}/dashboard/analytics`);
+            const data = await res.json();
+
+            // Update Top KPI Cards
+            const elTotal = document.getElementById('kpi-total-count');
+            if (elTotal) elTotal.innerText = data.total_transactions.toLocaleString();
+            const elApproved = document.getElementById('kpi-approved-count');
+            if (elApproved) elApproved.innerText = data.allow_count.toLocaleString();
+            const elBlocked = document.getElementById('kpi-blocked-count');
+            if (elBlocked) elBlocked.innerText = data.block_count.toLocaleString();
+
+            const rate = CURRENCY_RATES_FROM_INR[activeGlobalCurrency] || 1.0;
+            const elAbuse = document.getElementById('val-abuse-prevented');
+            if (elAbuse) elAbuse.innerText = formatMoney(data.abuse_prevented_inr * rate, activeGlobalCurrency);
+            const elFunds = document.getElementById('val-funds-protected');
+            if (elFunds) elFunds.innerText = formatMoney(data.funds_protected_inr * rate, activeGlobalCurrency);
+
+            // Update Corpus Banner
+            const elNodes = document.getElementById('stat-corpus-nodes');
+            if (elNodes) elNodes.innerText = data.total_graph_nodes.toLocaleString();
+            const elEdges = document.getElementById('stat-corpus-edges');
+            if (elEdges) elEdges.innerText = data.total_graph_edges.toLocaleString();
+            const elQuar = document.getElementById('stat-corpus-quarantined');
+            if (elQuar) elQuar.innerText = `${data.quarantined_nodes_count} Isolated`;
+            const elCross = document.getElementById('stat-corpus-crossborder');
+            if (elCross) elCross.innerText = `${data.cross_border_count.toLocaleString()} txns`;
+
+            // Update Merchant ROI Metrics Banner
+            try {
+              const roiRes = await fetch(`${API_BASE}/metrics/roi`);
+              if (roiRes.ok) {
+                const roiData = await roiRes.json();
+                const elFraudSaved = document.getElementById('roi-fraud-saved');
+                if (elFraudSaved) elFraudSaved.innerText = formatMoney(roiData.fraud_losses_prevented_inr * rate, activeGlobalCurrency);
+                const elFeeSaved = document.getElementById('roi-fee-saved');
+                if (elFeeSaved) elFeeSaved.innerText = formatMoney(roiData.rdr_dispute_fee_savings_inr * rate, activeGlobalCurrency);
+                const elDispRatio = document.getElementById('roi-dispute-ratio');
+                if (elDispRatio) elDispRatio.innerHTML = `${roiData.merchant_chargeback_ratio_pct}% <span style="font-size:0.68rem; color:var(--text-muted); font-weight:400;">(Safe &lt; 0.90%)</span>`;
+              }
+            } catch (roiErr) {
+              console.warn("ROI fetch failed", roiErr);
+            }
+
+            // Update Donut 1 (Decisions Split)
+            const elLegAllow = document.getElementById('legend-allow-val');
+            if (elLegAllow) elLegAllow.innerText = `Allow (${data.allow_pct}%)`;
+            const elLegStepup = document.getElementById('legend-stepup-val');
+            if (elLegStepup) elLegStepup.innerText = `Step-Up (${data.stepup_pct}%)`;
+            const elLegBlock = document.getElementById('legend-block-val');
+            if (elLegBlock) elLegBlock.innerText = `Block (${data.block_pct}%)`;
+
+            const allowPath = document.getElementById('donut-allow-path');
+            if (allowPath) allowPath.setAttribute('stroke-dasharray', `${Math.round(data.allow_pct)}, 100`);
+            const blockPath = document.getElementById('donut-block-path');
+            if (blockPath) {
+              blockPath.setAttribute('stroke-dasharray', `${Math.max(1, Math.round(data.block_pct))}, 100`);
+              blockPath.setAttribute('stroke-dashoffset', `-${Math.round(data.allow_pct)}`);
+            }
+
+            // Update Donut 2 (Channels)
+            const totalChannels = Object.values(data.channel_counts).reduce((a, b) => a + b, 0) || 1;
+            const upiCount = (data.channel_counts["UPI_INTENT"] || 0) + (data.channel_counts["UPI_VPA"] || 0);
+            const cardCount = (data.channel_counts["CARD_CREDIT"] || 0) + (data.channel_counts["CARD_DEBIT"] || 0);
+            const netCount = data.channel_counts["NETBANKING"] || 0;
+
+            const upiPct = Math.round((upiCount / totalChannels) * 100);
+            const cardPct = Math.round((cardCount / totalChannels) * 100);
+            const netPct = Math.max(1, 100 - upiPct - cardPct);
+
+            const elUpiVal = document.getElementById('legend-upi-val');
+            if (elUpiVal) elUpiVal.innerText = `UPI Rails (${upiPct}%)`;
+            const elCardVal = document.getElementById('legend-cards-val');
+            if (elCardVal) elCardVal.innerText = `Cards (${cardPct}%)`;
+            const elNetVal = document.getElementById('legend-netbanking-val');
+            if (elNetVal) elNetVal.innerText = `Netbanking (${netPct}%)`;
+
+            // Update Histogram Bars dynamically
+            if (data.score_histogram) {
+              const maxBucket = Math.max(...data.score_histogram, 1);
+              data.score_histogram.forEach((cnt, i) => {
+                const barEl = document.getElementById(`bar-fill-${i}`);
+                if (barEl) {
+                  const hPct = Math.max(8, Math.round((cnt / maxBucket) * 95));
+                  barEl.style.height = `${hPct}%`;
+                  barEl.parentElement.setAttribute('title', `Score 0.${i}-0.${i+1}: ${cnt} txns`);
+                }
+              });
+
+              const safeCount = (data.score_histogram[0] || 0) + (data.score_histogram[1] || 0) + (data.score_histogram[2] || 0);
+              const elSafe = document.getElementById('chart-safe-count');
+              if (elSafe) elSafe.innerText = safeCount.toLocaleString();
+
+              const elClean = document.getElementById('stat-clean-pct');
+              if (elClean) elClean.innerText = `● Clean ${data.allow_pct}%`;
+              const elStep = document.getElementById('stat-stepup-pct');
+              if (elStep) elStep.innerText = `● Step-Up ${data.stepup_pct}%`;
+              const elBlk = document.getElementById('stat-blocked-pct');
+              if (elBlk) elBlk.innerText = `● Blocked ${data.block_pct}%`;
+            }
+
+          } catch (err) {
+            console.error("Dashboard analytics error:", err);
+          }
+        }
+
         // Fetch Live Telemetry Status
         async function fetchTelemetry() {
           try {
@@ -2528,6 +3304,7 @@
             allFeedItems = data.items || [];
             filterFeedTable();
             fetchTelemetry();
+            fetchDashboardAnalytics();
           } catch (err) {
             console.error("Feed fetch error:", err);
           }
@@ -2549,13 +3326,33 @@
             const pillCls = act === 'BLOCK' ? 'pill-block' : (act === 'REVIEW' ? 'pill-review' : (act === 'STEP-UP AUTH' ? 'pill-stepup' : 'pill-allow'));
             const scoreColor = item.score >= 0.6 ? 'var(--status-block)' : (item.score >= 0.25 ? 'var(--status-review)' : 'var(--status-allow)');
             const amtFormatted = formatMoney(item.amount, item.currency);
+            const authMode = item.auth_mode || '3DS_AUTHENTICATED';
+            const isNon3ds = authMode.includes('NON_3DS');
+            const authBadge = isNon3ds 
+              ? `<span style="font-size:0.65rem; background:rgba(239,68,68,0.15); color:#F87171; padding:1px 5px; border-radius:4px; font-weight:700; margin-left:4px;" title="Non-3DS Frictionless: 100% Merchant Liability">Non-3DS</span>`
+              : `<span style="font-size:0.65rem; background:rgba(16,185,129,0.15); color:#34D399; padding:1px 5px; border-radius:4px; font-weight:700; margin-left:4px;" title="3DS Authenticated: Issuer Liability Shift">3DS</span>`;
+            
+            const qBadge = item.is_preemptively_quarantined
+              ? `<span style="font-size:0.65rem; background:rgba(139,92,246,0.25); color:#C4B5FD; padding:1px 5px; border-radius:4px; font-weight:700; display:inline-block; margin-top:2px;">🚨 QUARANTINED</span>`
+              : '';
+
+            const localityShort = (item.locality || 'IN-BLR').split('-').slice(0, 2).join('-');
 
             return `
-          <tr class="${isSel}" onclick="selectCase('${item.transaction_id}')">
-            <td><strong style="font-family:var(--font-mono);">${item.transaction_id}</strong></td>
-            <td><span style="color:var(--text-secondary);">${item.customer_id}</span></td>
+          <tr class="${isSel}" onclick="selectCase('${item.transaction_id}', true)" style="cursor:pointer;">
+            <td>
+              <strong style="font-family:var(--font-mono);">${item.transaction_id}</strong>
+              ${qBadge ? '<br/>' + qBadge : ''}
+            </td>
+            <td>
+              <span style="color:var(--text-secondary);">${item.customer_id}</span>
+              <span style="font-size:0.68rem; color:var(--accent-cyan); display:block;">📍 ${localityShort}</span>
+            </td>
             <td><strong style="font-family:var(--font-mono); color:var(--text-main);">${amtFormatted}</strong></td>
-            <td><span style="font-size:0.74rem; color:var(--text-muted);">${item.payment_method || 'CARD_CREDIT'}</span></td>
+            <td>
+              <span style="font-size:0.74rem; color:var(--text-muted);">${item.payment_method || 'CARD_CREDIT'}</span>
+              ${authBadge}
+            </td>
             <td><strong style="color:${scoreColor}; font-family:var(--font-mono);">${(item.score * 100).toFixed(0)}%</strong></td>
             <td><span class="status-pill ${pillCls}">${item.action}</span></td>
           </tr>
@@ -2563,7 +3360,7 @@
           }).join('');
 
           if (!selectedTxnId && items.length > 0) {
-            selectCase(items[0].transaction_id);
+            selectCase(items[0].transaction_id, false);
           }
         }
 
@@ -2606,7 +3403,7 @@
         }
 
         // Select and inspect a specific case dossier
-        async function selectCase(txnId) {
+        async function selectCase(txnId, shouldScroll = false) {
           selectedTxnId = txnId;
 
           // Update table selection state
@@ -2619,7 +3416,35 @@
             const caseData = await res.json();
             activeCaseData = caseData;
             renderCaseDetail(caseData);
-            fetchGraph(txnId);
+
+            if (currentGraphScope === 'focused') {
+              fetchGraph(txnId);
+            } else {
+              // In full corpus mode: highlight and smoothly pan/zoom onto this customer/device inside the full 3,000+ topology!
+              const custId = caseData.customer_id;
+              if (networkGraph && graphNodesDataSet) {
+                const nodeExists = graphNodesDataSet.get(custId);
+                if (nodeExists) {
+                  highlightNodeNeighborhood(custId);
+                  networkGraph.focus(custId, {
+                    scale: 1.15,
+                    animation: { duration: 750, easingFunction: 'easeInOutQuad' }
+                  });
+                } else {
+                  fetchGraph(txnId);
+                }
+              } else {
+                fetchGraph(txnId);
+              }
+            }
+
+            // Smooth scroll to Case Dossier only when user explicitly clicks an event
+            if (shouldScroll) {
+              const dossierEl = document.getElementById('case-dossier-card');
+              if (dossierEl) {
+                dossierEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }
           } catch (err) {
             console.error("Error loading case:", err);
           }
@@ -2810,12 +3635,46 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
           const pillCls = act === 'BLOCK' ? 'pill-block' : (act === 'REVIEW' ? 'pill-review' : (act === 'STEP-UP AUTH' ? 'pill-stepup' : 'pill-allow'));
           document.getElementById('case-header-pill').innerHTML = `<span class="status-pill ${pillCls}">${c.override ? act + ' (OVERRIDDEN)' : act}</span>`;
 
+          const isCrossBorder = c.is_cross_border || (c.geo_country && c.geo_country !== 'IN') || (c.currency && c.currency !== 'INR');
+          const authMode = c.auth_mode || '3DS_AUTHENTICATED';
+          const isNon3ds = authMode.includes('NON_3DS');
+          const isQuarantined = c.is_preemptively_quarantined || (c.evidence && c.evidence.ring_membership && c.evidence.ring_membership.is_preemptively_quarantined);
+
+          // Razorpay SHIELD+ Cross-Border & Dispute Intelligence Card
+          const shieldCardHtml = `
+            <div style="background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.25); border-radius:10px; padding:14px 16px; margin-bottom:1.2rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <div style="font-size:0.85rem; font-weight:700; color:var(--brand-primary); display:flex; align-items:center; gap:6px;">
+                  <span>Cross-Border Risk &amp; Dispute Defense</span>
+                </div>
+                <span class="badge" style="background:rgba(59,130,246,0.15); color:var(--brand-primary); font-size:0.70rem; font-weight:600;">Active Guardrail</span>
+              </div>
+              <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; font-size:0.76rem;">
+                <div class="sar-kv-row"><span class="sar-kv-label">3DS Auth Mode:</span><span class="sar-kv-val" style="color:${isNon3ds ? '#DC2626' : '#059669'};">${authMode} (${isNon3ds ? 'Merchant Liable' : 'Issuer Liability Shift'})</span></div>
+                <div class="sar-kv-row"><span class="sar-kv-label">Cross-Border Traffic:</span><span class="sar-kv-val">${isCrossBorder ? `Yes (${c.currency || 'USD'} / ${c.geo_country || 'US'})` : 'Domestic (INR)'}</span></div>
+                <div class="sar-kv-row"><span class="sar-kv-label">Service Chargeback Risk:</span><span class="sar-kv-val" style="color:var(--accent-amber);">${c.chargeback_risk_type === 'SERVICE_CHARGEBACK' ? 'High Exposure' : 'Low Exposure'}</span></div>
+                <div class="sar-kv-row"><span class="sar-kv-label">Preemptive Quarantine:</span><span class="sar-kv-val" style="color:${isQuarantined ? '#DC2626' : 'var(--text-secondary)'};">${isQuarantined ? 'Active Quarantine' : 'Nominal Neighborhood'}</span></div>
+              </div>
+              <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                <button class="btn-action" onclick="openIncidentInGraph('${c.transaction_id}')" style="background:#2563EB; color:#FFFFFF; font-size:0.72rem; padding:4px 12px; font-weight:600;">
+                  View Incident Topology
+                </button>
+                <button class="btn-action" onclick="triggerDisputeDeflection('${c.transaction_id}')" style="background:#4F46E5; color:#FFFFFF; font-size:0.72rem; padding:4px 12px;">
+                  Deflect Dispute (Visa RDR)
+                </button>
+                <button class="btn-action" onclick="triggerQuarantineNode('${c.device_id || c.customer_id}')" style="background:#475569; color:#FFFFFF; font-size:0.72rem; padding:4px 12px;">
+                  Quarantine 2-Hop Cluster
+                </button>
+              </div>
+            </div>
+          `;
+
           // TreeSHAP Feature Attributions
           const attributions = c.evidence.attributions || [];
           const shapHtml = attributions.length > 0 ? `
         <div class="shap-box">
           <div class="shap-header">
-            <span>Dynamic Tree-Path Feature Attributions (TreeSHAP)</span>
+            <span>Feature Attributions (TreeSHAP)</span>
             <span style="color:var(--accent-amber); font-size:0.72rem;">Non-Linear Gain</span>
           </div>
           ${attributions.map(attr => `
@@ -2881,9 +3740,18 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
         <div class="dossier-metrics-grid">
           <div class="mini-metric"><div class="mini-label">Calibrated Score</div><div class="mini-val" style="color:${scoreColor};">${(c.score * 100).toFixed(1)}%</div></div>
           <div class="mini-metric"><div class="mini-label">Amount (${c.currency || 'INR'})</div><div class="mini-val">${amtFormatted}</div></div>
-          <div class="mini-metric"><div class="mini-label">Syndicate Ring</div><div class="mini-val">${c.evidence.ring_membership && c.evidence.ring_membership.ring_detected ? 'YES (' + c.evidence.ring_membership.component_size + ' nodes)' : 'NO'}</div></div>
+          <div class="mini-metric"><div class="mini-label">Locality / Subnet</div><div class="mini-val" style="font-size:0.75rem; color:var(--accent-cyan);">${c.locality || 'IN-BLR-Koramangala'}</div></div>
           <div class="mini-metric"><div class="mini-label">Payment Rail</div><div class="mini-val" style="font-size:0.85rem;">${c.payment_method || 'CARD_CREDIT'}</div></div>
         </div>
+
+        <div style="margin: 10px 0 14px 0;">
+          <button onclick="inspectSelectedCaseInGraph()" class="btn-action" style="width:100%; background:linear-gradient(135deg, #F97316 0%, #EA580C 100%); color:#FFFFFF; font-weight:700; padding:8px 14px; border-radius:8px; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 14px rgba(249,115,22,0.35);">
+            <span>📍 Inspect Full Event &amp; Locality Chain in Graph</span>
+            <span style="background:rgba(255,255,255,0.25); padding:2px 6px; border-radius:4px; font-size:0.70rem;">Interactive 2-Hop</span>
+          </button>
+        </div>
+
+        ${shieldCardHtml}
 
         ${shapHtml}
 
@@ -2900,6 +3768,22 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
 
         ${overrideHtml}
       `;
+        }
+
+        function inspectSelectedCaseInGraph() {
+          if (!selectedTxnId && allFeedItems && allFeedItems.length > 0) {
+            selectedTxnId = allFeedItems[0].transaction_id;
+          }
+          if (selectedTxnId) {
+            const graphNavBtn = document.querySelectorAll('.nav-item')[1];
+            switchNav('tab-graph', graphNavBtn);
+            fetchGraph(selectedTxnId);
+            setTimeout(() => {
+              if (networkGraph) {
+                networkGraph.fit({ animation: { duration: 600, easingFunction: 'easeInOutQuad' } });
+              }
+            }, 300);
+          }
         }
 
         // Submit Analyst Override
@@ -2928,36 +3812,119 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
           }
         }
 
-        // Simulator Injections with Multi-Currency Realism
-        async function injectSimulatorEvent(pattern) {
-          if (pattern === 'VELOCITY_BURST') {
-            const sharedCard = "card_burst_" + Math.floor(Math.random() * 9000 + 1000);
-            for (let i = 0; i < 5; i++) {
-              const payload = {
-                amount: 49.99 + (i * 5),
+        // Trigger Pre-Dispute Deflection
+        async function triggerDisputeDeflection(txnId) {
+          try {
+            const res = await fetch(`${API_BASE}/dispute/deflect/${txnId}`, { method: 'POST' });
+            const data = await res.json();
+            alert(`⚡ VISA/MASTERCARD PRE-DISPUTE DEFLECTED!\n\nTransaction: ${txnId}\nStatus: ${data.status}\nAvoided Chargeback Fee: $${data.dispute_fee_avoided_usd}\nVAMP Ratio Protected (< 0.35%)`);
+            fetchFeed();
+          } catch (err) {
+            alert("Deflection error: " + err);
+          }
+        }
+
+        // Trigger Manual Graph Quarantine
+        async function triggerQuarantineNode(nodeId) {
+          try {
+            const res = await fetch(`${API_BASE}/graph/quarantine`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ node_id: nodeId, reason: "MANUAL_ANALYST_RING_CONTAINMENT", max_hops: 2 })
+            });
+            const data = await res.json();
+            alert(`🛡️ PREEMPTIVE QUARANTINE ACTIVATED!\n\nSeed Node: ${nodeId}\nQuarantined Neighbors: ${data.quarantined_count} connected devices, cards & subnets.\nSubsequent attacks from this ring will be blocked on the hot-path before authorization.`);
+            if (selectedTxnId) {
+              fetchGraph(selectedTxnId);
+            }
+            fetchFeed();
+          } catch (err) {
+            alert("Quarantine error: " + err);
+          }
+        }
+
+        async function triggerPreemptiveQuarantineDemo() {
+          // 1. Switch to Graph Tab so the user can visually watch the quarantine strike
+          const graphNavBtn = document.querySelectorAll('.nav-item')[1];
+          switchNav('tab-graph', graphNavBtn);
+
+          // 2. Inject high-density syndicate ring attack into 4,000+ historical graph baseline
+          const payload = {
+            amount: 84000.0,
+            currency: "USD",
+            customer_id: "cust_ring_001_lead",
+            merchant_id: "merch_global_exporter",
+            merchant_category: "GLOBAL_EXPORTER",
+            payment_method: "CARD_CREDIT",
+            auth_mode: "NON_3DS_FRICTIONLESS",
+            is_cross_border: true,
+            locality: "US-NYC-Manhattan",
+            device_id: "dev_ring_shared_syndicate",
+            ip_address_hash: "ip_ring_shared_syndicate",
+            card_fingerprint: "card_ring_shared_syndicate",
+            geo_country: "US",
+            customer_home_country: "US"
+          };
+
+          try {
+            const res = await fetch(`${API_BASE}/ingest`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            selectedTxnId = data.transaction_id;
+
+            // 3. Immediately trigger multi-hop quarantine on shared ring seed
+            await triggerQuarantineNode('dev_ring_shared_syndicate');
+            await fetchGraph(data.transaction_id);
+
+            // 4. Smoothly focus camera onto the quarantined circle cluster
+            setTimeout(() => {
+              if (networkGraph) {
+                networkGraph.fit({
+                  animation: { duration: 800, easingFunction: 'easeInOutQuad' }
+                });
+              }
+            }, 300);
+
+            // 5. Ingest subsequent attack from connected past member -> Demonstrates Preemptive Hot-Path Intercept
+            setTimeout(async () => {
+              const secondaryPayload = {
+                amount: 12500.0,
                 currency: "USD",
-                customer_id: `cust_burst_${i + 1}`,
-                merchant_id: `merch_gaming_0${(i % 3) + 1}`,
-                merchant_category: "GAMING_CRYPTO",
+                customer_id: "cust_ring_adjacent_victim_02",
+                merchant_id: "merch_crossborder_saas",
+                merchant_category: "CROSSBORDER_SAAS",
                 payment_method: "CARD_CREDIT",
-                device_id: `dev_burst_${i + 1}`,
-                ip_address_hash: "ip_burst_cluster",
-                card_fingerprint: sharedCard,
+                auth_mode: "NON_3DS_FRICTIONLESS",
+                is_cross_border: true,
+                locality: "US-NYC-Manhattan",
+                device_id: "dev_ring_shared_syndicate",
+                ip_address_hash: "ip_ring_shared_syndicate",
+                card_fingerprint: "card_ring_shared_syndicate",
                 geo_country: "US",
                 customer_home_country: "US"
               };
-              fetch(`${API_BASE}/ingest`, {
+
+              const secRes = await fetch(`${API_BASE}/ingest`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(secondaryPayload)
               });
-            }
-            setTimeout(async () => {
-              await fetchFeed();
-            }, 300);
-            return;
-          }
+              const secData = await secRes.json();
 
+              alert(`🚨 PREEMPTIVE MULTI-HOP STRIKE SUCCESSFUL!\n\n1. Initial Attack '${data.transaction_id}' quarantined all connected devices, cards & past accounts.\n2. In Vis.js, all connected topological nodes have turned RED [QUARANTINED].\n3. Secondary attack '${secData.transaction_id}' from connected entity was PREEMPTIVELY BLOCKED (<0.05ms) before payment authorization!\nAction: ${secData.action}\nRule: ${secData.rule_fired}`);
+              fetchFeed();
+            }, 900);
+
+          } catch (err) {
+            alert("Quarantine demo error: " + err);
+          }
+        }
+
+        // Simulator Injections with Multi-Currency Realism
+        async function injectSimulatorEvent(pattern) {
           const sampleEvents = {
             NORMAL: {
               amount: 1450.0,
@@ -2966,6 +3933,9 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
               merchant_id: "merch_ecom_04",
               merchant_category: "ECOMMERCE_RETAIL",
               payment_method: "UPI_INTENT",
+              auth_mode: "3DS_AUTHENTICATED",
+              is_cross_border: false,
+              locality: "IN-BLR-Koramangala",
               upi_vpa: "user@okhdfcbank",
               device_id: "dev_live_norm",
               ip_address_hash: "ip_live_norm",
@@ -2973,18 +3943,59 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
               geo_country: "IN",
               customer_home_country: "IN"
             },
-            CARD_TESTING_BOT: {
-              amount: 2.50,
+            CROSS_BORDER_NON_3DS_FRAUD: {
+              amount: 680.0,
               currency: "USD",
-              customer_id: "cust_bot_" + Math.floor(Math.random() * 900 + 100),
+              customer_id: "cust_xb_" + Math.floor(Math.random() * 900 + 100),
+              merchant_id: "merch_crossborder_saas",
+              merchant_category: "CROSSBORDER_SAAS",
+              payment_method: "CARD_CREDIT",
+              auth_mode: "NON_3DS_FRICTIONLESS",
+              is_cross_border: true,
+              locality: "US-NYC-Manhattan",
+              delivery_days_est: 3.0,
+              chargeback_risk_type: "FRAUD_CHARGEBACK",
+              device_id: "dev_xb_bot_" + Math.floor(Math.random() * 100),
+              ip_address_hash: "ip_xb_vpn_" + Math.floor(Math.random() * 100),
+              card_fingerprint: "card_stolen_us_" + Math.floor(Math.random() * 9000 + 1000),
+              geo_country: "US",
+              customer_home_country: "US"
+            },
+            SERVICE_CHARGEBACK_FRIENDLY_FRAUD: {
+              amount: 450.0,
+              currency: "EUR",
+              customer_id: "cust_eu_" + Math.floor(Math.random() * 900 + 100),
+              merchant_id: "merch_global_exporter",
+              merchant_category: "GLOBAL_EXPORTER",
+              payment_method: "CARD_CREDIT",
+              auth_mode: "3DS_AUTHENTICATED",
+              is_cross_border: true,
+              locality: "GB-LON-Westminster",
+              delivery_days_est: 28.0,
+              chargeback_risk_type: "SERVICE_CHARGEBACK",
+              device_id: "dev_eu_buyer",
+              ip_address_hash: "ip_eu_residential",
+              card_fingerprint: "card_eu_valid",
+              geo_country: "GB",
+              customer_home_country: "GB"
+            },
+            LOCALITY_SUBURB_BURST: {
+              amount: 1250.0,
+              currency: "USD",
+              customer_id: "cust_burst_" + Math.floor(Math.random() * 900 + 100),
               merchant_id: "merch_gaming_01",
               merchant_category: "GAMING_CRYPTO",
               payment_method: "CARD_CREDIT",
-              device_id: "dev_bot_shared",
-              ip_address_hash: "ip_bot_shared",
-              card_fingerprint: "card_test_" + Math.floor(Math.random() * 9000 + 1000),
-              geo_country: "US",
-              customer_home_country: "US"
+              auth_mode: "NON_3DS_FRICTIONLESS",
+              is_cross_border: true,
+              locality: "NG-LOS-Ikeja",
+              delivery_days_est: 2.0,
+              chargeback_risk_type: "FRAUD_CHARGEBACK",
+              device_id: "dev_loc_burst_" + Math.floor(Math.random() * 5 + 1),
+              ip_address_hash: "ip_subnet_ikeja_cell",
+              card_fingerprint: "card_burst_ng_" + Math.floor(Math.random() * 9000 + 1000),
+              geo_country: "NG",
+              customer_home_country: "NG"
             },
             ACCOUNT_TAKEOVER_ATO: {
               amount: 1450.0,
@@ -2993,6 +4004,9 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
               merchant_id: "merch_crypto_02",
               merchant_category: "GAMING_CRYPTO",
               payment_method: "CARD_CREDIT",
+              auth_mode: "NON_3DS_FRICTIONLESS",
+              is_cross_border: true,
+              locality: "SG-Marina-Downtown",
               device_id: "dev_foreign_ato",
               ip_address_hash: "ip_foreign_ato",
               card_fingerprint: "card_live_norm",
@@ -3000,51 +4014,24 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
               customer_home_country: "IN"
             },
             SYNTHETIC_RING: {
-              amount: 32000.0,
-              currency: "INR",
+              amount: 3200.0,
+              currency: "AED",
               customer_id: "cust_ring_" + Math.floor(Math.random() * 900 + 100),
               merchant_id: "merch_luxury_03",
               merchant_category: "LUXURY_JEWELRY",
-              payment_method: "UPI_VPA",
-              upi_vpa: "ring_burner@disposable_pay",
-              vpa_handle_risk: 0.85,
-              device_sim_bound: false,
+              payment_method: "CARD_CREDIT",
+              auth_mode: "3DS_AUTHENTICATED",
+              is_cross_border: true,
+              locality: "AE-DXB-Downtown",
               device_id: "dev_ring_shared_syndicate",
               ip_address_hash: "ip_ring_shared_syndicate",
               card_fingerprint: "card_ring_shared_syndicate",
-              geo_country: "IN",
-              customer_home_country: "IN"
-            },
-            GEO_IMPOSSIBLE: {
-              amount: 620.0,
-              currency: "EUR",
-              customer_id: "cust_live_norm",
-              merchant_id: "merch_crypto_lagos",
-              merchant_category: "GAMING_CRYPTO",
-              payment_method: "CARD_CREDIT",
-              device_id: "dev_foreign_lagos",
-              ip_address_hash: "ip_foreign_lagos",
-              card_fingerprint: "card_live_norm",
-              geo_country: "NG",
-              customer_home_country: "IN"
-            },
-            AMBIGUOUS: {
-              amount: 4800.0,
-              currency: "INR",
-              customer_id: "cust_family_01",
-              merchant_id: "merch_ecom_05",
-              merchant_category: "ECOMMERCE_RETAIL",
-              payment_method: "UPI_INTENT",
-              upi_vpa: "family@okhdfcbank",
-              device_id: "dev_family_tablet",
-              ip_address_hash: "ip_home_shared",
-              card_fingerprint: "card_family_01",
-              geo_country: "IN",
-              customer_home_country: "IN"
+              geo_country: "AE",
+              customer_home_country: "AE"
             }
           };
 
-          const payload = sampleEvents[pattern];
+          const payload = sampleEvents[pattern] || sampleEvents.NORMAL;
           lastInjectedPayload = payload;
 
           try {
@@ -3057,9 +4044,54 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
             await fetchFeed();
             if (data.transaction_id) {
               selectCase(data.transaction_id);
+              // Real-time reflection: If attack is injected, instantly refresh graph and highlight
+              if (pattern === 'SYNTHETIC_RING' || data.action === 'BLOCK' || data.score >= 0.65) {
+                fetchGraph(data.transaction_id);
+              }
             }
           } catch (err) {
             alert("Injection error: " + err);
+          }
+        }
+
+        let isBackgroundStreamRunning = true;
+
+        async function toggleBackgroundTraffic() {
+          const btn = document.getElementById('btn-toggle-bg-stream');
+          try {
+            if (isBackgroundStreamRunning) {
+              await fetch(`${API_BASE}/stream/generator/stop`, { method: 'POST' });
+              isBackgroundStreamRunning = false;
+              if (btn) {
+                btn.innerText = "Paused";
+                btn.style.background = "var(--text-muted)";
+              }
+            } else {
+              const sel = document.getElementById('sel-bg-interval');
+              const intervalVal = sel ? sel.value : 300;
+              await fetch(`${API_BASE}/stream/generator/start?interval_seconds=${intervalVal}`, { method: 'POST' });
+              isBackgroundStreamRunning = true;
+              if (btn) {
+                btn.innerText = "Running";
+                btn.style.background = "#059669";
+              }
+            }
+          } catch (err) {
+            console.error("Streamer toggle error:", err);
+          }
+        }
+
+        async function changeBackgroundInterval(val) {
+          try {
+            await fetch(`${API_BASE}/stream/generator/start?interval_seconds=${val}`, { method: 'POST' });
+            isBackgroundStreamRunning = true;
+            const btn = document.getElementById('btn-toggle-bg-stream');
+            if (btn) {
+              btn.innerText = "Running";
+              btn.style.background = "#059669";
+            }
+          } catch (err) {
+            console.error("Change interval error:", err);
           }
         }
 
@@ -3086,66 +4118,394 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
           }
         }
 
-        // Vis.js Graph Fetch & Render
+        // Vis.js Graph State & Variables
+        let rawSubgraphData = null;
+        let graphNodesDataSet = null;
+        let graphEdgesDataSet = null;
+        let graphPhysicsActive = true;
+        let graphCenterCustomerId = null;
+
+        // Vis.js Graph Fetch & Render with Locality & Business Narrative
         async function fetchGraph(txnId) {
           try {
             const res = await fetch(`${API_BASE}/graph/${txnId}`);
             const data = await res.json();
-            renderVisGraph(data.subgraph);
+            rawSubgraphData = data.subgraph;
+            graphCenterCustomerId = data.center_customer_id;
+            renderVisGraph(data.subgraph, data.center_customer_id);
+
             const infoEl = document.getElementById('graph-case-info');
-            if (infoEl) infoEl.innerText = `Case ${txnId} (Center Customer: ${data.center_customer_id})`;
+            if (infoEl) {
+              infoEl.innerHTML = `Incident <strong>${txnId}</strong> | Buyer: <strong>${data.center_customer_id}</strong> | Merchant: <strong>${data.merchant_id || 'merch_core'}</strong> | Rail: <strong>${data.auth_mode || '3DS_AUTHENTICATED'}</strong> | Locality: <strong>${data.locality || 'IN-BLR-Koramangala'}</strong>`;
+            }
+
+            const narrEl = document.getElementById('graph-incident-narrative');
+            if (narrEl) {
+              narrEl.innerText = data.business_story || `Customer '${data.center_customer_id}' initiated payment to '${data.merchant_id}'. Risk Engine enforced action: ${data.action}.`;
+            }
           } catch (err) {
             console.error("Graph error:", err);
           }
         }
 
-        function renderVisGraph(subgraph) {
+        function renderVisGraph(subgraph, centerCustomerId) {
           const container = document.getElementById('vis-network-container');
           if (!container || !subgraph || !subgraph.nodes) return;
 
           const isLight = document.documentElement.getAttribute('data-theme') === 'light';
           const textColor = isLight ? '#0F172A' : '#F8FAFC';
-          const edgeColor = isLight ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.18)';
+          const edgeBaseColor = isLight ? 'rgba(100, 116, 139, 0.35)' : 'rgba(148, 163, 184, 0.35)';
+          const edgeHighlightColor = '#3B82F6';
 
-          const nodes = new vis.DataSet(subgraph.nodes.map(n => {
-            let color = '#3B82F6';
-            if (n.type === 'device') color = '#F59E0B';
-            if (n.type === 'ip') color = '#8B5CF6';
-            if (n.type === 'card') color = '#10B981';
-            if (n.type === 'merchant') color = '#EC4899';
+          // Update HUD Stats
+          const totalNodes = subgraph.nodes.length;
+          const totalEdges = subgraph.edges.length;
+          const quarantinedCount = subgraph.nodes.filter(n => n.quarantined).length;
+          const density = totalNodes > 1 ? ((2 * totalEdges) / (totalNodes * (totalNodes - 1))).toFixed(2) : '0.00';
+
+          const nodeCountEl = document.getElementById('hud-node-count');
+          if (nodeCountEl) nodeCountEl.innerText = totalNodes;
+          const edgeCountEl = document.getElementById('hud-edge-count');
+          if (edgeCountEl) edgeCountEl.innerText = totalEdges;
+          const densityEl = document.getElementById('hud-ring-density');
+          if (densityEl) {
+            densityEl.innerText = density;
+            densityEl.style.color = parseFloat(density) > 0.4 ? 'var(--status-block)' : 'var(--accent-amber)';
+          }
+          const qCountEl = document.getElementById('hud-quarantine-count');
+          if (qCountEl) qCountEl.innerText = quarantinedCount;
+
+          // Prepare Vis.js Nodes with clean enterprise styling
+          const nodeItems = subgraph.nodes.map(n => {
+            const isCenter = n.id === centerCustomerId;
+            let bgColor = '#2563EB';
+            let borderColor = isLight ? '#E2E8F0' : '#334155';
+            let shape = 'dot';
+            let size = isCenter ? 24 : 16;
+
+            if (n.type === 'customer') {
+              bgColor = isCenter ? '#1D4ED8' : '#2563EB';
+              shape = 'dot';
+              size = isCenter ? 26 : 18;
+              borderColor = isCenter ? '#93C5FD' : (isLight ? '#CBD5E1' : '#475569');
+            } else if (n.type === 'device') {
+              bgColor = '#475569';
+              shape = 'box';
+              size = 16;
+              borderColor = '#64748B';
+            } else if (n.type === 'card') {
+              bgColor = '#0D9488';
+              shape = 'diamond';
+              size = 18;
+              borderColor = '#14B8A6';
+            } else if (n.type === 'ip') {
+              bgColor = '#6366F1';
+              shape = 'dot';
+              size = 15;
+              borderColor = '#818CF8';
+            } else if (n.type === 'locality') {
+              bgColor = '#0284C7';
+              shape = 'hexagon';
+              size = 20;
+              borderColor = '#38BDF8';
+            } else if (n.type === 'merchant') {
+              bgColor = '#4338CA';
+              shape = 'triangle';
+              size = 20;
+              borderColor = '#6366F1';
+            }
+
+            if (n.quarantine_role === 'SEED_ATTACK_ORIGIN') {
+              bgColor = '#DC2626';
+              borderColor = '#F87171';
+            } else if (n.quarantined || n.quarantine_role === 'PREEMPTIVE_CONTAINMENT') {
+              bgColor = '#D97706';
+              borderColor = '#FBBF24';
+            }
+
+            const isQuarantinedSeed = n.quarantine_role === 'SEED_ATTACK_ORIGIN';
+            const isQuarantinedPreemptive = n.quarantined && !isQuarantinedSeed;
+            const roleTag = isQuarantinedSeed ? ' (Seed Attack)' : (isQuarantinedPreemptive ? ' (Quarantined)' : (isCenter ? ' (Selected)' : ''));
 
             return {
               id: n.id,
-              label: n.label,
-              title: n.title,
-              color: { background: color, border: isLight ? '#0F172A' : '#FFFFFF', highlight: { background: '#FFFFFF', border: color } },
-              shape: n.type === 'customer' ? 'circle' : (n.type === 'device' ? 'box' : 'dot'),
-              font: { color: textColor, face: 'Outfit', size: 12, strokeWidth: 0 }
+              rawNode: n,
+              label: `${n.label || n.id}${roleTag}`,
+              title: `<div style="padding:6px; font-family:sans-serif; font-size:12px;"><strong>${(n.type || 'entity').toUpperCase()}:</strong> ${n.id}<br/>Status: ${isQuarantinedSeed ? 'Seed Attack Origin' : (isQuarantinedPreemptive ? 'Preemptively Quarantined' : 'Nominal')}</div>`,
+              shape: shape,
+              size: isQuarantinedSeed ? size + 4 : (isQuarantinedPreemptive ? size + 2 : size),
+              color: {
+                background: bgColor,
+                border: borderColor,
+                highlight: { background: isQuarantinedPreemptive ? '#B45309' : (isQuarantinedSeed ? '#B91C1C' : '#1E40AF'), border: '#FFFFFF' },
+                hover: { background: isQuarantinedPreemptive ? '#D97706' : '#2563EB', border: borderColor }
+              },
+              borderWidth: isQuarantinedSeed || isCenter ? 2.5 : 1.5,
+              shadow: false,
+              font: {
+                color: isLight ? '#0F172A' : '#F8FAFC',
+                face: 'Plus Jakarta Sans, sans-serif',
+                size: isCenter ? 12 : 11,
+                bold: isCenter || isQuarantinedSeed,
+                strokeWidth: isLight ? 2 : 0,
+                strokeColor: isLight ? '#FFFFFF' : '#0F172A'
+              },
+              margin: 6
             };
-          }));
+          });
 
-          const edges = new vis.DataSet(subgraph.edges.map(e => ({
-            from: e.source,
-            to: e.target,
-            label: e.relation,
-            font: { color: '#94A3B8', size: 10, align: 'middle' },
-            color: { color: edgeColor, highlight: '#3B82F6' },
-            arrows: { to: { enabled: false } }
-          })));
+          // Prepare Vis.js Edges with clean solid colors
+          const edgeItems = subgraph.edges.map((e, idx) => {
+            const isQuar = e.quarantined;
+            const isSeedEdge = (subgraph.nodes.find(n => n.id === e.source || n.id === e.target)?.quarantine_role === 'SEED_ATTACK_ORIGIN');
+            const edgeColor = isSeedEdge ? '#EF4444' : (isQuar ? '#F59E0B' : edgeBaseColor);
+            const edgeLabel = e.relation ? e.relation.replace(/_/g, ' ') : '';
 
-          const data = { nodes: nodes, edges: edges };
+            return {
+              id: `edge_${idx}`,
+              from: e.source,
+              to: e.target,
+              label: edgeLabel,
+              font: {
+                color: isSeedEdge ? '#EF4444' : (isQuar ? '#F59E0B' : (isLight ? '#64748B' : '#94A3B8')),
+                size: 9,
+                face: 'Plus Jakarta Sans, sans-serif',
+                align: 'middle',
+                background: isLight ? 'rgba(255, 255, 255, 0.9)' : 'rgba(15, 23, 42, 0.9)',
+                strokeWidth: 0
+              },
+              color: {
+                color: edgeColor,
+                highlight: '#2563EB',
+                hover: '#3B82F6'
+              },
+              width: isQuar || isSeedEdge ? 2.0 : 1.2,
+              smooth: {
+                type: 'continuous',
+                roundness: 0.2
+              },
+              arrows: {
+                to: { enabled: true, scaleFactor: 0.6 }
+              }
+            };
+          });
+
+          graphNodesDataSet = new vis.DataSet(nodeItems);
+          graphEdgesDataSet = new vis.DataSet(edgeItems);
+
+          const data = { nodes: graphNodesDataSet, edges: graphEdgesDataSet };
+
+          // Vis.js Configuration tuned for high stability, 60 FPS performance & cluster clarity
           const options = {
-            physics: {
-              stabilization: false,
-              barnesHut: { gravitationalConstant: -3200, springLength: 100 }
+            nodes: {
+              scaling: { min: 14, max: 30 }
             },
-            interaction: { hover: true, tooltipDelay: 100 }
+            edges: {
+              selectionWidth: 2.5,
+              hoverWidth: 1.5
+            },
+            physics: {
+              enabled: graphPhysicsActive,
+              solver: 'forceAtlas2Based',
+              forceAtlas2Based: {
+                gravitationalConstant: -60,
+                centralGravity: 0.02,
+                springLength: 115,
+                springConstant: 0.09,
+                damping: 0.65,
+                avoidOverlap: 1.0
+              },
+              stabilization: {
+                enabled: true,
+                iterations: 100,
+                updateInterval: 25,
+                fit: true
+              },
+              maxVelocity: 45,
+              minVelocity: 0.75,
+              timestep: 0.5
+            },
+            interaction: {
+              hover: true,
+              hoverConnectedEdges: false,
+              selectConnectedEdges: true,
+              tooltipDelay: 100,
+              zoomView: true,
+              dragView: true,
+              hideEdgesOnDrag: true,
+              hideEdgesOnZoom: false
+            }
           };
 
           if (networkGraph) {
             networkGraph.destroy();
           }
+
           networkGraph = new vis.Network(container, data, options);
+
+          // Zero-Lag Auto-Freeze: Once nodes stabilize into position, freeze physics so dragging & panning run at 60 FPS with 0% CPU overhead
+          networkGraph.on("stabilizationIterationsDone", function () {
+            networkGraph.setOptions({ physics: { enabled: false } });
+            graphPhysicsActive = false;
+            const freezeBtn = document.getElementById('btn-freeze-physics');
+            if (freezeBtn) {
+              freezeBtn.innerHTML = '<span>▶️ Resume Physics</span>';
+              freezeBtn.style.color = 'var(--text-muted)';
+            }
+          });
+
+          networkGraph.on("stabilized", function () {
+            networkGraph.setOptions({ physics: { enabled: false } });
+            graphPhysicsActive = false;
+          });
+
+          // Interactive Click Handler -> Opens Node Inspector & Highlights Neighborhood
+          networkGraph.on("click", function (params) {
+            if (params.nodes.length > 0) {
+              const selectedId = params.nodes[0];
+              const clickedNode = nodeItems.find(n => n.id === selectedId);
+              if (clickedNode) {
+                openNodeDrawer(clickedNode.rawNode, selectedId);
+                highlightNodeNeighborhood(selectedId);
+              }
+            } else {
+              closeNodeDrawer();
+              resetGraphHighlighting();
+            }
+          });
+        }
+
+        // Neighborhood Focus Highlighting on Click
+        function highlightNodeNeighborhood(selectedNodeId) {
+          if (!networkGraph || !graphNodesDataSet || !graphEdgesDataSet) return;
+
+          const connectedNodes = networkGraph.getConnectedNodes(selectedNodeId);
+          const allConnected = new Set([...connectedNodes, selectedNodeId]);
+
+          const updatedNodes = graphNodesDataSet.get().map(node => {
+            const isConnected = allConnected.has(node.id);
+            return {
+              id: node.id,
+              opacity: isConnected ? 1.0 : 0.18
+            };
+          });
+          graphNodesDataSet.update(updatedNodes);
+
+          const connectedEdges = networkGraph.getConnectedEdges(selectedNodeId);
+          const updatedEdges = graphEdgesDataSet.get().map(edge => {
+            const isConnected = connectedEdges.includes(edge.id);
+            return {
+              id: edge.id,
+              opacity: isConnected ? 1.0 : 0.10,
+              width: isConnected ? 2.5 : 1.0
+            };
+          });
+          graphEdgesDataSet.update(updatedEdges);
+        }
+
+        function resetGraphHighlighting() {
+          if (!graphNodesDataSet || !graphEdgesDataSet) return;
+          const restoredNodes = graphNodesDataSet.get().map(node => ({ id: node.id, opacity: 1.0 }));
+          graphNodesDataSet.update(restoredNodes);
+          const restoredEdges = graphEdgesDataSet.get().map(edge => ({ id: edge.id, opacity: 1.0, width: 1.5 }));
+          graphEdgesDataSet.update(restoredEdges);
+        }
+
+        // Node Inspector Drawer Controller
+        function openNodeDrawer(rawNode, nodeId) {
+          const drawer = document.getElementById('graph-node-drawer');
+          if (!drawer) return;
+
+          const titleEl = document.getElementById('drawer-node-title');
+          const idEl = document.getElementById('drawer-node-id');
+          const typeEl = document.getElementById('drawer-node-type');
+          const degEl = document.getElementById('drawer-node-degree');
+          const quarEl = document.getElementById('drawer-node-quarantined');
+          const quarBtn = document.getElementById('drawer-quarantine-btn');
+
+          const connected = networkGraph ? networkGraph.getConnectedNodes(nodeId).length : 0;
+
+          titleEl.innerHTML = `<span>📌 Entity: ${rawNode.type ? rawNode.type.toUpperCase() : 'NODE'}</span>`;
+          idEl.innerText = nodeId;
+          typeEl.innerText = (rawNode.type || 'entity').toUpperCase();
+          degEl.innerText = `${connected} connected node(s)`;
+          
+          if (rawNode.quarantined) {
+            quarEl.innerHTML = `<span style="color:#EF4444; font-weight:700;">🚨 QUARANTINED (Active Containment)</span>`;
+            quarBtn.innerText = "🛡️ Cluster Already Quarantined";
+            quarBtn.disabled = true;
+            quarBtn.style.opacity = "0.6";
+          } else {
+            quarEl.innerHTML = `<span style="color:#10B981; font-weight:700;">✅ Benign / Active Rails</span>`;
+            quarBtn.innerText = "🛡️ Quarantine 2-Hop Cluster";
+            quarBtn.disabled = false;
+            quarBtn.style.opacity = "1";
+            quarBtn.onclick = () => triggerQuarantineNode(nodeId);
+          }
+
+          drawer.style.display = 'block';
+        }
+
+        function closeNodeDrawer() {
+          const drawer = document.getElementById('graph-node-drawer');
+          if (drawer) drawer.style.display = 'none';
+        }
+
+        // HUD Controls Actions
+        function graphFitView() {
+          if (networkGraph) {
+            networkGraph.fit({
+              animation: { duration: 600, easingFunction: 'easeInOutQuad' }
+            });
+          }
+        }
+
+        function graphTogglePhysics() {
+          if (!networkGraph) return;
+          graphPhysicsActive = !graphPhysicsActive;
+          networkGraph.setOptions({ physics: { enabled: graphPhysicsActive } });
+          const btn = document.getElementById('btn-toggle-physics');
+          if (btn) {
+            btn.innerText = graphPhysicsActive ? '⏸️ Freeze Physics' : '▶️ Resume Physics';
+            btn.classList.toggle('active', !graphPhysicsActive);
+          }
+        }
+
+        function graphZoom(scaleFactor) {
+          if (!networkGraph) return;
+          const currentScale = networkGraph.getScale();
+          networkGraph.moveTo({
+            scale: currentScale * scaleFactor,
+            animation: { duration: 300, easingFunction: 'easeInOutQuad' }
+          });
+        }
+
+        function filterGraphByType(type) {
+          if (!rawSubgraphData || !graphNodesDataSet) return;
+
+          if (type === 'ALL') {
+            const restored = graphNodesDataSet.get().map(n => ({ id: n.id, hidden: false }));
+            graphNodesDataSet.update(restored);
+            graphFitView();
+            return;
+          }
+
+          if (type === 'QUARANTINED') {
+            const filtered = graphNodesDataSet.get().map(n => ({
+              id: n.id,
+              hidden: !n.rawNode || !n.rawNode.quarantined
+            }));
+            graphNodesDataSet.update(filtered);
+            graphFitView();
+            return;
+          }
+
+          const filtered = graphNodesDataSet.get().map(n => ({
+            id: n.id,
+            hidden: !n.rawNode || n.rawNode.type !== type
+          }));
+          graphNodesDataSet.update(filtered);
+          graphFitView();
         }
 
         // Shadow Mode Challenger Fetcher
@@ -3272,6 +4632,301 @@ Forensic Summary: ${c.narrative ? c.narrative.narrative : 'Standard Risk Review'
           } catch (err) {
             console.error("Degradation fetch error:", err);
           }
+        }
+
+        let currentGraphScope = 'focused';
+
+        function openIncidentInGraph(txnId) {
+          selectedTxnId = txnId;
+          const graphNavBtn = document.querySelectorAll('.nav-menu .nav-item')[1];
+          switchNav('tab-graph', graphNavBtn);
+          currentGraphScope = 'focused';
+          const scopeEl = document.getElementById('sel-graph-scope');
+          if (scopeEl) scopeEl.value = 'focused';
+          fetchGraph(txnId);
+        }
+
+        async function fetchFullCorpusGraph() {
+          try {
+            const res = await fetch(`${API_BASE}/graph/corpus?max_nodes=1500`);
+            const data = await res.json();
+            rawSubgraphData = data;
+            renderVisGraph(data, graphCenterCustomerId);
+            const infoEl = document.getElementById('graph-case-info');
+            if (infoEl) {
+              infoEl.innerHTML = `Full Multi-Tenant Topology: <strong style="font-family:var(--font-mono); color:var(--accent-cyan);">${data.nodes.length} Indexed Entities</strong> &amp; <strong style="color:var(--brand-primary);">${data.edges.length} Topological Edges</strong> across all Cross-Border Rails &amp; Syndicate Rings`;
+            }
+          } catch (err) {
+            console.error("Corpus graph error:", err);
+          }
+        }
+
+        function changeGraphScope(scope) {
+          currentGraphScope = scope;
+          if (scope === 'full_corpus') {
+            fetchFullCorpusGraph();
+          } else {
+            if (selectedTxnId) {
+              fetchGraph(selectedTxnId);
+            }
+          }
+        }
+
+        // =========================================================================
+        // GLOBAL CROSS-BORDER 3D/CANVAS WORLD THREAT MAP ENGINE
+        // =========================================================================
+        let worldMapAnimFrame = null;
+        let activeCorridorsList = [];
+        let worldMapParticles = [];
+        let hoveredMapCorridor = null;
+
+        const WORLD_GEO_NODES = {
+          US: { name: "New York / SF", country: "United States", lat: 40.7128, lon: -74.0060, color: "#3B82F6" },
+          GB: { name: "London", country: "United Kingdom", lat: 51.5074, lon: -0.1278, color: "#10B981" },
+          EU: { name: "Frankfurt / Paris", country: "European Union", lat: 50.1109, lon: 8.6821, color: "#8B5CF6" },
+          AE: { name: "Dubai", country: "United Arab Emirates", lat: 25.2048, lon: 55.2708, color: "#F59E0B" },
+          SG: { name: "Singapore", country: "Singapore", lat: 1.3521, lon: 103.8198, color: "#06B6D4" },
+          NG: { name: "Lagos / Ikeja", country: "Nigeria", lat: 6.5244, lon: 3.3792, color: "#EF4444" },
+          CA: { name: "Toronto", country: "Canada", lat: 43.6532, lon: -79.3832, color: "#60A5FA" },
+          AU: { name: "Sydney", country: "Australia", lat: -33.8688, lon: 151.2093, color: "#F472B6" },
+          IN_BLR: { name: "Bengaluru HQ (Razorpay)", country: "India", lat: 12.9716, lon: 77.5946, color: "#3B82F6", isDest: true },
+          IN_BOM: { name: "Mumbai Hub", country: "India", lat: 19.0760, lon: 72.8777, color: "#10B981", isDest: true },
+          IN_DEL: { name: "Delhi NCR Hub", country: "India", lat: 28.7041, lon: 77.1025, color: "#F59E0B", isDest: true },
+          IN_HYD: { name: "Hyderabad Hub", country: "India", lat: 17.3850, lon: 78.4867, color: "#06B6D4", isDest: true }
+        };
+
+        function mapLatLonToCanvas(lat, lon, width, height) {
+          const x = ((lon + 180) / 360) * (width - 80) + 40;
+          const y = ((90 - lat) / 180) * (height - 60) + 30;
+          return { x, y };
+        }
+
+        async function fetchCrossBorderCorridors() {
+          try {
+            const res = await fetch(`${API_BASE}/crossborder/corridors`);
+            const data = await res.json();
+            activeCorridorsList = data.corridors || [];
+
+            // Update KPI counters
+            const sum = data.summary || {};
+            const elGmv = document.getElementById('xb-kpi-gmv');
+            if (elGmv) elGmv.innerText = formatMoney(sum.total_cross_border_gmv_inr || 48200000, 'INR');
+            const elTxns = document.getElementById('xb-kpi-txns');
+            if (elTxns) elTxns.innerText = `${sum.total_cross_border_txns || 412} Live Events`;
+            const el3ds = document.getElementById('xb-kpi-3ds-pct');
+            if (el3ds) el3ds.innerText = `${sum.three_ds_liability_shift_pct || 78.4}%`;
+            const elNon3ds = document.getElementById('xb-kpi-non3ds-pct');
+            if (elNon3ds) elNon3ds.innerText = `${sum.non_3ds_frictionless_pct || 21.6}%`;
+            const elRdr = document.getElementById('xb-kpi-rdr-val');
+            if (elRdr) elRdr.innerText = formatMoney(sum.total_visa_rdr_deflected_gmv_inr || 18450000, 'INR');
+
+            // Render Corridor Cards
+            const cardsContainer = document.getElementById('corridors-cards-container');
+            if (cardsContainer) {
+              cardsContainer.innerHTML = activeCorridorsList.map(c => `
+                <div class="card" style="padding:16px; border:1px solid var(--border-color); border-top:3px solid ${c.color}; background:var(--bg-surface); position:relative; box-shadow:var(--card-shadow-sm);">
+                  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                    <div>
+                      <div style="font-size:0.88rem; font-weight:700; color:var(--text-main);">${c.name}</div>
+                      <div style="font-size:0.74rem; color:var(--text-muted); margin-top:2px;">${c.origin.city} (${c.currency}) ➔ ${c.destination.city}</div>
+                    </div>
+                    <span class="badge" style="background:var(--bg-surface-elevated); border:1px solid var(--border-color); color:var(--text-secondary); font-weight:600; font-size:0.68rem;">${c.status.replace(/_/g, ' ')}</span>
+                  </div>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:0.76rem; margin-bottom:12px;">
+                    <div>Volume: <strong style="color:var(--text-main); font-family:var(--font-mono);">${formatMoney(c.volume_inr, 'INR')}</strong></div>
+                    <div>Events: <strong style="color:var(--brand-primary); font-family:var(--font-mono);">${c.txns_count} txns</strong></div>
+                    <div>3DS Protection: <strong style="color:#059669;">${c.liability_shift_pct}%</strong></div>
+                    <div>RDR Deflections: <strong style="color:var(--text-secondary);">${c.rdr_pre_dispute_deflections} cases</strong></div>
+                  </div>
+                  <button onclick="filterCorridorStream('${c.currency}', '${c.origin.code}')" class="btn-action" style="width:100%; font-size:0.72rem; padding:6px 10px; background:var(--bg-surface-elevated); border:1px solid var(--border-color); color:var(--text-main); font-weight:600;">Filter Live Stream to ${c.currency} (${c.origin.code}) →</button>
+                </div>
+              `).join('');
+            }
+
+            initWorldMapCanvas();
+          } catch (err) {
+            console.error("Cross-border corridors fetch error:", err);
+          }
+        }
+
+        function filterCorridorStream(currency, countryCode) {
+          const navBtn = document.querySelectorAll('.nav-item')[0];
+          switchNav('tab-analytics', navBtn);
+          const searchBox = document.getElementById('search-box');
+          if (searchBox) {
+            searchBox.value = currency;
+            filterFeedTable();
+          }
+        }
+
+        function initWorldMapCanvas() {
+          const canvas = document.getElementById('world-map-canvas');
+          if (!canvas) return;
+
+          const rect = canvas.getBoundingClientRect();
+          canvas.width = rect.width * (window.devicePixelRatio || 1);
+          canvas.height = rect.height * (window.devicePixelRatio || 1);
+
+          const ctx = canvas.getContext('2d');
+          ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+          // Seed animated photon particles along corridors
+          if (worldMapParticles.length === 0) {
+            for (let i = 0; i < 40; i++) {
+              worldMapParticles.push({
+                corridorIndex: i % Math.max(1, activeCorridorsList.length),
+                t: Math.random(),
+                speed: 0.004 + Math.random() * 0.006,
+                size: 2.5 + Math.random() * 2.0
+              });
+            }
+          }
+
+          // Mouse Hover & Click Listeners
+          canvas.onmousemove = function (e) {
+            const r = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - r.left;
+            const mouseY = e.clientY - r.top;
+            let found = null;
+
+            for (const c of activeCorridorsList) {
+              const orig = mapLatLonToCanvas(c.origin.lat, c.origin.lon, r.width, r.height);
+              const dest = mapLatLonToCanvas(c.destination.lat, c.destination.lon, r.width, r.height);
+              const midX = (orig.x + dest.x) / 2;
+              const midY = (orig.y + dest.y) / 2 - 40;
+
+              const distOrig = Math.hypot(mouseX - orig.x, mouseY - orig.y);
+              const distMid = Math.hypot(mouseX - midX, mouseY - midY);
+
+              if (distOrig < 18 || distMid < 25) {
+                found = c;
+                break;
+              }
+            }
+
+            hoveredMapCorridor = found;
+            const popup = document.getElementById('map-corridor-popup');
+            if (popup) {
+              if (found) {
+                document.getElementById('popup-corridor-name').innerText = found.name;
+                document.getElementById('popup-corridor-status').innerText = found.status.replace(/_/g, ' ');
+                document.getElementById('popup-corridor-status').style.background = found.color + '33';
+                document.getElementById('popup-corridor-status').style.color = found.color;
+                document.getElementById('popup-corridor-gmv').innerText = formatMoney(found.volume_inr, 'INR');
+                document.getElementById('popup-corridor-txns').innerText = `${found.txns_count} live transactions`;
+                document.getElementById('popup-corridor-split').innerText = `${found.liability_shift_pct}% 3DS / ${found.non_3ds_merchant_risk_pct}% Non-3DS`;
+                document.getElementById('popup-corridor-rdr').innerText = `${found.rdr_pre_dispute_deflections} chargeback pre-disputes deflected`;
+                document.getElementById('popup-filter-btn').onclick = () => filterCorridorStream(found.currency, found.origin.code);
+                popup.style.display = 'block';
+              } else if (!popup.matches(':hover')) {
+                popup.style.display = 'none';
+              }
+            }
+          };
+
+          if (worldMapAnimFrame) cancelAnimationFrame(worldMapAnimFrame);
+
+          function renderWorldMapLoop() {
+            const mapTab = document.getElementById('tab-crossborder-map');
+            if (!mapTab || !mapTab.classList.contains('active')) {
+              return;
+            }
+
+            const w = rect.width;
+            const h = rect.height;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // 1. Draw Grid Background
+            ctx.strokeStyle = 'rgba(30, 41, 59, 0.45)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < w; x += 40) {
+              ctx.beginPath();
+              ctx.moveTo(x, 0);
+              ctx.lineTo(x, h);
+              ctx.stroke();
+            }
+            for (let y = 0; y < h; y += 40) {
+              ctx.beginPath();
+              ctx.moveTo(0, y);
+              ctx.lineTo(w, y);
+              ctx.stroke();
+            }
+
+            // 2. Draw Geodesic Arcs
+            activeCorridorsList.forEach((c, idx) => {
+              const orig = mapLatLonToCanvas(c.origin.lat, c.origin.lon, w, h);
+              const dest = mapLatLonToCanvas(c.destination.lat, c.destination.lon, w, h);
+
+              const midX = (orig.x + dest.x) / 2;
+              const midY = (orig.y + dest.y) / 2 - 50;
+
+              const isHovered = hoveredMapCorridor && hoveredMapCorridor.id === c.id;
+
+              // Arc Line
+              ctx.beginPath();
+              ctx.moveTo(orig.x, orig.y);
+              ctx.quadraticCurveTo(midX, midY, dest.x, dest.y);
+              ctx.strokeStyle = isHovered ? c.color : `${c.color}66`;
+              ctx.lineWidth = isHovered ? 3.0 : 1.8;
+              ctx.stroke();
+            });
+
+            // 3. Draw Traveling Light Particles
+            worldMapParticles.forEach(p => {
+              p.t += p.speed;
+              if (p.t > 1.0) p.t = 0.0;
+
+              if (activeCorridorsList.length > 0) {
+                const c = activeCorridorsList[p.corridorIndex % activeCorridorsList.length];
+                const orig = mapLatLonToCanvas(c.origin.lat, c.origin.lon, w, h);
+                const dest = mapLatLonToCanvas(c.destination.lat, c.destination.lon, w, h);
+                const midX = (orig.x + dest.x) / 2;
+                const midY = (orig.y + dest.y) / 2 - 50;
+
+                // Quadratic Bezier interpolation
+                const px = (1 - p.t) * (1 - p.t) * orig.x + 2 * (1 - p.t) * p.t * midX + p.t * p.t * dest.x;
+                const py = (1 - p.t) * (1 - p.t) * orig.y + 2 * (1 - p.t) * p.t * midY + p.t * p.t * dest.y;
+
+                ctx.beginPath();
+                ctx.arc(px, py, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.shadowColor = c.color;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+              }
+            });
+
+            // 4. Draw City Hub Beacons & Pulsing Rings
+            const now = Date.now() / 1000;
+            Object.values(WORLD_GEO_NODES).forEach(node => {
+              const pt = mapLatLonToCanvas(node.lat, node.lon, w, h);
+
+              // Pulsing halo
+              const pulse = (Math.sin(now * 3 + node.lat) + 1) / 2;
+              ctx.beginPath();
+              ctx.arc(pt.x, pt.y, 6 + pulse * 6, 0, Math.PI * 2);
+              ctx.strokeStyle = `${node.color}${Math.floor(0.8 * (1 - pulse) * 255).toString(16).padStart(2, '0')}`;
+              ctx.lineWidth = 1.5;
+              ctx.stroke();
+
+              // Solid Center
+              ctx.beginPath();
+              ctx.arc(pt.x, pt.y, node.isDest ? 6.5 : 4.5, 0, Math.PI * 2);
+              ctx.fillStyle = node.color;
+              ctx.fill();
+
+              // Label
+              ctx.font = '10px Outfit, sans-serif';
+              ctx.fillStyle = '#CBD5E1';
+              ctx.fillText(node.name, pt.x + 8, pt.y + 3);
+            });
+
+            worldMapAnimFrame = requestAnimationFrame(renderWorldMapLoop);
+          }
+
+          renderWorldMapLoop();
         }
 
         // Initialize application on load

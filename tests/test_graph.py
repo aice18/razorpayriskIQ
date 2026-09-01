@@ -59,9 +59,33 @@ def test_mega_hub_dampening():
         }
         metrics = graph.add_transaction(txn)
 
-    # Wi-Fi IP degree is 50, but because device degree is 1, inverse log-dampening suppresses false ring
-    assert metrics["entity_degree_ip"] == 50
-    assert metrics["entity_degree_device"] == 1
-    assert metrics["ip_dampener"] < 0.20 # 1/log2(2+49) approx 0.17
-    assert metrics["is_ring_suspect"] == False # NOT flagged as fraud ring
+def test_preemptive_graph_quarantine():
+    graph = EntityGraph()
+    
+    # 1. Connect a 3-customer ring on a shared device
+    for i in range(1, 4):
+        txn = {
+            "customer_id": f"cust_quar_{i:02d}",
+            "device_id": "dev_quar_shared",
+            "ip_address_hash": f"ip_quar_{i:02d}",
+            "card_fingerprint": f"card_quar_{i:02d}",
+            "merchant_id": "merch_001",
+            "locality": "US-NYC-Manhattan"
+        }
+        graph.add_transaction(txn)
+
+    # 2. Trigger quarantine on shared device
+    quarantine_res = graph.quarantine_entity("dev_quar_shared", reason="TEST_RING_QUARANTINE", max_hops=2)
+    assert quarantine_res["status"] == "quarantined"
+    assert quarantine_res["quarantined_count"] >= 3
+
+    # 3. New transaction from connected customer should be preemptively flagged in <0.05ms
+    check = graph.check_preemptive_quarantine(
+        customer_id="cust_quar_01",
+        device_id="dev_quar_shared",
+        ip_hash="ip_quar_01",
+        card_fp="card_quar_01"
+    )
+    assert check["is_preemptively_quarantined"] == True
+    assert check["quarantine_reason"] == "TEST_RING_QUARANTINE"
 

@@ -84,7 +84,7 @@ if os.path.exists("dashboard"):
     app.mount("/static", StaticFiles(directory="dashboard"), name="static")
 
 @app.on_event("startup")
-def startup_banner():
+async def startup_banner():
     try:
         import sys
         if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -97,6 +97,11 @@ def startup_banner():
     print("   -> Interactive Swagger: http://localhost:8000/docs")
     print("   -> Service Health:      http://localhost:8000/health")
     print("="*60 + "\n")
+    try:
+        import api.routes as r
+        asyncio.create_task(r._background_traffic_loop())
+    except Exception:
+        pass
 
 @app.on_event("shutdown")
 def shutdown_cleanup():
@@ -136,6 +141,18 @@ def prometheus_metrics():
         media_type="text/plain"
     )
 
+@app.get("/riskiq_logo.png")
+@app.get("/riskiq_logo.jpg")
+def get_riskiq_logo():
+    """Serves the official transparent Razorpay RiskIQ brand logo asset."""
+    png_path = "dashboard/riskiq_logo.png"
+    if os.path.exists(png_path):
+        return FileResponse(png_path, media_type="image/png")
+    jpg_path = "dashboard/riskiq_logo.jpg"
+    if os.path.exists(jpg_path):
+        return FileResponse(jpg_path, media_type="image/jpeg")
+    return Response(status_code=404)
+
 @app.get("/")
 @app.get("/landing")
 @app.get("/product")
@@ -146,6 +163,8 @@ def root_landing():
     return FileResponse("dashboard/index.html")
 
 @app.get("/dashboard")
+@app.get("/app")
+@app.get("/console")
 def dashboard_app():
     """Serves the live interactive Razorpay RiskIQ Command Center dashboard."""
     if os.path.exists("dashboard/index.html"):

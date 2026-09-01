@@ -2,104 +2,123 @@
   "dataset_summary": {
     "total_events_processed": 2500,
     "heldout_events_evaluated": 750,
-    "fraud_count_in_holdout": 91,
-    "normal_count_in_holdout": 659
+    "fraud_count_in_holdout": 176,
+    "normal_count_in_holdout": 574
   },
   "performance_metrics": {
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1_score": 1.0,
-    "pr_auc": 1.0,
-    "roc_auc": 1.0,
-    "false_positive_rate": 0.0,
-    "false_positive_count": 0,
-    "false_negative_count": 0,
-    "true_positive_count": 91,
-    "true_negative_count": 659,
-    "estimated_fp_cost_inr": 0.0,
+    "precision": 0.982,
+    "recall": 0.9318,
+    "f1_score": 0.9562,
+    "pr_auc": 0.9658,
+    "roc_auc": 0.9659,
+    "false_positive_rate": 0.0052,
+    "false_positive_count": 3,
+    "false_negative_count": 12,
+    "true_positive_count": 164,
+    "true_negative_count": 571,
+    "estimated_fp_cost_inr": 1500.0,
     "fp_cost_unit_assumption_inr": 500.0,
     "ring_detection_recall": 1.0,
-    "rings_injected": 6,
-    "rings_detected": 6
+    "rings_injected": 7,
+    "rings_detected": 7
   },
   "drift_and_stability": {
-    "psi_score": 0.0092,
+    "psi_score": 0.0,
     "psi_status": "STABLE",
-    "ks_statistic": 0.0375,
-    "ks_pvalue": 0.4406
+    "ks_statistic": 0.2061,
+    "ks_pvalue": 0.0
   },
   "latency_and_throughput": {
-    "hotpath_p50_latency_ms": 5.46,
-    "hotpath_p95_latency_ms": 6.83,
-    "hotpath_p99_latency_ms": 10.26,
-    "agent_investigation_p95_ms": 0.31,
-    "throughput_events_per_sec": 126.1
+    "hotpath_p50_latency_ms": 20.61,
+    "hotpath_p95_latency_ms": 29.09,
+    "hotpath_p99_latency_ms": 34.67,
+    "agent_investigation_p95_ms": 0.33,
+    "throughput_events_per_sec": 41.3
   },
   "slices": {
     "payment_methods": {
-      "CARD_CREDIT": {
-        "total": 156,
-        "fraud": 57,
-        "detected": 57,
-        "recall": 1.0
+      "UPI_INTENT": {
+        "total": 181,
+        "fraud": 11,
+        "detected": 9,
+        "recall": 0.818
       },
       "UPI_VPA": {
-        "total": 298,
-        "fraud": 13,
+        "total": 267,
+        "fraud": 15,
         "detected": 13,
-        "recall": 1.0
+        "recall": 0.867
       },
-      "UPI_INTENT": {
-        "total": 192,
-        "fraud": 10,
-        "detected": 10,
-        "recall": 1.0
+      "CARD_CREDIT": {
+        "total": 213,
+        "fraud": 139,
+        "detected": 131,
+        "recall": 0.942
       },
       "CARD_DEBIT": {
-        "total": 69,
+        "total": 49,
         "fraud": 0,
         "detected": 0,
         "recall": 1.0
       },
       "NETBANKING": {
-        "total": 35,
+        "total": 40,
         "fraud": 11,
         "detected": 11,
         "recall": 1.0
       }
     },
     "merchant_categories": {
-      "LUXURY_JEWELRY": {
-        "total": 94,
-        "fraud": 9,
-        "detected": 9,
-        "recall": 1.0
+      "FOOD_GROCERY": {
+        "total": 137,
+        "fraud": 29,
+        "detected": 25,
+        "recall": 0.862
       },
-      "ECOMMERCE_RETAIL": {
-        "total": 148,
+      "LUXURY_JEWELRY": {
+        "total": 64,
         "fraud": 17,
         "detected": 17,
         "recall": 1.0
       },
-      "UTILITY_BILLPAY": {
-        "total": 163,
-        "fraud": 22,
-        "detected": 22,
-        "recall": 1.0
-      },
-      "FOOD_GROCERY": {
-        "total": 175,
-        "fraud": 22,
-        "detected": 22,
-        "recall": 1.0
+      "CROSSBORDER_SAAS": {
+        "total": 68,
+        "fraud": 20,
+        "detected": 18,
+        "recall": 0.9
       },
       "GAMING_CRYPTO": {
-        "total": 170,
-        "fraud": 21,
-        "detected": 21,
+        "total": 144,
+        "fraud": 35,
+        "detected": 35,
         "recall": 1.0
+      },
+      "ECOMMERCE_RETAIL": {
+        "total": 133,
+        "fraud": 31,
+        "detected": 29,
+        "recall": 0.935
+      },
+      "GLOBAL_EXPORTER": {
+        "total": 53,
+        "fraud": 14,
+        "detected": 14,
+        "recall": 1.0
+      },
+      "UTILITY_BILLPAY": {
+        "total": 151,
+        "fraud": 30,
+        "detected": 26,
+        "recall": 0.867
       }
     }
   },
-  "graceful_failure_case": null
+  "graceful_failure_case": {
+    "transaction_id": "pay_00001945",
+    "ground_truth": "LEGITIMATE",
+    "predicted_score": 0.99,
+    "action": "BLOCK",
+    "reason_for_escalation": "Shared device family profile with travel geo-deviation routed to STEP-UP AUTH rather than hard decline.",
+    "narrative": "Transaction pay_00001945 flagged with ML risk score of 0.99. Primary anomaly: Amount outlier: +3.908 sigma. Key contributing model factors: Locality Subnet Spike (4 txns in 5m from shared cell tower/subnet), Customer Spend Deviation (+3.9 sigma above historical baseline). Total behavioral deviations identified: 2."
+  }
 }

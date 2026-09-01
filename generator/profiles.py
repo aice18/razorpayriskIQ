@@ -10,6 +10,21 @@ PAYMENT_METHODS = ["UPI_VPA", "UPI_INTENT", "CARD_CREDIT", "CARD_DEBIT", "NETBAN
 UPI_HANDLES = ["@okhdfcbank", "@oksbi", "@okicici", "@okaxis", "@paytm", "@ybl", "@ibl"]
 DISPOSABLE_UPI_HANDLES = ["@tempupi", "@freecharge_bot", "@disposable_pay", "@burner_vpa"]
 
+CURRENCIES = ["INR", "USD", "EUR", "GBP", "SGD", "AED", "CAD", "AUD"]
+AUTH_MODES = ["3DS_AUTHENTICATED", "NON_3DS_FRICTIONLESS", "3DS_CHALLENGE_STEPUP"]
+
+LOCALITIES = [
+    "IN-BLR-Koramangala",
+    "IN-MUM-Bandra",
+    "IN-DEL-Connaught",
+    "US-NYC-Manhattan",
+    "US-SFO-BayArea",
+    "SG-Marina-Downtown",
+    "GB-LON-Westminster",
+    "AE-DXB-Downtown",
+    "NG-LOS-Ikeja"
+]
+
 MERCHANT_CATEGORIES = {
     "merch_gaming_01": "GAMING_CRYPTO",
     "merch_crypto_02": "GAMING_CRYPTO",
@@ -19,7 +34,9 @@ MERCHANT_CATEGORIES = {
     "merch_grocery_06": "FOOD_GROCERY",
     "merch_food_07": "FOOD_GROCERY",
     "merch_utility_08": "UTILITY_BILLPAY",
-    "merch_utility_09": "UTILITY_BILLPAY"
+    "merch_utility_09": "UTILITY_BILLPAY",
+    "merch_crossborder_saas": "CROSSBORDER_SAAS",
+    "merch_global_exporter": "GLOBAL_EXPORTER"
 }
 
 
@@ -34,8 +51,12 @@ class EntityPool:
         self.cards = [f"card_fp_{hashlib.md5(f'411111{i:06d}'.encode()).hexdigest()[:8]}" for i in range(1, num_customers * 3)]
 
         self.customer_home_country: Dict[str, str] = {
-            c: "IN" if random.random() < 0.92 else random.choice(["US", "SG", "AE", "GB"])
+            c: "IN" if random.random() < 0.75 else random.choice(["US", "SG", "AE", "GB", "CA", "AU"])
             for c in self.customers
+        }
+
+        self.customer_locality: Dict[str, str] = {
+            c: random.choice(LOCALITIES) for c in self.customers
         }
         
         self.customer_primary_device: Dict[str, str] = {
@@ -55,7 +76,9 @@ class EntityPool:
             "merch_grocery_06": 650.0,
             "merch_food_07": 380.0,
             "merch_utility_08": 1800.0,
-            "merch_utility_09": 950.0
+            "merch_utility_09": 950.0,
+            "merch_crossborder_saas": 4500.0,
+            "merch_global_exporter": 8500.0
         }
 
     def get_random_customer(self) -> str:

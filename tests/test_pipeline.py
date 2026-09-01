@@ -250,3 +250,69 @@ def test_razorpay_webhook_ingestion():
     )
     assert bad_resp.status_code == 400
 
+
+def test_crossborder_and_dispute_deflection():
+    # 1. Ingest a cross-border transaction with Non-3DS mode
+    payload = {
+        "amount": 650.0,
+        "currency": "USD",
+        "customer_id": "cust_xb_test_01",
+        "merchant_id": "merch_crossborder_saas",
+        "merchant_category": "CROSSBORDER_SAAS",
+        "payment_method": "CARD_CREDIT",
+        "auth_mode": "NON_3DS_FRICTIONLESS",
+        "is_cross_border": True,
+        "locality": "US-NYC-Manhattan",
+        "delivery_days_est": 3.0,
+        "device_id": "dev_xb_test_01",
+        "ip_address_hash": "ip_xb_test_01",
+        "card_fingerprint": "card_xb_test_01",
+        "geo_country": "US",
+        "customer_home_country": "US"
+    }
+
+    resp = client.post("/api/ingest", json=payload)
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["auth_mode"] == "NON_3DS_FRICTIONLESS"
+    assert data["is_cross_border"] == True
+
+    # 2. Test Pre-dispute deflection endpoint
+    deflect_resp = client.post(f"/api/dispute/deflect/{data['transaction_id']}")
+    assert deflect_resp.status_code == 200
+    deflect_data = deflect_resp.json()
+    assert deflect_data["status"] == "DEFLECTED_PRE_DISPUTE"
+    assert deflect_data["vamp_ratio_protected"] == True
+
+
+def test_preemptive_quarantine_endpoint():
+    # 1. Call quarantine endpoint on a seed device
+    quarantine_payload = {
+        "node_id": "dev_cluster_ring_seed",
+        "reason": "CONFIRMED_CARD_TESTING_BOTNET",
+        "max_hops": 2
+    }
+    q_resp = client.post("/api/graph/quarantine", json=quarantine_payload)
+    assert q_resp.status_code == 200
+    q_data = q_resp.json()
+    assert q_data["status"] == "quarantined"
+
+    # 2. Ingest transaction with quarantined device -> should be immediately blocked
+    ingest_payload = {
+        "amount": 250.0,
+        "currency": "INR",
+        "customer_id": "cust_victim_adjacent",
+        "merchant_id": "merch_ecom_04",
+        "device_id": "dev_cluster_ring_seed",
+        "ip_address_hash": "ip_norm_adj",
+        "card_fingerprint": "card_norm_adj",
+        "geo_country": "IN",
+        "customer_home_country": "IN"
+    }
+    ing_resp = client.post("/api/ingest", json=ingest_payload)
+    assert ing_resp.status_code == 200
+    ing_data = ing_resp.json()
+    assert ing_data["action"] == "BLOCK"
+    assert ing_data["rule_fired"] == "RULE_PREEMPTIVE_GRAPH_QUARANTINE_BLOCK"
+    assert ing_data["is_preemptively_quarantined"] == True
+

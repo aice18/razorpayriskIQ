@@ -9,11 +9,18 @@ Population Stability Index (PSI), Kolmogorov-Smirnov (KS) Drift, and INR Financi
 import time
 import json
 import os
+import sys
+from pathlib import Path
 import math
 from typing import Dict, List, Any
 import numpy as np
 from scipy import stats
 from sklearn.metrics import precision_recall_curve, roc_auc_score, auc
+
+# Ensure project root is in sys.path
+root_dir = Path(__file__).resolve().parent.parent
+if str(root_dir) not in sys.path:
+    sys.path.insert(0, str(root_dir))
 
 from generator.transaction_generator import TransactionGenerator
 from graph.entity_graph import EntityGraph

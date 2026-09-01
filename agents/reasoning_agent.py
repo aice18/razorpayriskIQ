@@ -159,7 +159,15 @@ Investigation Evidence:
         top_attrs = [f"{a['feature']} ({a['value']})" for a in attributions[:2]] if attributions else []
         attr_str = f" Key contributing model factors: {', '.join(top_attrs)}." if top_attrs else ""
 
-        if ring.get("ring_detected"):
+        is_quarantined = ring.get("is_preemptively_quarantined") or evidence.get("is_preemptively_quarantined")
+        if is_quarantined:
+            headline = f"🚨 Preemptive Intercept: Quarantined Topology Member (Score: {score})"
+            narrative = (
+                f"Transaction {txn_id} was preemptively blocked before authorization. "
+                f"The transaction entity is topological neighbor to a previously quarantined syndicate ring.{attr_str}"
+            )
+            rationale = "Preemptive bounded graph quarantine prevented secondary fraudulent execution on Indian payment rails."
+        elif ring.get("ring_detected"):
             comp_size = ring.get("component_size", 0)
             dev_deg = ring.get("device_degree", 0)
             headline = f"High Risk: Suspected Abuse Ring Member ({comp_size} linked accounts)"
@@ -171,6 +179,19 @@ Investigation Evidence:
             if anomaly_strings:
                 narrative += f" Anomalies detected: {'; '.join(anomaly_strings)}."
             rationale = "High-density device sharing across multiple accounts indicates syndicated fraud; recommend blocking or step-up authentication."
+        elif any("Cross-Border Non-3DS" in str(a) for a in attributions):
+            headline = f"Cross-Border Risk: Non-3DS Zero-Liability Exposure (Score: {score})"
+            narrative = (
+                f"Transaction {txn_id} is a frictionless Non-3DS global transaction. "
+                f"Under scheme rules, the merchant bears 100% fraud chargeback liability.{attr_str}"
+            )
+            rationale = "Dynamic 3DS step-up recommended to enforce liability shift to card issuer while safeguarding conversion."
+        elif any("Service Chargeback" in str(a) for a in attributions):
+            headline = f"Service Chargeback Alert: Friendly Fraud / Delivery Risk (Score: {score})"
+            narrative = (
+                f"Transaction {txn_id} passed 3DS authentication but exhibits extreme Service Chargeback risk (extended transit window or friendly fraud history).{attr_str}"
+            )
+            rationale = "Recommend pre-dispute deflection via Visa RDR / Ethoca to prevent VAMP ratio degradation."
         elif len(anomaly_strings) > 0:
             primary_anomaly = anomaly_strings[0]
             headline = f"Risk Alert (Score {score}): {primary_anomaly}"
