@@ -420,6 +420,12 @@ def get_case(transaction_id: str) -> Dict[str, Any]:
     return case_record
 
 
+@router.get("/graph/corpus")
+def get_corpus_graph(max_nodes: int = 1500) -> Dict[str, Any]:
+    """Returns macroscopic multi-tenant topology containing all syndicate rings, locality hubs, and global corridors."""
+    return graph.extract_full_corpus_graph(max_nodes=max_nodes)
+
+
 @router.get("/graph/{transaction_id}")
 def get_graph(transaction_id: str, depth: int = 2) -> Dict[str, Any]:
     """Returns local 2-hop entity subgraph and event chain for the Risk Graph Explorer visualization."""
@@ -460,12 +466,6 @@ def get_graph(transaction_id: str, depth: int = 2) -> Dict[str, Any]:
         "business_story": story,
         "subgraph": subgraph_data
     }
-
-
-@router.get("/graph/corpus")
-def get_corpus_graph(max_nodes: int = 1500) -> Dict[str, Any]:
-    """Returns macroscopic multi-tenant topology containing all syndicate rings, locality hubs, and global corridors."""
-    return graph.extract_full_corpus_graph(max_nodes=max_nodes)
 
 
 @router.get("/crossborder/corridors")
