@@ -187,13 +187,38 @@
       display: flex;
       flex-direction: column;
       gap: 2rem;
+    }    .brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      padding: 0 0.25rem 0.85rem 0.25rem;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 1.25rem;
+      width: 100%;
     }
 
-    .brand-header {
+    .brand-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 0 0.5rem;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .brand-logo-img {
+      height: 32px;
+      max-width: 150px;
+      object-fit: contain;
+    }
+
+    .brand-env-badge {
+      font-size: 0.65rem;
+      background: rgba(37, 99, 235, 0.12);
+      color: var(--brand-primary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     .brand-icon {
@@ -228,11 +253,11 @@
     }
 
     .brand-subtitle {
-      font-size: 0.70rem;
+      font-size: 0.68rem;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 600;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
     }
 
     .nav-menu {
@@ -259,10 +284,11 @@
       color: var(--text-secondary);
       font-weight: 600;
       font-size: 0.88rem;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
+      text-align: left;
       border: 1px solid transparent;
       background: transparent;
-      text-align: left;
       width: 100%;
       font-family: var(--font-body);
     }
@@ -273,24 +299,16 @@
     }
 
     .nav-item.active {
-      background: var(--bg-surface-elevated);
-      color: var(--brand-primary);
-      border-color: var(--border-color);
-      box-shadow: var(--card-shadow-sm);
+      background: var(--brand-gradient);
+      color: #FFF;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+      border-color: rgba(255, 255, 255, 0.1);
     }
 
-    [data-theme="light"] .nav-item.active {
-      background: #EFF6FF;
-      color: #2563EB;
-      border-color: #DBEAFE;
-    }
-
-    .nav-icon {
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px;
+    .nav-item svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
     }
 
     .sidebar-bottom {
@@ -300,65 +318,63 @@
     }
 
     .support-card {
-      background: linear-gradient(145deg, var(--bg-surface-elevated), var(--bg-surface));
+      background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      border-radius: 14px;
+      border-radius: 12px;
       padding: 1rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
     }
 
     .support-card-title {
-      font-size: 0.82rem;
       font-weight: 700;
+      font-size: 0.85rem;
       color: var(--text-main);
       margin-bottom: 4px;
     }
 
     .support-card-desc {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
       line-height: 1.4;
+      margin-bottom: 0.75rem;
     }
 
     .btn-support {
-      display: inline-block;
+      background: rgba(37, 99, 235, 0.1);
+      color: var(--brand-primary);
+      border: 1px solid rgba(37, 99, 235, 0.2);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
       width: 100%;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .btn-support:hover {
       background: var(--brand-primary);
       color: #FFF;
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 0.76rem;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
 
     .user-profile {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       padding: 0.5rem;
-      border-radius: 12px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
     }
 
     .user-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--brand-gradient);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg-surface-hover);
+      color: var(--text-main);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #FFF;
       font-weight: 700;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
+      border: 1px solid var(--border-color);
     }
 
     .user-details {
@@ -367,13 +383,13 @@
     }
 
     .user-name {
-      font-size: 0.82rem;
       font-weight: 700;
+      font-size: 0.85rem;
       color: var(--text-main);
     }
 
     .user-role {
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
     }
 
@@ -397,14 +413,14 @@
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid var(--border-color);
-      padding: 0.85rem 2rem 0.8rem 2rem;
+      padding: 0.75rem 1.75rem 0.65rem 1.75rem;
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.55rem;
       position: sticky;
       top: 0;
       z-index: 40;
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
       transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
@@ -413,33 +429,22 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      min-height: 38px;
+      min-height: 34px;
     }
 
     .header-left {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       min-width: 0;
       flex: 1;
     }
 
     .header-title-group {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
       min-width: 0;
-    }
-
-    .page-title {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: var(--text-main);
-      letter-spacing: -0.025em;
-      white-space: nowrap;
-      margin: 0;
-      line-height: 1.2;
     }
 
     .header-env-badge {
@@ -447,26 +452,43 @@
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 3px 7px;
+      padding: 3px 8px;
       border-radius: 4px;
       background: rgba(37, 99, 235, 0.12);
       color: var(--brand-primary);
       border: 1px solid rgba(37, 99, 235, 0.25);
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      line-height: 1;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 1.28rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.025em;
+      white-space: nowrap;
+      margin: 0;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
     }
 
     .date-badge {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
       color: var(--text-secondary);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-family: var(--font-mono);
-      padding: 0 12px;
-      height: 30px;
-      border-radius: 6px;
+      padding: 0 10px;
+      height: 26px;
+      border-radius: 5px;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       white-space: nowrap;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
     }
@@ -476,7 +498,7 @@
       height: 6px;
       border-radius: 50%;
       background: var(--status-allow);
-      box-shadow: 0 0 8px var(--status-allow);
+      box-shadow: 0 0 6px var(--status-allow);
       animation: pulse 2s infinite;
       flex-shrink: 0;
     }
@@ -492,10 +514,10 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 0 13px;
-      height: 32px;
+      padding: 0 12px;
+      height: 30px;
       border-radius: 6px;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 600;
       color: var(--text-secondary);
       background: var(--bg-surface-elevated);
@@ -525,7 +547,7 @@
       border: 1px solid var(--border-color);
       border-radius: 6px;
       padding: 2px;
-      height: 32px;
+      height: 30px;
       gap: 2px;
       cursor: pointer;
       user-select: none;
@@ -535,9 +557,9 @@
       border: none;
       background: transparent;
       padding: 0 8px;
-      height: 26px;
+      height: 24px;
       border-radius: 4px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -557,7 +579,7 @@
       color: var(--text-main);
     }
 
-    /* Telemetry Sub-Row (Row 2) */
+    /* Telemetry Sub-Row (Row 2) - Clean Single Horizontal Ribbon */
     .header-sub-row {
       display: flex;
       align-items: center;
@@ -566,8 +588,9 @@
       gap: 12px;
       overflow-x: auto;
       scrollbar-width: none;
-      padding-top: 6px;
+      padding-top: 5px;
       border-top: 1px dashed var(--border-subtle);
+      white-space: nowrap;
     }
 
     .header-sub-row::-webkit-scrollbar {
@@ -578,23 +601,25 @@
     .telemetry-chip-group {
       display: flex;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 6px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
     }
 
     .tel-chip {
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-color);
-      padding: 0 10px;
-      height: 28px;
+      padding: 0 9px;
+      height: 26px;
       border-radius: 5px;
-      font-size: 0.72rem;
+      font-size: 0.70rem;
       font-family: var(--font-mono);
       color: var(--text-secondary);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       white-space: nowrap;
+      flex-shrink: 0;
       box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
       transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
     }
@@ -608,8 +633,8 @@
     .tel-label {
       color: var(--text-muted);
       font-weight: 600;
-      font-size: 0.68rem;
-      letter-spacing: 0.03em;
+      font-size: 0.66rem;
+      letter-spacing: 0.02em;
     }
 
     .tel-dot {
@@ -1964,12 +1989,12 @@
   <aside class="sidebar">
     <div class="sidebar-top">
       <!-- Brand Logo -->
-      <div class="brand-header" style="padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1.25rem;">
-        <div style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-          <img src="/riskiq_logo.png" alt="Razorpay RiskIQ Logo" style="height: 38px; max-width: 175px; object-fit: contain;" />
-          <span style="font-size:0.65rem; background:rgba(37,99,235,0.12); color:var(--brand-primary); padding:2px 6px; border-radius:6px; font-weight:700;">PROD</span>
+      <div class="brand-header">
+        <div class="brand-row">
+          <img src="/riskiq_logo.png" alt="Razorpay RiskIQ Logo" class="brand-logo-img" />
+          <span class="brand-env-badge">PROD</span>
         </div>
-        <div class="brand-subtitle" style="font-size:0.70rem; color:var(--text-muted); font-weight:600; letter-spacing:0.5px; margin-top:6px;">Autonomous Risk Engine</div>
+        <div class="brand-subtitle">Autonomous Risk Engine</div>
       </div>
 
       <!-- Navigation Items -->
