@@ -53,16 +53,19 @@ class DecisionAgent:
                     "shield_action": "PREEMPTIVE_LOSS_AVOIDED"
                 }
 
-        # Category-Specific Thresholds
+        # Calibrated Category-Specific Thresholds (Low False-Positive & Zero Checkout Friction)
         if category in ("GAMING_CRYPTO", "HIGH", "CROSSBORDER_SAAS", "GLOBAL_EXPORTER"):
-            step_up_threshold = 0.20
-            block_threshold = 0.55
+            step_up_threshold = 0.60
+            block_threshold = 0.82
         elif category in ("UTILITY_BILLPAY", "VERY_LOW"):
-            step_up_threshold = 0.40
-            block_threshold = 0.75
+            step_up_threshold = 0.75
+            block_threshold = 0.92
+        elif category in ("FOOD_GROCERY", "LOW"):
+            step_up_threshold = 0.70
+            block_threshold = 0.88
         else:
-            step_up_threshold = 0.25
-            block_threshold = 0.60
+            step_up_threshold = 0.65
+            block_threshold = 0.85
 
         # Multi-Tenant Policy Matrix
         if score < step_up_threshold:

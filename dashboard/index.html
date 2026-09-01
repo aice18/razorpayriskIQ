@@ -3324,7 +3324,7 @@
         // Fetch Feed Items
         async function fetchFeed() {
           try {
-            const res = await fetch(`${API_BASE}/feed?limit=50`);
+            const res = await fetch(`${API_BASE}/feed?limit=5000`);
             const data = await res.json();
             allFeedItems = data.items || [];
             filterFeedTable();

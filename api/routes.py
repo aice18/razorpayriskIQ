@@ -405,7 +405,7 @@ def trigger_agent_investigation(transaction_id: str) -> Dict[str, Any]:
 
 
 @router.get("/feed")
-def get_feed(status: Optional[str] = Query(None, description="Status filter: flagged, allowed, or all"), limit: int = 50) -> Dict[str, Any]:
+def get_feed(status: Optional[str] = Query(None, description="Status filter: flagged, allowed, or all"), limit: int = 5000) -> Dict[str, Any]:
     """Returns recent transaction stream for the Live Feed dashboard."""
     feed_items = audit_store.get_feed(status_filter=status, limit=limit)
     return {"items": feed_items, "total": len(feed_items)}

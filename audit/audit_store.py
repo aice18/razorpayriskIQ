@@ -121,7 +121,7 @@ class AuditStore:
         """Retrieves complete audit case record by transaction ID."""
         return self.records.get(txn_id)
 
-    def get_feed(self, status_filter: Optional[str] = None, limit: int = 50) -> List[Dict[str, Any]]:
+    def get_feed(self, status_filter: Optional[str] = None, limit: int = 5000) -> List[Dict[str, Any]]:
         """Returns recent transactions for the Live Feed API."""
         results = []
         for txn_id in reversed(self.order):
@@ -159,7 +159,7 @@ class AuditStore:
                 last_ov = ov_list[-1]
                 if last_ov["previous_action"] in ("BLOCK", "REVIEW") and last_ov["new_action"] == "ALLOW":
                     fp_reversals += 1
-                elif last_ov["previous_action"] == "ALLOW" and last_ov["new_action"] in ("BLOCK", "STEP_UP"):
+                elif last_ov["previous_action"] == "ALLOW" and last_ov["new_action"] in ("BLOCK", "STEP_UP", "STEP-UP AUTH"):
                     fn_catches += 1
 
         total_cases = len(self.records)
@@ -205,7 +205,7 @@ class AuditStore:
             if act == "ALLOW":
                 allow_count += 1
                 funds_protected_amt += amt
-            elif act == "STEP_UP":
+            elif act in ("STEP_UP", "STEP-UP AUTH", "STEP_UP_AUTH"):
                 stepup_count += 1
             elif act == "REVIEW":
                 review_count += 1
