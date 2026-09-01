@@ -1078,8 +1078,8 @@
         </div>
         <div class="canvas-container" style="position: relative;">
           <canvas id="topology-canvas"></canvas>
-          <button id="btn-hero-quarantine" onclick="simulateHeroQuarantineStrike()" class="btn btn-primary" style="position: absolute; bottom: 12px; right: 12px; font-size: 0.72rem; padding: 5px 10px; background: #DC2626; border-color: #DC2626; z-index: 5;">
-            🚨 Inject Fraud &amp; Quarantine Ring
+          <button id="btn-hero-quarantine" onclick="simulateHeroQuarantineStrike()" class="btn btn-primary" style="position: absolute; bottom: 12px; right: 12px; font-size: 0.72rem; padding: 6px 12px; background: #DC2626; border-color: #DC2626; z-index: 5; font-weight: 700; border-radius: 4px;">
+            Simulate Quarantine Strike
           </button>
         </div>
         <div class="canvas-telemetry-bar">
@@ -1851,11 +1851,11 @@ curl -X POST http://localhost:8000/api/score \
       const btnEl = document.getElementById('btn-hero-quarantine');
 
       if (isHeroQuarantined) {
-        statusEl.innerHTML = `<span style="color:#DC2626; font-weight:700;">🚨 PREEMPTIVELY QUARANTINED (All 4K+ Connected Nodes Isolated)</span>`;
-        tagEl.innerText = "🚨 100% PREEMPTIVE BLOCK (<0.05ms)";
+        statusEl.innerHTML = `<span style="color:#DC2626; font-weight:700;">PREEMPTIVELY QUARANTINED (4,000+ Connected Nodes Isolated)</span>`;
+        tagEl.innerText = "100% PREEMPTIVE INTERCEPT (<0.05ms)";
         tagEl.style.background = "var(--status-block-bg)";
         tagEl.style.color = "var(--status-block)";
-        btnEl.innerText = "🔄 Reset Clean Baseline";
+        btnEl.innerText = "Reset Clean Baseline";
         btnEl.style.background = "#059669";
         btnEl.style.borderColor = "#059669";
       } else {
@@ -1863,7 +1863,7 @@ curl -X POST http://localhost:8000/api/score \
         tagEl.innerText = "Monitoring 4K+ Nodes";
         tagEl.style.background = "var(--status-allow-bg)";
         tagEl.style.color = "var(--status-allow)";
-        btnEl.innerText = "🚨 Inject Fraud & Quarantine Ring";
+        btnEl.innerText = "Simulate Quarantine Strike";
         btnEl.style.background = "#DC2626";
         btnEl.style.borderColor = "#DC2626";
       }
