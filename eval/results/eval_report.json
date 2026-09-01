@@ -9,8 +9,8 @@
     "precision": 0.982,
     "recall": 0.9318,
     "f1_score": 0.9562,
-    "pr_auc": 0.9658,
-    "roc_auc": 0.9659,
+    "pr_auc": 0.966,
+    "roc_auc": 0.966,
     "false_positive_rate": 0.0052,
     "false_positive_count": 3,
     "false_negative_count": 12,
@@ -29,11 +29,11 @@
     "ks_pvalue": 0.0
   },
   "latency_and_throughput": {
-    "hotpath_p50_latency_ms": 20.61,
-    "hotpath_p95_latency_ms": 29.09,
-    "hotpath_p99_latency_ms": 34.67,
-    "agent_investigation_p95_ms": 0.33,
-    "throughput_events_per_sec": 41.3
+    "hotpath_p50_latency_ms": 4.87,
+    "hotpath_p95_latency_ms": 6.15,
+    "hotpath_p99_latency_ms": 7.83,
+    "agent_investigation_p95_ms": 0.23,
+    "throughput_events_per_sec": 176.4
   },
   "slices": {
     "payment_methods": {

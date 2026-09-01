@@ -110,7 +110,7 @@ def test_medium_risk_ring_escalation_to_review():
         "transaction_id": "txn_test_002",
         "ring_membership": {"ring_detected": True, "component_size": 5}
     }
-    decision = decider.decide(0.45, evidence)
+    decision = decider.decide(0.70, evidence)
     assert decision["action"] == "REVIEW"
     assert decision["rule_fired"] == "RULE_MEDIUM_RISK_ABUSE_RING_ESCALATE_REVIEW"
 
@@ -121,6 +121,6 @@ def test_medium_risk_no_ring_step_up():
         "transaction_id": "txn_test_003",
         "ring_membership": {"ring_detected": False, "component_size": 1}
     }
-    decision = decider.decide(0.45, evidence)
+    decision = decider.decide(0.70, evidence)
     assert decision["action"] == "STEP-UP AUTH"
     assert decision["rule_fired"] == "RULE_MEDIUM_RISK_DYNAMIC_3DS_STEP_UP"
